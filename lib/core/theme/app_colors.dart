@@ -20,17 +20,20 @@ class AppColors {
   static const LinearGradient containerLinerGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.center,
-
+stops: [
+  0,
+  2,
+],
   
     
-    colors: [Color.fromARGB(108, 255, 224, 156), Color(0xFFFFFFFF)]);
+    colors: [Color.fromARGB(212, 255, 224, 156), Color(0xFFFFFFFF)]);
   
   static const LinearGradient homeLinerGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.center,
 stops: [
   0,
-  0.3
+  0.3,
 ],
   
     
@@ -56,6 +59,8 @@ stops: [
 
   static const Color floatingButtonColor = Color(0xFFF6BC5D);
   static const Color floatingButtonBorderColor = Color.fromARGB(68, 1, 1, 1);
+
+  static const Color drawerIconButtonsbackgroundColor = Color(0xFFF6CE8B);
 
   //----------------
 

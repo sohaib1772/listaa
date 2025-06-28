@@ -12,9 +12,17 @@ class HomeSliders extends StatelessWidget {
                 itemCount: 3,
                 itemBuilder: (context, index, realIndex) {
                   return Container(
+                    
                     width: 327.w,
                     height: 148.h,
                     decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withAlpha(115),
+                          spreadRadius: 5,
+                          blurRadius: 10,
+                        )
+                      ],
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.cyan
                     ),
