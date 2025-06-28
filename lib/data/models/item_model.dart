@@ -1,17 +1,22 @@
-class Item {
+class ItemModel {
   final int? id;
   final String name;
   final String icon;
   final double price;
 
-  Item({this.id, required this.name, required this.icon, required this.price});
+  ItemModel({
+    this.id,
+    required this.name,
+    required this.icon,
+    required this.price,
+  });
 
   Map<String, dynamic> toMap() {
     return {'id': id, 'name': name, 'icon': icon, 'price': price};
   }
 
-  factory Item.fromMap(Map<String, dynamic> map) {
-    return Item(
+  factory ItemModel.fromMap(Map<String, dynamic> map) {
+    return ItemModel(
       id: map['id'],
       name: map['name'],
       icon: map['icon'],

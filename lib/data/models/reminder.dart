@@ -1,9 +1,9 @@
-class Reminder {
+class ReminderModel {
   final int? id;
   final DateTime date;
   final int listId;
 
-  Reminder({this.id, required this.date, required this.listId});
+  ReminderModel({this.id, required this.date, required this.listId});
 
   Map<String, dynamic> toMap() {
     return {
@@ -13,8 +13,8 @@ class Reminder {
     };
   }
 
-  factory Reminder.fromMap(Map<String, dynamic> map) {
-    return Reminder(
+  factory ReminderModel.fromMap(Map<String, dynamic> map) {
+    return ReminderModel(
       id: map['id'],
       date: DateTime.parse(map['date']),
       listId: map['list_id'],
