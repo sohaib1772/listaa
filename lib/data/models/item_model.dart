@@ -3,13 +3,10 @@ class ItemModel {
   final String name;
   final String icon;
   final double price;
+   bool isDone;
 
-  ItemModel({
-    this.id,
-    required this.name,
-    required this.icon,
-    required this.price,
-  });
+
+  ItemModel({this.id, required this.name, required this.icon, required this.price,required this.isDone});
 
   Map<String, dynamic> toMap() {
     return {'id': id, 'name': name, 'icon': icon, 'price': price};
@@ -21,6 +18,7 @@ class ItemModel {
       name: map['name'],
       icon: map['icon'],
       price: map['price'],
+      isDone: map['isDone'],
     );
   }
 }

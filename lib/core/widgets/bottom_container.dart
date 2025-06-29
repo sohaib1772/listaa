@@ -12,10 +12,14 @@ class BottomGradinetContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding.w, vertical: 10.w),
       width: double.infinity,
       decoration: BoxDecoration(
+        
         gradient: AppColors.containerLinerGradient,
-        border: Border.all(
-          width: 2,
+        border: Border(
+          top:BorderSide(
+            width: 2,
           color: AppColors.containerLinerGradientBorder,
+          )
+          
         ),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40),

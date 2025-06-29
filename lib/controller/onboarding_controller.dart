@@ -15,7 +15,7 @@ class OnboardingController extends GetxController{
 List<String> titles = [
     AppLocaleKeys.createYourListEasily.tr,
     AppLocaleKeys.selectTimeAndDate.tr,
-    AppLocaleKeys.moneyReportsWekly.tr,
+    AppLocaleKeys.moneyReportsWeakly.tr,
   ].obs;
   List<String> subtitles = [
     AppLocaleKeys.youCanCreateALotOfLists.tr,
