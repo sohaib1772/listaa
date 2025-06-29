@@ -20,17 +20,19 @@ class HomeSelectProiority extends StatelessWidget {
       );
     }
     return BoxDecoration(
+       border: Border.all(color: Colors.grey, width: 1.5),
       borderRadius: BorderRadius.circular(20),
-      color: Colors.white,
+      color: Colors.white.withAlpha(20),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: InkWell(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          InkWell(
             onTap: () {
               controller.changePriority(0);
             },
@@ -40,7 +42,37 @@ class HomeSelectProiority extends StatelessWidget {
               builder: (_) {
                 return Container(
                   height: 30.h,
+                  width: 100.w,
                   decoration: getDecoration(0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 2.w),
+                      Icon(Icons.grid_view_outlined, color: AppColors.greenIconColor),
+                      SizedBox(width: 5.w),
+                      Text(
+                        AppLocaleKeys.allPriority.tr,
+                        style: AppTextStyles.darkbold16,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          SizedBox(width: 5.w),
+          InkWell(
+            onTap: () {
+              controller.changePriority(1);
+            },
+            child: GetX<HomeController>(
+              init: controller,
+              initState: (_) {},
+              builder: (_) {
+                return Container(
+                  height: 30.h,
+                   width: 100.w,
+                  decoration: getDecoration(1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -57,12 +89,10 @@ class HomeSelectProiority extends StatelessWidget {
               },
             ),
           ),
-        ),
-        SizedBox(width: 5.w),
-        Expanded(
-          child: InkWell(
+          SizedBox(width: 5.w),
+          InkWell(
             onTap: () {
-              controller.changePriority(1);
+              controller.changePriority(2);
             },
             child: GetX<HomeController>(
               init: controller,
@@ -70,11 +100,12 @@ class HomeSelectProiority extends StatelessWidget {
               builder: (_) {
                 return Container(
                   height: 30.h,
-                  decoration: getDecoration(1),
+                   width: 100.w,
+                  decoration: getDecoration(2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 2.w),
+                      SizedBox(width: 8.w),
                       Icon(Icons.flag, color: AppColors.blueIconColor),
                       SizedBox(width: 5.w),
                       Text(
@@ -87,12 +118,10 @@ class HomeSelectProiority extends StatelessWidget {
               },
             ),
           ),
-        ),
-        SizedBox(width: 5.w),
-        Expanded(
-          child: InkWell(
+          SizedBox(width: 5.w),
+          InkWell(
             onTap: () {
-              controller.changePriority(2);
+              controller.changePriority(3);
             },
             child: GetX<HomeController>(
               init: controller,
@@ -100,7 +129,8 @@ class HomeSelectProiority extends StatelessWidget {
               builder: (_) {
                 return Container(
                   height: 30.h,
-                  decoration: getDecoration(2),
+                   width: 100.w,
+                  decoration: getDecoration(3),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -117,8 +147,8 @@ class HomeSelectProiority extends StatelessWidget {
               },
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

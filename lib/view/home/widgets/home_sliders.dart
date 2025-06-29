@@ -19,7 +19,7 @@ class HomeSliders extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withAlpha(115),
-                          spreadRadius: 5,
+                          spreadRadius: 2,
                           blurRadius: 10,
                         )
                       ],

@@ -47,7 +47,7 @@ ButtonStyle getButtonStyle({required AppButtonType appButtonType}) {
               color: AppColors.floatingButtonBorderColor,
               width: 3,
             ),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
       );

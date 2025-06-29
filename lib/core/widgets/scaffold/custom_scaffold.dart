@@ -9,7 +9,7 @@ import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/drawer/app_drawer.dart';
 import 'package:listaa/core/widgets/scaffold/custom_appbar.dart';
-
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 class CustomScaffold extends StatelessWidget {
   CustomScaffold({super.key, this.showAppbar = true, required this.body});
   bool showAppbar;
@@ -17,6 +17,7 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       extendBodyBehindAppBar: showAppbar ? true : false,
       backgroundColor: Colors.transparent,
     //  appBar: showAppbar ? CustomAppbar.appBar(context) : null,

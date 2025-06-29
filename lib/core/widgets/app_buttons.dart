@@ -70,16 +70,13 @@ class AppTextButtonsWithIcon extends StatelessWidget {
             spreadRadius: 1,
             blurRadius: 2,
             offset: Offset(3, 4),
-            
-            
-            )
-
-        ]
-
+          ),
+        ],
       ),
       width: width.w,
       child:
           TextButton(
+            
                 style: getButtonStyle(appButtonType: type),
                 onPressed: () => onPressed(),
                 child: Row(
@@ -133,10 +130,7 @@ class AppDrawerTextIconButton extends StatelessWidget {
       onPressed: () => onPressed(),
       child: Row(
         children: [
-          AppDrawerIconButton(
-            onPressed: () {},
-            icon: icon,
-          ),
+          AppDrawerIconButton(onPressed: () {}, icon: icon),
           SizedBox(width: 15.w),
           Text(text, style: AppTextStyles.darkbold20),
         ],

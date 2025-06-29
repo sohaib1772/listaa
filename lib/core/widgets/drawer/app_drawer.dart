@@ -16,7 +16,7 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
         width: double.infinity,
         child: Container(
-          decoration: BoxDecoration(gradient: AppColors.homeLinerGradient),
+          decoration: BoxDecoration(gradient: AppColors.drawerLinerGradient),
           child: Column(
             children: [
               SizedBox(height: 50.h),
@@ -86,7 +86,7 @@ class AppDrawer extends StatelessWidget {
                             AppDrawerTextIconButton(
                               icon: Icons.apple,
                               onPressed: () {},
-                              text: AppLocaleKeys.frutsAndVigitable.tr,
+                              text: AppLocaleKeys.fruitsAndVegetable.tr,
                             ),
                             AppDrawerTextIconButton(
                               icon: Icons.local_drink,

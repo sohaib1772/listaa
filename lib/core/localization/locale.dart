@@ -16,6 +16,7 @@ class AppLocaleKeys {
   static const String stayUpToDateAboutYourMoney = 'stayUpToDateAboutYourMoney';
   static const String welcome = 'welcome';
   static const String lists = 'lists';
+  static const String allPriority = 'allPriority';
   static const String highPriority = 'highPriority';
   static const String midPriority = 'midPriority';
   static const String lowPriority = 'lowPriority';
@@ -63,6 +64,7 @@ class AppLocale extends Translations{
       AppLocaleKeys.stayUpToDateAboutYourMoney: 'ابقَ على اطلاع بمصاريفك الشهرية والسنوية عبر تقارير دورية',
       AppLocaleKeys.welcome: 'اهلا بك !! 👋',
       AppLocaleKeys.lists: 'قوائم',
+      AppLocaleKeys.allPriority: 'الكل',
       AppLocaleKeys.highPriority: 'عاجل',
       AppLocaleKeys.midPriority: 'متوسط',
       AppLocaleKeys.lowPriority: 'عادي',
@@ -95,6 +97,7 @@ class AppLocale extends Translations{
       AppLocaleKeys.stayUpToDateAboutYourMoney: 'Stay up to date about your monthly and yearly expenses with recurring reports',
       AppLocaleKeys.welcome: 'Welcome !! 👋',
       AppLocaleKeys.lists: 'Lists',
+      AppLocaleKeys.allPriority: 'All',
       AppLocaleKeys.highPriority: 'High',
       AppLocaleKeys.midPriority: 'Medium',
       AppLocaleKeys.lowPriority: 'Low',
