@@ -4,7 +4,7 @@ class ShoppingListModel {
   final int? id;
   final String title;
   final DateTime date;
-  final double totalAmount;
+  final double totalPrice;
   final int priority;
   final bool isDeleted;
   final List<ItemModel> items;
@@ -13,33 +13,36 @@ class ShoppingListModel {
     this.id,
     required this.title,
     required this.date,
-    required this.totalAmount,
+    required this.totalPrice,
     required this.priority,
     required this.isDeleted,
-    required this.items,
+    this.items = const [],
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'list_id': id,
       'title': title,
       'date': date.toIso8601String(),
-      'total_amount': totalAmount,
+      'total_price': totalPrice,
       'priority': priority,
       'is_deleted': isDeleted ? 1 : 0,
       'items': items,
     };
   }
 
-  factory ShoppingListModel.fromMap(Map<String, dynamic> map) {
+  factory ShoppingListModel.fromJoinedMap(Map<String, dynamic> map) {
     return ShoppingListModel(
-      id: map['id'],
+      id: map['list_id'],
       title: map['title'],
       date: DateTime.parse(map['date']),
-      totalAmount: map['total_amount'],
-      priority: map['priority'],
+      totalPrice: map['total_price']?.toDouble() ?? 0.0,
+      priority: map['priority'] ?? 0,
       isDeleted: map['is_deleted'] == 1,
-      items: map['items'],
     );
+  }
+
+  void addItem(ItemModel item) {
+    items.add(item);
   }
 }

@@ -1,26 +1,35 @@
 class ItemModel {
   final int? id;
   final String name;
-  final String icon;
   final double price;
+  final bool isDone;
+  final int listId;
 
   ItemModel({
     this.id,
     required this.name,
-    required this.icon,
     required this.price,
+    required this.isDone,
+    required this.listId,
   });
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'name': name, 'icon': icon, 'price': price};
+    return {
+      'item_id': id,
+      'name': name,
+      'price': price,
+      'is_done': isDone,
+      'list_id': listId,
+    };
   }
 
   factory ItemModel.fromMap(Map<String, dynamic> map) {
     return ItemModel(
-      id: map['id'],
+      id: map['item_id'],
       name: map['name'],
-      icon: map['icon'],
       price: map['price'],
+      isDone: map['is_done'],
+      listId: map['list_id'],
     );
   }
 }

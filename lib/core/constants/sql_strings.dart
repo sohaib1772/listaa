@@ -2,7 +2,7 @@ class SqlStrings {
   // Categories table
   static const String createCategoriesTable = '''
     CREATE TABLE categories (
-      id INTEGER PRIMARY KEY,
+      category_id INTEGER PRIMARY KEY,
       title TEXT
     )
   ''';
@@ -10,22 +10,24 @@ class SqlStrings {
   // Lists table
   static const String createListsTable = '''
     CREATE TABLE lists (
-      id INTEGER PRIMARY KEY,
+      list_id INTEGER PRIMARY KEY,
       title TEXT,
       date DATETIME,
-      total_amount REAL,
+      total_price REAL,
       priority INTEGER,
-      is_deleted INTEGER,  // SQLite doesn't have BOOLEAN, using INTEGER (0 or 1)
+      is_deleted INTEGER
     )
   ''';
 
-  // Items table
+  // Items table (one-to-many relationship)
   static const String createItemsTable = '''
     CREATE TABLE items (
-      id INTEGER PRIMARY KEY,
+      item_id INTEGER PRIMARY KEY,
       name TEXT,
-      icon TEXT,
-      price REAL
+      price REAL,
+      is_done INTEGER,
+      list_id INTEGER,
+      FOREIGN KEY (list_id) REFERENCES lists(id)
     )
   ''';
 
@@ -40,24 +42,10 @@ class SqlStrings {
     )
   ''';
 
-  // ListItems table (many-to-many relationship)
-  static const String createListItemsTable = '''
-    CREATE TABLE list_items (
-      id INTEGER PRIMARY KEY,
-      buy_price REAL,
-      item_id INTEGER,
-      list_id INTEGER,
-      buy_date DATETIME,
-      is_done INTEGER,  // SQLite doesn't have BOOLEAN, using INTEGER (0 or 1)
-      FOREIGN KEY (item_id) REFERENCES items(id),
-      FOREIGN KEY (list_id) REFERENCES lists(id)
-    )
-  ''';
-
   // Reminders table
   static const String createRemindersTable = '''
     CREATE TABLE reminders (
-      id INTEGER PRIMARY KEY,
+      reminder_id INTEGER PRIMARY KEY,
       date DATETIME,
       list_id INTEGER,
       FOREIGN KEY (list_id) REFERENCES lists(id)
@@ -67,7 +55,7 @@ class SqlStrings {
   // Recipes table
   static const String createRecipesTable = '''
     CREATE TABLE recipes (
-      id INTEGER PRIMARY KEY,
+      recipe_id INTEGER PRIMARY KEY,
       title TEXT,
       description TEXT
     )
@@ -90,7 +78,6 @@ class SqlStrings {
     createListsTable,
     createItemsTable,
     createListCategoriesTable,
-    createListItemsTable,
     createRemindersTable,
     createRecipesTable,
     createRecipesItemsTable,
