@@ -7,7 +7,8 @@ class ShoppingListModel {
   final double totalPrice;
   final int priority;
   final bool isDeleted;
-  final List<ItemModel> items;
+  bool isCollapsed;
+  List<ItemModel> items;
 
   ShoppingListModel({
     this.id,
@@ -16,6 +17,7 @@ class ShoppingListModel {
     required this.totalPrice,
     required this.priority,
     required this.isDeleted,
+    this.isCollapsed = false,
     this.items = const [],
   });
 
@@ -27,7 +29,8 @@ class ShoppingListModel {
       'total_price': totalPrice,
       'priority': priority,
       'is_deleted': isDeleted ? 1 : 0,
-      'items': items,
+      'items': items.map((item) => item.toMap()).toList(),
+      'is_collapsed': isCollapsed ? 1 : 0,
     };
   }
 
@@ -39,6 +42,7 @@ class ShoppingListModel {
       totalPrice: map['total_price']?.toDouble() ?? 0.0,
       priority: map['priority'] ?? 0,
       isDeleted: map['is_deleted'] == 1,
+      isCollapsed: map['is_collapsed'] == 1,
     );
   }
 

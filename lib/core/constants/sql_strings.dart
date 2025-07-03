@@ -15,7 +15,8 @@ class SqlStrings {
       date DATETIME,
       total_price REAL,
       priority INTEGER,
-      is_deleted INTEGER
+      is_deleted INTEGER,
+      is_collapsed INTEGER
     )
   ''';
 

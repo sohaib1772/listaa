@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class AppColors {
-
   //onboarding
   static const Color onboardingBackgroundColor = Color(0xFFF5B041);
 
@@ -15,31 +14,35 @@ class AppColors {
   static const Color onboardingSecondaryButtonBorderColor = Color(0xFFFFCC5D);
   //----------------
 
-
-  // gradient container 
+  // gradient container
   static const LinearGradient containerLinerGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.center,
+    stops: [0, 2],
 
-  
-    
-    colors: [Color.fromARGB(108, 255, 224, 156), Color(0xFFFFFFFF)]);
-  
-  static const LinearGradient homeLinerGradient = LinearGradient(
+    colors: [Color.fromARGB(212, 255, 224, 156), Color.fromARGB(255, 255, 250, 240)],
+  );
+
+  static const LinearGradient drawerLinerGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.center,
-stops: [
-  0,
-  0.3
-],
-  
-    
-    colors: [Color(0xFFF5B041), Color(0xFFFFFFFF)]);
-  
+    stops: [0, 0.3],
+
+    colors: [Color(0xFFF5B041), Color(0xFFFFFFFF)],
+  );
+
+   // gradient container 
+ 
+ static const LinearGradient appBarLinerGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+
+    colors: [Color(0xFFF5B041), Color.fromARGB(255, 255, 255, 255)],
+  );
   static const Color containerLinerGradientBorder = Color.fromARGB(21, 0, 0, 0);
   //----------------
 
-  // text styles colors 
+  // text styles colors
 
   static const Color primaryTextColor = Color(0xFF333333);
   static const Color secondaryTextColor = Color(0xFF000000);
@@ -57,15 +60,14 @@ stops: [
   static const Color floatingButtonColor = Color(0xFFF6BC5D);
   static const Color floatingButtonBorderColor = Color.fromARGB(68, 1, 1, 1);
 
-  //----------------
+  static const Color drawerIconButtonsbackgroundColor = Color(0xFFF6CE8B);
 
+  //----------------
 
   //icons colors
 
-   static const Color redIconColor = Color(0xFFB13E3E);
-   static const Color blueIconColor = Color(0xFF2C5783);
-   static const Color grayIconColor = Color(0xFF3F5F6D);
-   static const Color greenIconColor = Color(0xFF006A6F);
-  
-
+  static const Color redIconColor = Color(0xFFB13E3E);
+  static const Color blueIconColor = Color(0xFF2C5783);
+  static const Color grayIconColor = Color(0xFF3F5F6D);
+  static const Color greenIconColor = Color(0xFF006A6F);
 }
