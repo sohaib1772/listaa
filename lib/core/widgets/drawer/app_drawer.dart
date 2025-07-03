@@ -7,6 +7,7 @@ import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
+import 'package:listaa/core/widgets/app_icons.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -25,7 +26,7 @@ class AppDrawer extends StatelessWidget {
                 child: Row(
                   children: [
                     AppDrawerIconButton(
-                      icon: Icons.close_sharp,
+                      icon:  AppIconsName.close,
                       onPressed: () {
                         Get.back();
                       },
@@ -36,11 +37,7 @@ class AppDrawer extends StatelessWidget {
                       style: AppTextStyles.darkbold28,
                     ),
                     Spacer(),
-                    Icon(
-                      Icons.notifications,
-                      color: AppColors.primaryTextColor,
-                      size: 35.sp,
-                    ),
+                   IconButton(onPressed: (){}, icon: AppIcons(icon: AppIconsName.notifications,size: 30,))
                   ],
                 ),
               ),
@@ -63,12 +60,12 @@ class AppDrawer extends StatelessWidget {
                             AppDrawerTextIconButton(
                               onPressed: () {},
                               text: AppLocaleKeys.remainders.tr,
-                              icon: Icons.watch_later,
+                              icon: AppIconsName.clock,
                             ),
                             AppDrawerTextIconButton(
                               onPressed: () {},
                               text: AppLocaleKeys.moneyReports.tr,
-                              icon: Icons.bar_chart_sharp,
+                              icon:  AppIconsName.chart,
                             ),
                             Divider(height: 20.h),
 
@@ -79,23 +76,23 @@ class AppDrawer extends StatelessWidget {
                               style: AppTextStyles.darkbold20,
                             ),
                             AppDrawerTextIconButton(
-                              icon: Icons.wallet_giftcard_sharp,
+                              icon:  AppIconsName.event,
                               onPressed: () {},
                               text: AppLocaleKeys.holyDaysAndEvents.tr,
                             ),
                             AppDrawerTextIconButton(
-                              icon: Icons.apple,
+                              icon:  AppIconsName.fruits,
                               onPressed: () {},
                               text: AppLocaleKeys.fruitsAndVegetable.tr,
                             ),
                             AppDrawerTextIconButton(
-                              icon: Icons.local_drink,
+                              icon:  AppIconsName.drink,
                               onPressed: () {},
                               text: AppLocaleKeys.marketAndOthers.tr,
                             ),
                             
                             AppDrawerTextIconButton(
-                              icon: Icons.add_box_outlined,
+                              icon:  AppIconsName.add,
                               onPressed: () {},
                               text: AppLocaleKeys.newCategory.tr,
                             ),
@@ -103,12 +100,12 @@ class AppDrawer extends StatelessWidget {
                             Divider(height: 20.h,),
                             //--------------------
                             AppDrawerTextIconButton(
-                              icon: Icons.settings,
+                              icon:  AppIconsName.settings,
                               onPressed: () {},
                               text: AppLocaleKeys.settings.tr,
                             ),
                             AppDrawerTextIconButton(
-                              icon: Icons.delete,
+                              icon:  AppIconsName.trash,
                               onPressed: () {},
                               text: AppLocaleKeys.trashBasket.tr,
                             ),

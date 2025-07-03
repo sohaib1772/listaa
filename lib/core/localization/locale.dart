@@ -5,6 +5,9 @@ class AppLocaleKeys {
   static const String yourBestChoiceForShopping = 'yourBestChoiceForShopping';
   static const String goNow = 'goNow';
   static const String next = 'next';
+  static const String done = 'done';
+  static const String save = 'save';
+  static const String reset = 'reset';
   static const String back = 'back';
   static const String skip = 'skip';
   static const String homePage = 'homePage';
@@ -31,6 +34,22 @@ class AppLocaleKeys {
   static const String categories = 'categories';
   static const String newCategory = 'newCategory';
   static const String totalAmount = 'totalAmount';
+  static const String listTitle = 'listTitle';
+  static const String date = 'date';
+  static const String more = 'more';
+
+
+  // validations
+
+  static const String requiredField = 'requiredField';
+  static const String mustBeNumber = 'mustBeNumber';
+  static const String mustBeString = 'mustBeString';
+  static const String mustBeDate = 'mustBeDate';
+  static const String mustBeDateTime = 'mustBeDateTime';
+  static const String mustBeBool = 'mustBeBool';
+  static const String mustBeInt = 'mustBeInt';
+  static const String mustBeDouble = 'mustBeDouble';
+
 
 
   
@@ -71,14 +90,30 @@ class AppLocale extends Translations{
       AppLocaleKeys.addNewList: 'انشاء قائمة جديدة',
       AppLocaleKeys.remainders: 'تنبيهات',
       AppLocaleKeys.moneyReports: 'تقارير مالية',
-      AppLocaleKeys.holyDaysAndEvents: 'عياد ومناسبات',
+      AppLocaleKeys.holyDaysAndEvents: 'اعياد ومناسبات',
       AppLocaleKeys.fruitsAndVegetable: 'الفواكه والخضروات',
-      AppLocaleKeys.marketAndOthers: 'باقة و مشتريات',
+      AppLocaleKeys.marketAndOthers: 'بقالة و مشتريات',
       AppLocaleKeys.settings: 'الاعدادات',
       AppLocaleKeys.trashBasket: 'سلة المهملات',
       AppLocaleKeys.categories: 'تصنيفات',
       AppLocaleKeys.newCategory: 'تصنيف جديد',
       AppLocaleKeys.totalAmount: 'الاجمالي',
+      AppLocaleKeys.requiredField: 'هذا الحقل مطلوب',
+      AppLocaleKeys.mustBeNumber: 'يجب ان يكون رقم',
+      AppLocaleKeys.mustBeString: 'يجب ان يكون نص',
+      AppLocaleKeys.mustBeDate: 'يجب ان يكون تاريخ',
+      AppLocaleKeys.mustBeDateTime: 'يجب ان يكون تاريخ ووقت',
+      AppLocaleKeys.mustBeInt: 'يجب ان يكون رقم صحيح',
+      AppLocaleKeys.mustBeDouble: 'يجب ان يكون رقم عشري',
+      AppLocaleKeys.listTitle: 'عنوان القائمة',
+
+      AppLocaleKeys.done: 'تم',
+      AppLocaleKeys.save: 'حفظ',
+      AppLocaleKeys.reset: 'اعادة تعيين',
+
+      AppLocaleKeys.date: 'التاريخ',
+      AppLocaleKeys.more: 'المزيد',
+      
     
     },
     'en': {
@@ -112,6 +147,22 @@ class AppLocale extends Translations{
       AppLocaleKeys.categories: 'Categories',
       AppLocaleKeys.newCategory: 'New Category',
       AppLocaleKeys.totalAmount: 'Total',
+      AppLocaleKeys.requiredField: 'Required field',
+      AppLocaleKeys.mustBeNumber: 'Must be number',
+      AppLocaleKeys.mustBeString: 'Must be a text',
+      AppLocaleKeys.mustBeDate: 'Must be a date',
+      AppLocaleKeys.mustBeDateTime: 'Must be date time',
+      AppLocaleKeys.mustBeInt: 'Must be int',
+      AppLocaleKeys.mustBeDouble: 'Must be double',
+      AppLocaleKeys.listTitle: 'List Title',
+
+      AppLocaleKeys.done: 'Done',
+      AppLocaleKeys.save: 'Save',
+      AppLocaleKeys.reset: 'Reset',
+      AppLocaleKeys.date: 'Date',
+      AppLocaleKeys.more: 'More',
+    
+    
     
     
     

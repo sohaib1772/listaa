@@ -70,4 +70,14 @@ class AppColors {
   static const Color blueIconColor = Color(0xFF2C5783);
   static const Color grayIconColor = Color(0xFF3F5F6D);
   static const Color greenIconColor = Color(0xFF006A6F);
+
+  // backgrounds
+  static const Color appBarBackgroundColor = Color(0xFFFFEBC9);
+  static const Color listScreenBackgroundColor = Color(0xFFFFF0D8);
+  static const Color datePickerBackgroundColor = Color(0xFFF6DCB0);
+  static const Color addNewListBottomSheetBackgroundColor = Color(0xFFfff8e8);
+
+  // borders 
+
+  static const Color lightBorderColor = Color(0xFFCCC6BA);
 }

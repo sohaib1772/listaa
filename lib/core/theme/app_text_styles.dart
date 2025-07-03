@@ -10,5 +10,6 @@ class AppTextStyles {
   static  TextStyle darkbold28 =TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold,color: AppColors.primaryTextColor);
   static  TextStyle darkbold24 =TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold,color: AppColors.primaryTextColor);
   static  TextStyle darkbold16 =TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold,color: AppColors.primaryTextColor);
+  static  TextStyle lightDarkbold16 =TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 93, 93, 93));
 
 }

@@ -9,31 +9,50 @@ import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/drawer/app_drawer.dart';
 import 'package:listaa/core/widgets/scaffold/custom_appbar.dart';
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+import 'package:listaa/view/home/widgets/home_add_list_bottom_sheet.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_utils/get_utils.dart';
+
 class CustomScaffold extends StatelessWidget {
-  CustomScaffold({super.key, this.showAppbar = true, required this.body});
+  CustomScaffold({
+    super.key,
+    this.showAppbar = true,
+    required this.body,
+    this.showAddListButton = false,
+    required this.scaffoldKey,
+    this.appBarTitle,
+    this.floatingActionButton,
+  });
   bool showAppbar;
   Widget body;
+  bool showAddListButton;
+  GlobalKey<ScaffoldState> scaffoldKey;
+  String? appBarTitle;
+  Widget? floatingActionButton;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      extendBodyBehindAppBar: showAppbar ? true : false,
+      extendBodyBehindAppBar: showAppbar ? false : true,
       backgroundColor: Colors.transparent,
-    //  appBar: showAppbar ? CustomAppbar.appBar(context) : null,
+      appBar: showAppbar
+          ? CustomAppbar.appBar(context, title: appBarTitle)
+          : null,
       extendBody: true,
       body: body,
       drawer: AppDrawer(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: !showAppbar
+      floatingActionButton: floatingActionButton ??(!showAddListButton
           ? null
-          : AppTextButtonsWithIcon(
-            icon: Icons.add_box_rounded,
+          : AppIconButton(
+              icon: Icons.add_box_rounded,
               autoPlayAnimation: true,
-              width: 230.w,
-              text: AppLocaleKeys.addNewList.tr,
-              onPressed: () {},
-            ),
+              onPressed: () {
+                Get.bottomSheet(HomeAddListBottomSheet());
+              },
+            )),
     );
   }
 }

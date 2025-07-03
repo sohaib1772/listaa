@@ -8,6 +8,7 @@ import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
+import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/bottom_container.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
 import 'package:listaa/view/home/widgets/home_list_card.dart';
@@ -18,10 +19,13 @@ import 'package:listaa/view/home/widgets/home_sliders.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController controller = Get.find();
-
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      scaffoldKey: scaffoldKey,
+      showAppbar: false,
+      showAddListButton: true,
       body: Container(
         color: Colors.white,
         child: CustomScrollView(
@@ -44,17 +48,21 @@ class HomeScreen extends StatelessWidget {
                       onPressed: () {
                         scaffoldKey.currentState!.openDrawer();
                       },
-                      icon: Icon(Icons.menu, color: AppColors.primaryTextColor),
+                      icon: AppIcons(icon: AppIconsName.hamburgerMenu,size: 30,),
                     ),
                     Text(
-                      AppLocaleKeys.listaApp.tr,
+                      AppLocaleKeys.welcome.tr,
                       style: AppTextStyles.darkbold28,
                     ),
                     Spacer(),
-                    Icon(
-                      Icons.notifications,
-                      color: AppColors.primaryTextColor,
-                      size: 35.sp,
+                    IconButton(
+                      onPressed: () {
+                        // scaffoldKey.currentState!.openDrawer();
+                      },
+                      icon: AppIcons(
+                        icon: AppIconsName.notifications,
+                        size: 30,
+                      ),
                     ),
                   ],
                 ),
@@ -64,7 +72,7 @@ class HomeScreen extends StatelessWidget {
 
             // Home Slider
             SliverToBoxAdapter(
-              child: SizedBox(height: 200.h, child: HomeSliders()),
+              child: SizedBox(height: 268.h, child: HomeSliders()),
             ),
 
             SliverToBoxAdapter(
@@ -73,9 +81,24 @@ class HomeScreen extends StatelessWidget {
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      AppLocaleKeys.lists.tr,
-                      style: AppTextStyles.darkbold24,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocaleKeys.lists.tr,
+                          style: AppTextStyles.darkbold24,
+                        ),
+
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            AppLocaleKeys.more.tr,
+                            style: AppTextStyles.darkbold20.copyWith(
+                              decoration: TextDecoration.underline
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 10.h),
                     HomeSelectProiority(),

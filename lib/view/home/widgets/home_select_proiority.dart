@@ -7,6 +7,7 @@ import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
+import 'package:listaa/core/widgets/app_icons.dart';
 
 class HomeSelectProiority extends StatelessWidget {
   HomeSelectProiority({super.key});
@@ -41,15 +42,14 @@ class HomeSelectProiority extends StatelessWidget {
               initState: (_) {},
               builder: (_) {
                 return Container(
-                  height: 30.h,
-                  width: 100.w,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  height: 40.h,
                   decoration: getDecoration(0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(width: 2.w),
-                      Icon(Icons.grid_view_outlined, color: AppColors.greenIconColor),
-                      SizedBox(width: 5.w),
+                      AppIcons(icon: AppIconsName.all,size: 20,),
+                      SizedBox(width: 5.w,),
                       Text(
                         AppLocaleKeys.allPriority.tr,
                         style: AppTextStyles.darkbold16,
@@ -70,15 +70,14 @@ class HomeSelectProiority extends StatelessWidget {
               initState: (_) {},
               builder: (_) {
                 return Container(
-                  height: 30.h,
-                   width: 100.w,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  height: 40.h,
                   decoration: getDecoration(1),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(width: 2.w),
-                      Icon(Icons.flag, color: AppColors.redIconColor),
-                      SizedBox(width: 5.w),
+                      AppIcons(icon: AppIconsName.redFlag,size: 20,),
+                      SizedBox(width: 5.w,),
                       Text(
                         AppLocaleKeys.highPriority.tr,
                         style: AppTextStyles.darkbold16,
@@ -99,15 +98,15 @@ class HomeSelectProiority extends StatelessWidget {
               initState: (_) {},
               builder: (_) {
                 return Container(
-                  height: 30.h,
-                   width: 100.w,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  height: 40.h,
+                 
                   decoration: getDecoration(2),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(width: 8.w),
-                      Icon(Icons.flag, color: AppColors.blueIconColor),
-                      SizedBox(width: 5.w),
+                      AppIcons(icon: AppIconsName.blueFlag,size: 20,),
+                      SizedBox(width: 10.w,),
                       Text(
                         AppLocaleKeys.midPriority.tr,
                         style: AppTextStyles.darkbold16,
@@ -128,15 +127,14 @@ class HomeSelectProiority extends StatelessWidget {
               initState: (_) {},
               builder: (_) {
                 return Container(
-                  height: 30.h,
-                   width: 100.w,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  height: 40.h,
                   decoration: getDecoration(3),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(width: 8.w),
-                      Icon(Icons.flag, color: AppColors.grayIconColor),
-                      SizedBox(width: 5.w),
+                      AppIcons(icon: AppIconsName.grayFlag,size: 20,),
+                      SizedBox(width: 5.w,),
                       Text(
                         AppLocaleKeys.lowPriority.tr,
                         style: AppTextStyles.darkbold16,

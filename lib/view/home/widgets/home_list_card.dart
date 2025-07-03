@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +10,7 @@ import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
+import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/view/home/widgets/home_list_card_item.dart';
 
 class HomeListCard extends StatelessWidget {
@@ -32,7 +35,7 @@ class HomeListCard extends StatelessWidget {
         border: Border.all(color: Colors.grey, width: 1),
       ),
       child: isCollapsed
-          ? _HomeListCardCollapsed(title: title, items: items,index: index,)
+          ? _HomeListCardCollapsed(title: title, items: items, index: index)
           : _HomeListCardNotCollapsed(title: title, items: items, index: index),
     );
   }
@@ -60,6 +63,7 @@ class _HomeListCardCollapsedState extends State<_HomeListCardCollapsed> {
     super.initState();
     finishedItems = widget.items.where((element) => element.isChecked).length;
   }
+
   HomeController controller = Get.find();
 
   @override
@@ -74,10 +78,7 @@ class _HomeListCardCollapsedState extends State<_HomeListCardCollapsed> {
             Text(widget.title, style: AppTextStyles.darkbold20),
             Spacer(),
             IconButton(
-              icon: Icon(
-                
-                Icons.arrow_drop_down_outlined,
-              ),
+              icon: AppIcons(icon: AppIconsName.arrowDown, size: 16),
               onPressed: () {
                 controller.toggleIsCollapse(widget.index);
               },
@@ -136,8 +137,10 @@ class _HomeListCardNotCollapsed extends StatelessWidget {
             Text(title, style: AppTextStyles.darkbold20),
             Spacer(),
             IconButton(
-              icon: Icon(
-                 Icons.arrow_drop_up_outlined
+              icon: Transform( // we don't have arrow up icon for now. We use arrow down and flip it :) 
+                alignment: Alignment.center,
+                transform: Matrix4.rotationX(math.pi), 
+                child: AppIcons(icon: AppIconsName.arrowDown, size: 16),
               ),
               onPressed: () {
                 controller.toggleIsCollapse(index);
@@ -161,7 +164,7 @@ class _HomeListCardNotCollapsed extends StatelessWidget {
             Spacer(),
             Text("120", style: AppTextStyles.darkbold20),
             SizedBox(width: 4.w),
-            Icon(Icons.monetization_on, color: AppColors.greenIconColor),
+            AppIcons(icon: AppIconsName.dollar, size: 22,color: AppColors.greenIconColor,),
             SizedBox(width: 10.w),
           ],
         ),

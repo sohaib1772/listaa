@@ -15,9 +15,11 @@ import 'package:listaa/view/onboarding/widgets/onboarding_info_and_buttons.dart'
 class OnboardingScreen extends StatelessWidget {
   OnboardingScreen({super.key});
   OnboardingController controller = Get.find();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      scaffoldKey: scaffoldKey,
       showAppbar: false,
       body: Container(
         width: double.infinity,

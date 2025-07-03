@@ -14,7 +14,7 @@ class HomeSliders extends StatelessWidget {
                   return Container(
                     
                     width: 327.w,
-                    height: 148.h,
+                    height: 168.h,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -35,7 +35,7 @@ class HomeSliders extends StatelessWidget {
                   autoPlay: true,
                   viewportFraction: .8,
                   enableInfiniteScroll: true,
-                  height: 148.h
+                  height: 168.h
 
                 ),
               );

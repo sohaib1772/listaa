@@ -20,10 +20,14 @@ import 'package:listaa/view/welcome/widgets/sliding_column_grid.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
-  WelcomeController controller = Get.find();
+  WelcomeController controller = Get.find();  
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      scaffoldKey: scaffoldKey,
       showAppbar: false,
       body: Container(
         width: double.infinity,
