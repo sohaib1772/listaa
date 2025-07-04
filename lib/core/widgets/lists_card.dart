@@ -22,7 +22,9 @@ class ListsCard extends StatelessWidget {
     this.index = 1,
     required this.isCollapsed,
     required this.isCompleted,
+    required this.totalPrice,
   });
+  double totalPrice;
   String title;
   List<ItemCard> items;
   bool isCollapsed;
@@ -39,7 +41,7 @@ class ListsCard extends StatelessWidget {
       ),
       child: isCollapsed
           ? _ListCardCollapsed(title: title, items: items, index: index, isCompleted: isCompleted)
-          : _ListCardNotCollapsed(title: title, items: items, index: index, isCompleted: isCompleted),
+          : _ListCardNotCollapsed(title: title, items: items, index: index, isCompleted: isCompleted, totalPrice: totalPrice),
     );
   }
 }
@@ -128,7 +130,9 @@ class _ListCardNotCollapsed extends StatelessWidget {
     required this.items,
     required this.index,
     required this.isCompleted,
+    required this.totalPrice,
   });
+  double totalPrice;
   String title;
   List<ItemCard> items;
   bool isCollapsed = false;
@@ -177,7 +181,7 @@ class _ListCardNotCollapsed extends StatelessWidget {
             SizedBox(width: 4.w),
             Text(AppLocaleKeys.totalAmount.tr, style: AppTextStyles.darkbold20),
             Spacer(),
-            Text("120", style: AppTextStyles.darkbold20),
+            Text(totalPrice.toString(), style: AppTextStyles.darkbold20),
             SizedBox(width: 4.w),
             AppIcons(icon: AppIconsName.dollar, size: 22,color: AppColors.greenIconColor,),
             SizedBox(width: 10.w),

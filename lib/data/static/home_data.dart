@@ -28,6 +28,7 @@ class HomeDataImpl extends DbHelper implements HomeData {
   @override
   Future<List<ShoppingListModel>> getAllHomeLists() async {
     final dataList = await inquiry(SqlQueries.getAllHomeLists);
+    
     return _processJoinedListData(dataList);
   }
 
@@ -70,7 +71,6 @@ class HomeDataImpl extends DbHelper implements HomeData {
         list.addItem(ItemModel.fromMap(row));
       }
     }
-
     return listsMap.values.toList();
   }
 }

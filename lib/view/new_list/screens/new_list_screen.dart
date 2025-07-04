@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -13,6 +14,7 @@ import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
+import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/app_text_form.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
 import 'package:listaa/data/models/item_model.dart';
@@ -63,8 +65,55 @@ class _NewListScreenState extends State<NewListScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBarTitle:controller.isEditing.value ? AppLocaleKeys.editList.tr : AppLocaleKeys.addNewList.tr,
+      appBarTitle: controller.isEditing.value
+          ? AppLocaleKeys.editList.tr
+          : AppLocaleKeys.addNewList.tr,
       scaffoldKey: scaffoldKey,
+      appBarAction: controller.isEditing.value
+          ? CustomPopup(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.qr_code,
+                          size: 24,
+                          color: AppColors.primaryTextColor,
+                        ),
+                        SizedBox(width: 10.w),
+                        Text(
+                          AppLocaleKeys.share.tr,
+                          style: AppTextStyles.darkbold16,
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AppIcons(icon: AppIconsName.trash, size: 24),
+                        SizedBox(width: 10.w),
+                        Text(
+                          AppLocaleKeys.delete.tr,
+                          style: AppTextStyles.darkbold16.copyWith(
+                            color: AppColors.redIconColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              child: Icon(Icons.more_vert, color: AppColors.primaryTextColor),
+            )
+          : null,
       showAppbar: true,
       body: Container(
         width: double.infinity,
@@ -101,7 +150,16 @@ class _NewListScreenState extends State<NewListScreen> {
               SizedBox(height: 20.h),
               NewListTotalAmount(),
               SizedBox(height: 20.h),
-              AppTextButtons(text: AppLocaleKeys.save.tr, onPressed: () {}),
+              Obx(
+                () => controller.isLoading.value
+                    ? Center(child: CircularProgressIndicator())
+                    : AppTextButtons(
+                        text: AppLocaleKeys.save.tr,
+                        onPressed: () async {
+                          await controller.addNewList();
+                        },
+                      ),
+              ),
             ],
           ),
         ),

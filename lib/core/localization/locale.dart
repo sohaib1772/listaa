@@ -7,6 +7,10 @@ class AppLocaleKeys {
   static const String next = 'next';
   static const String done = 'done';
   static const String save = 'save';
+  static const String yes = 'yes';
+  static const String no = 'no';
+  static const String delete = 'delete';
+  static const String share = 'share';
   static const String reset = 'reset';
   static const String back = 'back';
   static const String skip = 'skip';
@@ -39,6 +43,8 @@ class AppLocaleKeys {
   static const String more = 'more';
   static const String completedLists = 'completedLists';
   static const String editList = 'editList';
+  static const String deleteListQuestion = 'deleteListQuestion';
+  
 
 
   // validations
@@ -117,6 +123,13 @@ class AppLocale extends Translations{
       AppLocaleKeys.more: 'المزيد',
       AppLocaleKeys.completedLists: 'مكتملة',
       AppLocaleKeys.editList: 'تعديل القائمة',
+
+      AppLocaleKeys.share: 'مشاركة',
+      AppLocaleKeys.delete: 'حذف',
+      AppLocaleKeys.deleteListQuestion: 'هل انت متاكد من حذف القائمة؟',
+      AppLocaleKeys.yes: 'نعم',
+      AppLocaleKeys.no: 'لا',
+
       
       
     
@@ -169,6 +182,11 @@ class AppLocale extends Translations{
     
       AppLocaleKeys.completedLists: 'Completed',
       AppLocaleKeys.editList: 'Edit List',
+      AppLocaleKeys.share: 'Share',
+      AppLocaleKeys.delete: 'Delete',
+      AppLocaleKeys.deleteListQuestion: 'Are you sure you want to delete this list ?',
+      AppLocaleKeys.yes: 'Yes',
+      AppLocaleKeys.no: 'No',
     
     
     

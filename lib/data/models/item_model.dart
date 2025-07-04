@@ -26,9 +26,9 @@ class ItemModel {
   factory ItemModel.fromMap(Map<String, dynamic> map) {
     return ItemModel(
       id: map['item_id'],
-      name: map['name'],
-      price: map['price'],
-      isDone: map['is_done'],
+      name: map['name'] ?? "",
+      price: map['price'] ?? 0,
+      isDone: map['is_done'] == 1 ? true : false,
       listId: map['list_id'],
     );
   }

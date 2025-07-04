@@ -19,6 +19,7 @@ class CustomAppbar {
             elevation: 0,
             bottomOpacity: 0,
             automaticallyImplyLeading: true,
+            actionsPadding: EdgeInsets.symmetric(horizontal: 20.w),
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
               statusBarIconBrightness: Brightness.dark,

@@ -18,8 +18,8 @@ class ShoppingListModel {
     required this.priority,
     required this.isDeleted,
     this.isCollapsed = false,
-    this.items = const [],
-  });
+    List<ItemModel>? items, // here we set the default value to an empty list if items is nullable
+  }): items = items ?? [];  // because if we set items as const it will throw an error "Cannot add to an unmodifiable list"
 
   Map<String, dynamic> toMap() {
     return {

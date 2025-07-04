@@ -23,6 +23,7 @@ class CustomScaffold extends StatelessWidget {
     required this.scaffoldKey,
     this.appBarTitle,
     this.floatingActionButton,
+    this.appBarAction,
   });
   bool showAppbar;
   Widget body;
@@ -30,6 +31,7 @@ class CustomScaffold extends StatelessWidget {
   GlobalKey<ScaffoldState> scaffoldKey;
   String? appBarTitle;
   Widget? floatingActionButton;
+  Widget? appBarAction;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class CustomScaffold extends StatelessWidget {
       extendBodyBehindAppBar: showAppbar ? false : true,
       backgroundColor: Colors.transparent,
       appBar: showAppbar
-          ? CustomAppbar.appBar(context, title: appBarTitle)
+          ? CustomAppbar.appBar(context, title: appBarTitle, actions: [appBarAction ?? SizedBox.shrink()])
           : null,
       extendBody: true,
       body: body,

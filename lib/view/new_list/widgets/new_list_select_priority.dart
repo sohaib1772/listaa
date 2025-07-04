@@ -18,11 +18,11 @@ class NewListSelectPriority extends StatelessWidget {
 
   Widget setPriorityIcon() {
     switch (controller.selectedPriority.value) {
-      case 1:
+      case 0:
         return AppIcons(icon: AppIconsName.redFlag, size: 30);
-      case 2:
+      case 1:
         return AppIcons(icon: AppIconsName.blueFlag,size: 30);
-      case 3:
+      case 2:
         return AppIcons(icon:AppIconsName.grayFlag,size: 30);
       default:
         return AppIcons(icon: AppIconsName.redFlag,color: AppColors.primaryTextColor,size: 30,);

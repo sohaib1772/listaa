@@ -88,6 +88,7 @@ class ListsScreen extends StatelessWidget {
                         initState: (_) {},
                         builder: (_) {
                           return ListsCard(
+                            totalPrice: controller.lists[index].totalPrice,
                             isCompleted: false,
                             title: controller.lists[index].title,
                             items: controller.lists[index].items
@@ -137,6 +138,7 @@ class ListsScreen extends StatelessWidget {
                         initState: (_) {},
                         builder: (_) {
                           return ListsCard(
+                            totalPrice: controller.completedLists[index].totalPrice,
                             isCompleted: true,
                             title: controller.completedLists[index].title,
                             items: controller.completedLists[index].items
