@@ -4,18 +4,15 @@ import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 
 abstract class ListData {
-  Future<int> createNewList(ShoppingListModel shoppingList);
-}
-
-class ListDataImpl extends DbHelper implements ListData {
-  // ... existing code ...
-
-  @override
   /// Creates a new shopping list in the database.
   ///
   /// [shoppingList] - The ShoppingListModel to be created
   ///
   /// Returns a [Future] that completes when the list is created.
+  Future<int> createNewList(ShoppingListModel shoppingList);
+}
+
+class ListDataImpl extends DbHelper implements ListData {
   @override
   Future<int> createNewList(ShoppingListModel shoppingList) async {
     // Prepare arguments list
