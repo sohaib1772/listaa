@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:listaa/controller/home_controller.dart';
-import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -14,12 +13,11 @@ import 'package:listaa/core/widgets/bottom_container.dart';
 import 'package:listaa/core/widgets/item_card.dart';
 import 'package:listaa/core/widgets/lists_card.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
-
 import 'package:listaa/view/home/widgets/home_select_proiority.dart';
 import 'package:listaa/view/home/widgets/home_sliders.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class ListsScreen extends StatelessWidget {
+  ListsScreen({super.key});
   final HomeController controller = Get.find();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -31,12 +29,13 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         color: AppColors.allListsScreenBackgroundColor,
         child: CustomScrollView(
+          
           slivers: [
             SliverAppBar(
               pinned: false,
               elevation: 0,
               automaticallyImplyLeading: false,
-              backgroundColor: Colors.white,
+              backgroundColor: AppColors.allListsScreenBackgroundColor,
               foregroundColor: AppColors.primaryTextColor,
               flexibleSpace: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -48,76 +47,38 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        scaffoldKey.currentState!.openDrawer();
+                        Get.back();
                       },
-                      icon: AppIcons(icon: AppIconsName.hamburgerMenu,size: 30,),
+                      icon: Icon(Icons.arrow_back, color: AppColors.primaryTextColor),
                     ),
                     Text(
-                      AppLocaleKeys.welcome.tr,
+                      AppLocaleKeys.lists.tr,
                       style: AppTextStyles.darkbold28,
                     ),
-                    Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        // scaffoldKey.currentState!.openDrawer();
-                      },
-                      icon: AppIcons(
-                        icon: AppIconsName.notifications,
-                        size: 30,
-                      ),
-                    ),
+                    
                   ],
                 ),
               ),
             ),
             // Spacer
-
+            SliverToBoxAdapter(
+              child: SizedBox(height: 30.h),
+            ),
             // Home Slider
             SliverToBoxAdapter(
-              child: SizedBox(height: 268.h, child: HomeSliders()),
+              
+              child: HomeSelectProiority(),
             ),
-
             SliverToBoxAdapter(
-              child: BottomGradinetContainer(
-                horizontalPadding: 20.w,
-                content: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocaleKeys.lists.tr,
-                          style: AppTextStyles.darkbold24,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Get.toNamed(AppRouterKeys.lists);
-                          },
-                          child: Text(
-                            AppLocaleKeys.more.tr,
-                            style: AppTextStyles.darkbold20.copyWith(
-                              decoration: TextDecoration.underline
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    HomeSelectProiority(horizontalPadding: 0,),
-                  ],
-                ),
-              ),
+              child: SizedBox(height: 20.h),
             ),
-            // List of items (ListView -> SliverList)
+            // uncompleted lists
             SliverToBoxAdapter(
-              child: Container(
-                color: Color.fromARGB(255, 255, 250, 240),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: ListView.separated(
                     physics:
-                        NeverScrollableScrollPhysics(), // مهم إذا كنت تستخدم داخل ScrollView آخر
+                        NeverScrollableScrollPhysics(), 
                     shrinkWrap: true,
                     itemCount: controller.lists.length,
                     separatorBuilder: (_, __) => SizedBox(height: 20.h),
@@ -137,9 +98,7 @@ class HomeScreen extends StatelessWidget {
                                     isChecked: e.isDone,
                                     listIndex: index,
                                     itemId: e.id ?? 0,
-                                    onToggleCheckBox: (){
-                                      controller.toggleIsDone(index, e.id ?? 0);
-                                    },
+                                    onToggleCheckBox: (){},
                                   ),
                                 )
                                 .toList(),
@@ -152,7 +111,58 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SliverToBoxAdapter(
+              child: Divider(height: 20.h),
             ),
+              SliverToBoxAdapter(
+              child: Padding(
+                padding:  EdgeInsets.symmetric(horizontal:  20.w),
+                child: Text(AppLocaleKeys.completedLists.tr, style: AppTextStyles.darkbold24,),
+              )
+            ),
+
+            // completed lists
+            SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: ListView.separated(
+                    physics:
+                        NeverScrollableScrollPhysics(), 
+                    shrinkWrap: true,
+                    itemCount: controller.completedLists.length,
+                    separatorBuilder: (_, __) => SizedBox(height: 20.h),
+                    itemBuilder: (context, index) {
+                      return GetBuilder<HomeController>(
+                        init: controller,
+                        initState: (_) {},
+                        builder: (_) {
+                          return ListsCard(
+                            isCompleted: true,
+                            title: controller.completedLists[index].title,
+                            items: controller.completedLists[index].items
+                                .map(
+                                  (e) => ItemCard(
+                                    name: e.name,
+                                    price: e.price,
+                                    isChecked: e.isDone,
+                                    listIndex: index,
+                                    itemId: e.id ?? 0,
+                                    onToggleCheckBox: () {
+
+                                    },
+                                  ),
+                                )
+                                .toList(),
+                            isCollapsed: controller.completedLists[index].isCollapsed,
+                            index: index,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            
           ],
         ),
       ),

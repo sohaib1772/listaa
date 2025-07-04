@@ -10,8 +10,38 @@ import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 
 class HomeSelectProiority extends StatelessWidget {
-  HomeSelectProiority({super.key});
+  HomeSelectProiority({super.key, this.horizontalPadding = 20});
   HomeController controller = Get.find();
+  double horizontalPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          SizedBox(width: horizontalPadding.w),
+          SelectPriorityButton(iconNames: AppIconsName.all,priority: 0,),
+          SizedBox(width: 5.w),
+          SelectPriorityButton(iconNames: AppIconsName.redFlag,priority: 1,),
+          SizedBox(width: 5.w),
+          SelectPriorityButton(iconNames: AppIconsName.blueFlag,priority: 2,),
+          SizedBox(width: 5.w),
+          SelectPriorityButton(iconNames: AppIconsName.grayFlag,priority: 3,),
+          SizedBox(width: horizontalPadding.w),
+        ],
+      ),
+    );
+  }
+}
+
+class SelectPriorityButton extends StatelessWidget {
+   SelectPriorityButton({super.key,required this.iconNames,required this.priority});
+
+  HomeController controller = Get.find();
+  AppIconsName iconNames;
+  int priority;
+
   BoxDecoration getDecoration(int index) {
     if (index == controller.priority.value) {
       return BoxDecoration(
@@ -27,15 +57,25 @@ class HomeSelectProiority extends StatelessWidget {
     );
   }
 
+  String getTitle(int index) {
+    switch (index) {
+      case 0:
+        return AppLocaleKeys.allPriority.tr;
+      case 1:
+        return AppLocaleKeys.highPriority.tr;
+      case 2:
+        return AppLocaleKeys.midPriority.tr;
+      case 3:
+        return AppLocaleKeys.lowPriority.tr;
+      default:
+        return AppLocaleKeys.allPriority.tr;
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          InkWell(
+    return InkWell(
             onTap: () {
-              controller.changePriority(0);
+              controller.changePriority(priority);
             },
             child: GetX<HomeController>(
               init: controller,
@@ -44,14 +84,14 @@ class HomeSelectProiority extends StatelessWidget {
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   height: 40.h,
-                  decoration: getDecoration(0),
+                  decoration: getDecoration(priority),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      AppIcons(icon: AppIconsName.all,size: 20,),
+                      AppIcons(icon: iconNames,size: 20,),
                       SizedBox(width: 5.w,),
                       Text(
-                        AppLocaleKeys.allPriority.tr,
+                        getTitle( priority),
                         style: AppTextStyles.darkbold16,
                       ),
                     ],
@@ -59,94 +99,6 @@ class HomeSelectProiority extends StatelessWidget {
                 );
               },
             ),
-          ),
-          SizedBox(width: 5.w),
-          InkWell(
-            onTap: () {
-              controller.changePriority(1);
-            },
-            child: GetX<HomeController>(
-              init: controller,
-              initState: (_) {},
-              builder: (_) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  height: 40.h,
-                  decoration: getDecoration(1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      AppIcons(icon: AppIconsName.redFlag,size: 20,),
-                      SizedBox(width: 5.w,),
-                      Text(
-                        AppLocaleKeys.highPriority.tr,
-                        style: AppTextStyles.darkbold16,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          SizedBox(width: 5.w),
-          InkWell(
-            onTap: () {
-              controller.changePriority(2);
-            },
-            child: GetX<HomeController>(
-              init: controller,
-              initState: (_) {},
-              builder: (_) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  height: 40.h,
-                 
-                  decoration: getDecoration(2),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppIcons(icon: AppIconsName.blueFlag,size: 20,),
-                      SizedBox(width: 10.w,),
-                      Text(
-                        AppLocaleKeys.midPriority.tr,
-                        style: AppTextStyles.darkbold16,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          SizedBox(width: 5.w),
-          InkWell(
-            onTap: () {
-              controller.changePriority(3);
-            },
-            child: GetX<HomeController>(
-              init: controller,
-              initState: (_) {},
-              builder: (_) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  height: 40.h,
-                  decoration: getDecoration(3),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      AppIcons(icon: AppIconsName.grayFlag,size: 20,),
-                      SizedBox(width: 5.w,),
-                      Text(
-                        AppLocaleKeys.lowPriority.tr,
-                        style: AppTextStyles.darkbold16,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 }

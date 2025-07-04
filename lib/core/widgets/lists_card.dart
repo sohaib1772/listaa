@@ -11,20 +11,22 @@ import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
-import 'package:listaa/view/home/widgets/home_list_card_item.dart';
+import 'package:listaa/core/widgets/item_card.dart';
 
-class HomeListCard extends StatelessWidget {
-  HomeListCard({
+class ListsCard extends StatelessWidget {
+  ListsCard({
     super.key,
     required this.title,
     required this.items,
     this.index = 1,
     required this.isCollapsed,
+    required this.isCompleted,
   });
   String title;
-  List<HomeListCardItem> items;
+  List<ItemCard> items;
   bool isCollapsed;
   int index;
+  bool isCompleted;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,28 +37,30 @@ class HomeListCard extends StatelessWidget {
         border: Border.all(color: Colors.grey, width: 1),
       ),
       child: isCollapsed
-          ? _HomeListCardCollapsed(title: title, items: items, index: index)
-          : _HomeListCardNotCollapsed(title: title, items: items, index: index),
+          ? _ListCardCollapsed(title: title, items: items, index: index, isCompleted: isCompleted)
+          : _ListCardNotCollapsed(title: title, items: items, index: index, isCompleted: isCompleted),
     );
   }
 }
 
-class _HomeListCardCollapsed extends StatefulWidget {
-  _HomeListCardCollapsed({
+class _ListCardCollapsed extends StatefulWidget {
+  _ListCardCollapsed({
     super.key,
     required this.title,
     required this.items,
     required this.index,
+    required this.isCompleted,
   });
   String title;
-  List<HomeListCardItem> items;
+  List<ItemCard> items;
   int index;
+  bool isCompleted;
 
   @override
-  State<_HomeListCardCollapsed> createState() => _HomeListCardCollapsedState();
+  State<_ListCardCollapsed> createState() => _ListCardCollapsedState();
 }
 
-class _HomeListCardCollapsedState extends State<_HomeListCardCollapsed> {
+class _ListCardCollapsedState extends State<_ListCardCollapsed> {
   int finishedItems = 0;
   @override
   initState() {
@@ -80,7 +84,7 @@ class _HomeListCardCollapsedState extends State<_HomeListCardCollapsed> {
             IconButton(
               icon: AppIcons(icon: AppIconsName.arrowDown, size: 16),
               onPressed: () {
-                controller.toggleIsCollapse(widget.index);
+                controller.toggleIsCollapse(widget.index,widget.isCompleted);
               },
             ),
           ],
@@ -112,17 +116,19 @@ class _HomeListCardCollapsedState extends State<_HomeListCardCollapsed> {
   }
 }
 
-class _HomeListCardNotCollapsed extends StatelessWidget {
-  _HomeListCardNotCollapsed({
+class _ListCardNotCollapsed extends StatelessWidget {
+  _ListCardNotCollapsed({
     super.key,
     required this.title,
     required this.items,
     required this.index,
+    required this.isCompleted,
   });
   String title;
-  List<HomeListCardItem> items;
+  List<ItemCard> items;
   bool isCollapsed = false;
   int index;
+  bool isCompleted;
   HomeController controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -143,7 +149,7 @@ class _HomeListCardNotCollapsed extends StatelessWidget {
                 child: AppIcons(icon: AppIconsName.arrowDown, size: 16),
               ),
               onPressed: () {
-                controller.toggleIsCollapse(index);
+                controller.toggleIsCollapse(index,isCompleted);
               },
             ),
           ],

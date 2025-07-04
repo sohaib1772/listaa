@@ -20,7 +20,7 @@ class AppColors {
     end: Alignment.center,
     stops: [0, 2],
 
-    colors: [Color.fromARGB(212, 255, 224, 156), Color.fromARGB(255, 255, 250, 240)],
+    colors: [Color.fromARGB(212, 255, 224, 156), Color(0xFFFFF8E7)],
   );
 
   static const LinearGradient drawerLinerGradient = LinearGradient(
@@ -37,7 +37,7 @@ class AppColors {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
 
-    colors: [Color(0xFFF5B041), Color.fromARGB(255, 255, 255, 255)],
+    colors: [Color(0xFFF5B041), Color(0xFFFFF8E7)],
   );
   static const Color containerLinerGradientBorder = Color.fromARGB(21, 0, 0, 0);
   //----------------
@@ -74,6 +74,7 @@ class AppColors {
   // backgrounds
   static const Color appBarBackgroundColor = Color(0xFFFFEBC9);
   static const Color listScreenBackgroundColor = Color(0xFFFFF0D8);
+  static const Color allListsScreenBackgroundColor = Color(0xFFFFF8E7);
   static const Color datePickerBackgroundColor = Color(0xFFF6DCB0);
   static const Color addNewListBottomSheetBackgroundColor = Color(0xFFfff8e8);
 
