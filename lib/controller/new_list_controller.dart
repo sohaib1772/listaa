@@ -3,19 +3,32 @@ import 'package:get/get.dart';
 import 'package:listaa/view/new_list/widgets/new_list_input_row.dart';
 
 class RowItemsModel {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
+
+  TextEditingController nameController;
+  TextEditingController priceController;
 FocusNode focusNode = FocusNode();
-  RowItemsModel();
+RowItemsModel(
+  {
+  required  this.nameController ,
+   required this.priceController,
+   required this.focusNode,
+  }
+);
 }
 
 class NewListController extends GetxController {
+  RxBool isEditing = false.obs;
   List<RowItemsModel> items = [];
-  RxInt totalAmount = 0.obs;
+  RxDouble totalAmount = 0.0.obs;
   RxInt selectedPriority = 0.obs;
   RxString date = "".obs;
+  RxString title = "".obs;
   RowItemsModel addNewItemToRows() {
-    items.add(RowItemsModel());
+    items.add(RowItemsModel(
+      nameController: TextEditingController(),
+      priceController: TextEditingController(),
+      focusNode: FocusNode(),
+    ));
     var row = items.last;
     calTotalAmount();
     update();
@@ -29,11 +42,11 @@ class NewListController extends GetxController {
   }
 
   void calTotalAmount() {
-    int sum = 0;
+    double sum = 0;
     for (var item in items) {
       final text = item.priceController.text;
       if (text.isNotEmpty) {
-        sum += int.tryParse(text) ?? 0;
+        sum += double.tryParse(text) ?? 0;
       }
     }
     totalAmount.value = sum;
@@ -45,12 +58,11 @@ class NewListController extends GetxController {
 
   void changeDate(String date) {
     this.date.value = date;
-    print(date);
   }
 
 
   @override
   void onReady() {
-    addNewItemToRows();
+    if(isEditing.value == false) addNewItemToRows();
   }
 }

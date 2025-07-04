@@ -38,6 +38,7 @@ class AppLocaleKeys {
   static const String date = 'date';
   static const String more = 'more';
   static const String completedLists = 'completedLists';
+  static const String editList = 'editList';
 
 
   // validations
@@ -115,6 +116,7 @@ class AppLocale extends Translations{
       AppLocaleKeys.date: 'التاريخ',
       AppLocaleKeys.more: 'المزيد',
       AppLocaleKeys.completedLists: 'مكتملة',
+      AppLocaleKeys.editList: 'تعديل القائمة',
       
       
     
@@ -166,6 +168,7 @@ class AppLocale extends Translations{
       AppLocaleKeys.more: 'More',
     
       AppLocaleKeys.completedLists: 'Completed',
+      AppLocaleKeys.editList: 'Edit List',
     
     
     

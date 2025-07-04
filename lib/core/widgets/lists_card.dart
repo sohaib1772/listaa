@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/src/extensions/export.dart';
 import 'package:listaa/controller/home_controller.dart';
+import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -79,7 +80,11 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
         Row(
           children: [
             SizedBox(width: 10),
-            Text(widget.title, style: AppTextStyles.darkbold20),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(AppRouterKeys.newList, arguments: {"model": controller.lists[widget.index]});
+              },
+              child: Text(widget.title, style: AppTextStyles.darkbold20)),
             Spacer(),
             IconButton(
               icon: AppIcons(icon: AppIconsName.arrowDown, size: 16),
@@ -140,7 +145,11 @@ class _ListCardNotCollapsed extends StatelessWidget {
         Row(
           children: [
             SizedBox(width: 10),
-            Text(title, style: AppTextStyles.darkbold20),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(AppRouterKeys.newList, arguments: {"model": controller.lists[index]});
+              },
+              child: Text(title, style: AppTextStyles.darkbold20)),
             Spacer(),
             IconButton(
               icon: Transform( // we don't have arrow up icon for now. We use arrow down and flip it :) 
