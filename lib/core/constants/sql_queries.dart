@@ -38,4 +38,26 @@ class SqlQueries {
   WHERE l.is_deleted = 0 AND l.priority = ?
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
+  //
+  static const String createNewList = '''
+    INSERT INTO lists (
+      title, 
+      date, 
+      total_price, 
+      priority, 
+      is_deleted, 
+      is_collapsed
+    ) 
+    VALUES (?, ?, ?, ?, ?, ?)
+  ''';
+
+  static const String createNewItem = '''
+    INSERT INTO items (
+      name, 
+      price, 
+      is_done, 
+      list_id
+    ) 
+    VALUES (?, ?, ?, ?)
+  ''';
 }

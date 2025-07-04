@@ -47,6 +47,23 @@ class DbHelper {
     return count;
   }
 
+  Future<int> insertBatch(
+    String sql,
+    List<List<dynamic>> parametersList,
+  ) async {
+    final db = await getInstance;
+    final batch = db!.batch();
+
+    // Add all raw insert operations to the batch
+    for (final parameters in parametersList) {
+      batch.rawInsert(sql, parameters);
+    }
+
+    // Execute the batch and return the number of successful operations
+    final results = await batch.commit();
+    return results.length;
+  }
+
   Future<int> update(String sqlTxt, List<dynamic> arguments) async {
     Database? db = await getInstance;
     // Update some record
