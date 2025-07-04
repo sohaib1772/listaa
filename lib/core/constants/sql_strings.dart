@@ -28,7 +28,7 @@ class SqlStrings {
       price REAL,
       is_done INTEGER,
       list_id INTEGER,
-      FOREIGN KEY (list_id) REFERENCES lists(id)
+      FOREIGN KEY (list_id) REFERENCES lists(list_id)
     )
   ''';
 

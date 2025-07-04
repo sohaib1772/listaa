@@ -30,10 +30,13 @@ class DbHelper {
     return database;
   }
 
-  Future<List<Map<String, dynamic>>> inquiry(String sqlTxt) async {
+  Future<List<Map<String, dynamic>>> inquiry(
+    String sqlTxt, {
+    List<dynamic>? arguments,
+  }) async {
     Database? db = await getInstance;
     // Get the records
-    List<Map<String, dynamic>> list = await db!.rawQuery(sqlTxt);
+    List<Map<String, dynamic>> list = await db!.rawQuery(sqlTxt, arguments);
     return list;
   }
 

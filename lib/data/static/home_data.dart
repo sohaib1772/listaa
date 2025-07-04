@@ -3,8 +3,11 @@ import 'package:listaa/core/helper/db_helper.dart';
 import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 
+enum Priority { high, medium, normal }
+
 abstract class HomeData {
   Future<List<ShoppingListModel>> getAllHomeLists();
+  Future<List<ShoppingListModel>> getHomeListsByPriority(Priority priority);
 }
 
 class HomeDataImpl extends DbHelper implements HomeData {
@@ -17,7 +20,32 @@ class HomeDataImpl extends DbHelper implements HomeData {
   /// Returns a [Future] containing a list of [ShoppingListModel] representing
   /// the home shopping lists.
   Future<List<ShoppingListModel>> getAllHomeLists() async {
-    final dataList = await inquiry(SqlQueries.getAllHomeListsQuery);
+    final dataList = await inquiry(SqlQueries.getAllHomeLists);
+    return _processJoinedListData(dataList);
+  }
+
+  @override
+  /// Retrieves home shopping lists filtered by the specified priority.
+  ///
+  /// [priority] - The priority level to filter by (high, medium, normal)
+  ///
+  /// Returns a [Future] containing a list of [ShoppingListModel] objects
+  /// that match the specified priority, including their associated items.
+  Future<List<ShoppingListModel>> getHomeListsByPriority(
+    Priority priority,
+  ) async {
+    // Convert enum to priority value (you can adjust these values as needed)
+    final priorityValue = switch (priority) {
+      Priority.high => 2,
+      Priority.medium => 1,
+      Priority.normal => 0,
+    };
+
+    final dataList = await inquiry(
+      SqlQueries.getHomeListsByPriority,
+      arguments: [priorityValue],
+    );
+
     return _processJoinedListData(dataList);
   }
 
@@ -44,6 +72,4 @@ class HomeDataImpl extends DbHelper implements HomeData {
 
     return listsMap.values.toList();
   }
-
-  //Todo: get home lists by priority
 }
