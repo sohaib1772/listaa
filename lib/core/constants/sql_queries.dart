@@ -15,10 +15,10 @@ class SqlQueries {
   FROM 
     lists
   LEFT JOIN 
-    items ON items.item_id = lists.list_id
+    items ON items.list_id = lists.list_id
   WHERE lists.is_deleted = 0 
   ORDER BY 
-    lists.list_id, items.item_id;
+    lists.date DESC, items.item_id;
 ''';
   static const String getHomeListsByPriority = '''
   SELECT 
@@ -30,9 +30,9 @@ class SqlQueries {
     l.is_deleted,
     l.is_collapsed,
     i.item_id,
-    i.name AS item_name,
-    i.price AS item_price,
-    i.is_done AS item_is_done
+    i.name,
+    i.price,
+    i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
   WHERE l.is_deleted = 0 AND l.priority = ?

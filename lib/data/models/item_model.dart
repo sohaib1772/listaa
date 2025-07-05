@@ -3,14 +3,14 @@ class ItemModel {
   final String name;
   final double price;
   final bool isDone;
-  final int listId;
+  final int? listId;
 
   ItemModel({
     this.id,
     required this.name,
     required this.price,
     required this.isDone,
-    required this.listId,
+    this.listId,
   });
 
   Map<String, dynamic> toMap() {
@@ -26,9 +26,9 @@ class ItemModel {
   factory ItemModel.fromMap(Map<String, dynamic> map) {
     return ItemModel(
       id: map['item_id'],
-      name: map['name'] ?? "",
-      price: map['price'] ?? 0,
-      isDone: map['is_done'] == 1 ? true : false,
+      name: map['name'],
+      price: map['price'],
+      isDone: map['is_done'] == 1,
       listId: map['list_id'],
     );
   }

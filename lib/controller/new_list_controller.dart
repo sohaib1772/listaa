@@ -70,7 +70,6 @@ class NewListController extends GetxController {
     isLoading.value = true;
     await listData.createNewList(
       ShoppingListModel(
-        
         isDeleted: false,
         title: title.value,
         date: DateTime.tryParse(date.value) ?? DateTime.now(),
@@ -79,8 +78,6 @@ class NewListController extends GetxController {
         items: items
             .map(
               (e) => ItemModel(
-                id: 0,
-                listId: 0,
                 name: e.nameController.text,
                 price: double.tryParse(e.priceController.text) ?? 0,
                 isDone: false,

@@ -18,8 +18,8 @@ class ShoppingListModel {
     required this.priority,
     required this.isDeleted,
     this.isCollapsed = false,
-    List<ItemModel>? items, // here we set the default value to an empty list if items is nullable
-  }): items = items ?? [];  // because if we set items as const it will throw an error "Cannot add to an unmodifiable list"
+    List<ItemModel>? items,
+  }): items = items ?? [];
 
   Map<String, dynamic> toMap() {
     return {
@@ -40,7 +40,7 @@ class ShoppingListModel {
       title: map['title'],
       date: DateTime.parse(map['date']),
       totalPrice: map['total_price']?.toDouble() ?? 0.0,
-      priority: map['priority'] ?? 0,
+      priority: map['priority'],
       isDeleted: map['is_deleted'] == 1,
       isCollapsed: map['is_collapsed'] == 1,
     );
