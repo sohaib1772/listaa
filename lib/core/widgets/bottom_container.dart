@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 
 class BottomGradinetContainer extends StatelessWidget {
-   BottomGradinetContainer({super.key,required this.content,this.horizontalPadding = 10});
-  Widget content;
-  double horizontalPadding;
+  const BottomGradinetContainer({super.key,required this.content,this.horizontalPadding = 10});
+ final Widget content;
+ final double horizontalPadding;
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+
 import 'package:get/state_manager.dart';
-import 'package:listaa/core/localization/locale.dart';
-import 'package:listaa/core/theme/app_colors.dart';
-import 'package:listaa/core/theme/app_text_styles.dart';
+
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/drawer/app_drawer.dart';
 import 'package:listaa/core/widgets/scaffold/custom_appbar.dart';
 import 'package:listaa/view/home/widgets/home_add_list_bottom_sheet.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_utils/get_utils.dart';
 
 class CustomScaffold extends StatelessWidget {
-  CustomScaffold({
+ const CustomScaffold({
     super.key,
     this.showAppbar = true,
     required this.body,
@@ -25,13 +21,13 @@ class CustomScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.appBarAction,
   });
-  bool showAppbar;
-  Widget body;
-  bool showAddListButton;
-  GlobalKey<ScaffoldState> scaffoldKey;
-  String? appBarTitle;
-  Widget? floatingActionButton;
-  Widget? appBarAction;
+ final bool showAppbar;
+ final Widget body;
+ final bool showAddListButton;
+ final GlobalKey<ScaffoldState> scaffoldKey;
+ final String? appBarTitle;
+ final Widget? floatingActionButton;
+ final Widget? appBarAction;
 
   @override
   Widget build(BuildContext context) {

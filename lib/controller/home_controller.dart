@@ -1,19 +1,17 @@
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:listaa/data/static/home_data.dart';
 
 
 class HomeController extends GetxController {
-  RxInt priority = 0.obs;
+  RxInt priority = 10.obs;
   var scrollAlpha = 0.obs;
   HomeData homeData = Get.find<HomeDataImpl>();
   RxBool isLoading = true.obs;
 
   void changePriority(int index) async{
     priority.value = index;
-    index == 0 ? await getAllLists() : await getHomeListsByPriority();
+    index == 10 ? await getAllLists() : await getHomeListsByPriority(index);
   }
 
   RxList<ShoppingListModel> lists = <ShoppingListModel>[].obs;
@@ -32,12 +30,12 @@ class HomeController extends GetxController {
     
    lists.value =  await homeData.getAllHomeLists();
   }
-  Future<void> getHomeListsByPriority()async{
-    
+  Future<void> getHomeListsByPriority(int priority)async{
    lists.value =  await homeData.getHomeListsByPriority(
 
-    Priority.values[priority.value -1],
+    Priority.values[priority],
    );
+   
   }
 
   void toggleIsDone(int listIndex, int itemId) {

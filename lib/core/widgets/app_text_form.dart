@@ -4,7 +4,7 @@ import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 
 class AppTextForm extends StatelessWidget {
-  AppTextForm({
+ const AppTextForm({
     super.key,
     required this.controller,
     required this.validator,
@@ -17,15 +17,15 @@ class AppTextForm extends StatelessWidget {
     this.onChanged
 
   });
-  FocusNode? focusNode;
-  TextEditingController controller;
-  Function(String?) validator;
-  String hint;
-  TextInputAction? textInputAction;
-  TextInputType keyboardType = TextInputType.text;
-  Function? onFieldSubmitted;
-  Widget ? suffixWidget;
-  Function(String)? onChanged;
+ final FocusNode? focusNode;
+ final TextEditingController controller;
+ final Function(String?) validator;
+ final String hint;
+ final TextInputAction? textInputAction;
+ final TextInputType keyboardType;
+ final Function? onFieldSubmitted;
+ final Widget ? suffixWidget;
+ final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(

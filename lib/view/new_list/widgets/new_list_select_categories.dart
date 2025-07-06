@@ -7,7 +7,7 @@ import 'package:listaa/core/theme/app_text_styles.dart';
 
 class NewListSelectCategories extends StatelessWidget {
   NewListSelectCategories({super.key});
-  List<String> categories = [
+ final List<String> categories = [
     AppLocaleKeys.fruitsAndVegetable.tr,
     AppLocaleKeys.holyDaysAndEvents.tr,
     AppLocaleKeys.marketAndOthers.tr,

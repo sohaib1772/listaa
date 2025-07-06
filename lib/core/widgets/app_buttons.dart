@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_buttons_styles.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -11,7 +9,7 @@ import 'package:listaa/core/widgets/app_icons.dart';
 enum AppButtonType { orange, light, floatingButton, drawerButton }
 
 class AppTextButtons extends StatelessWidget {
-  AppTextButtons({
+  const AppTextButtons({
     super.key,
     required this.text,
     required this.onPressed,
@@ -19,11 +17,11 @@ class AppTextButtons extends StatelessWidget {
     this.autoPlayAnimation = false,
     this.width = double.infinity,
   });
-  double width;
-  Function onPressed;
-  String text;
-  AppButtonType type;
-  bool autoPlayAnimation;
+  final double width;
+  final Function onPressed;
+  final String text;
+  final AppButtonType type;
+  final bool autoPlayAnimation;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +43,7 @@ class AppTextButtons extends StatelessWidget {
 }
 
 class AppTextButtonsWithIcon extends StatelessWidget {
-  AppTextButtonsWithIcon({
+ const AppTextButtonsWithIcon({
     super.key,
     required this.text,
     required this.onPressed,
@@ -54,12 +52,12 @@ class AppTextButtonsWithIcon extends StatelessWidget {
     this.width = double.infinity,
     this.icon = Icons.add_box_outlined,
   });
-  double width;
-  Function onPressed;
-  String text;
-  AppButtonType type;
-  bool autoPlayAnimation;
-  IconData icon;
+ final double width;
+ final Function onPressed;
+ final String text;
+ final AppButtonType type;
+ final bool autoPlayAnimation;
+ final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -97,34 +95,33 @@ class AppTextButtonsWithIcon extends StatelessWidget {
 }
 
 class AppDrawerIconButton extends StatelessWidget {
-  AppDrawerIconButton({
+ const AppDrawerIconButton({
     super.key,
     required this.onPressed,
     this.icon = AppIconsName.add,
   });
-  Function onPressed;
-  AppIconsName icon;
+ final Function onPressed;
+ final AppIconsName icon;
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      
       style: getButtonStyle(appButtonType: AppButtonType.drawerButton),
       onPressed: () => onPressed(),
-      child: AppIcons(icon: icon,size: icon == AppIconsName.close ? 18 : 24,),
+      child: AppIcons(icon: icon, size: icon == AppIconsName.close ? 18 : 24),
     );
   }
 }
 
 class AppDrawerTextIconButton extends StatelessWidget {
-  AppDrawerTextIconButton({
+const  AppDrawerTextIconButton({
     super.key,
     required this.onPressed,
     this.icon = AppIconsName.doneList,
     required this.text,
   });
-  Function onPressed;
-  AppIconsName icon;
-  String text;
+ final Function onPressed;
+ final AppIconsName icon;
+ final String text;
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -141,7 +138,7 @@ class AppDrawerTextIconButton extends StatelessWidget {
 }
 
 class AppIconButton extends StatelessWidget {
-  AppIconButton({
+ const AppIconButton({
     super.key,
     required this.onPressed,
     this.type = AppButtonType.floatingButton,
@@ -150,12 +147,12 @@ class AppIconButton extends StatelessWidget {
     this.icon = Icons.add_box_outlined,
     this.iconSize = 40,
   });
-  double width;
-  Function onPressed;
-  AppButtonType type;
-  bool autoPlayAnimation;
-  IconData icon;
-  double iconSize;
+ final double width;
+ final Function onPressed;
+ final AppButtonType type;
+ final bool autoPlayAnimation;
+ final IconData icon;
+ final double iconSize;
   @override
   Widget build(BuildContext context) {
     return Container(

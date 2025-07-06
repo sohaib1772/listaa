@@ -15,7 +15,7 @@ import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/item_card.dart';
 
 class ListsCard extends StatelessWidget {
-  ListsCard({
+const  ListsCard({
     super.key,
     required this.title,
     required this.items,
@@ -24,12 +24,12 @@ class ListsCard extends StatelessWidget {
     required this.isCompleted,
     required this.totalPrice,
   });
-  double totalPrice;
-  String title;
-  List<ItemCard> items;
-  bool isCollapsed;
-  int index;
-  bool isCompleted;
+  final double totalPrice;
+  final String title;
+  final List<ItemCard> items;
+  final bool isCollapsed;
+  final int index;
+  final bool isCompleted;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,17 +47,16 @@ class ListsCard extends StatelessWidget {
 }
 
 class _ListCardCollapsed extends StatefulWidget {
-  _ListCardCollapsed({
-    super.key,
+ const _ListCardCollapsed({
     required this.title,
     required this.items,
     required this.index,
     required this.isCompleted,
   });
-  String title;
-  List<ItemCard> items;
-  int index;
-  bool isCompleted;
+ final String title;
+ final List<ItemCard> items;
+ final int index;
+ final bool isCompleted;
 
   @override
   State<_ListCardCollapsed> createState() => _ListCardCollapsedState();
@@ -91,6 +90,7 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
             IconButton(
               icon: AppIcons(icon: AppIconsName.arrowDown, size: 16),
               onPressed: () {
+                print('pressed');
                 controller.toggleIsCollapse(widget.index,widget.isCompleted);
               },
             ),
@@ -125,20 +125,19 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
 
 class _ListCardNotCollapsed extends StatelessWidget {
   _ListCardNotCollapsed({
-    super.key,
     required this.title,
     required this.items,
     required this.index,
     required this.isCompleted,
     required this.totalPrice,
   });
-  double totalPrice;
-  String title;
-  List<ItemCard> items;
-  bool isCollapsed = false;
-  int index;
-  bool isCompleted;
-  HomeController controller = Get.find();
+ final double totalPrice;
+ final String title;
+ final List<ItemCard> items;
+ final bool isCollapsed = false;
+ final int index;
+ final bool isCompleted;
+ final HomeController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(

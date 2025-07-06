@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:listaa/controller/home_controller.dart';
@@ -15,9 +14,8 @@ class DependencyInjection extends Bindings{
    Get.lazyPut(()=> OnboardingController());
    Get.lazyPut(()=> NewListController(),fenix: true);
    Get.lazyPut(()=> HomeController(),fenix: true);
-
-    Get.lazyPut(()=>HomeDataImpl());
-   Get.lazyPut(()=>ListDataImpl());
+  Get.lazyPut(()=>HomeDataImpl(), fenix: true);
+   Get.lazyPut(()=>ListDataImpl(), fenix: true);
   
   }
 }

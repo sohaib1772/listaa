@@ -4,7 +4,6 @@ import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:listaa/data/static/list_data.dart';
-import 'package:listaa/view/new_list/widgets/new_list_input_row.dart';
 
 class RowItemsModel {
   TextEditingController nameController;
@@ -22,7 +21,7 @@ class NewListController extends GetxController {
   RxBool isEditing = false.obs;
   List<RowItemsModel> items = [];
   RxDouble totalAmount = 0.0.obs;
-  RxInt selectedPriority = 0.obs;
+  RxInt selectedPriority = 10.obs;
   RxString date = "".obs;
   RxString title = "".obs;
 
@@ -59,7 +58,7 @@ class NewListController extends GetxController {
   }
 
   void changePriority(int index) {
-    selectedPriority.value = index - 1;
+    selectedPriority.value = index;
   }
 
   void changeDate(String date) {
@@ -74,7 +73,7 @@ class NewListController extends GetxController {
         title: title.value,
         date: DateTime.tryParse(date.value) ?? DateTime.now(),
         totalPrice: totalAmount.value,
-        priority: selectedPriority.value,
+        priority: selectedPriority.value == 10 ? 0 : selectedPriority.value,
         items: items
             .map(
               (e) => ItemModel(

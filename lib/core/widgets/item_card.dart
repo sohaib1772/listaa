@@ -16,13 +16,13 @@ class ItemCard extends StatelessWidget {
     required this.itemId,
     required this.onToggleCheckBox
     });
-  String name;
-  double price;
+ final String name;
+ final double price;
   bool isChecked;
-  int listIndex;
-  int itemId;
+ final int listIndex;
+ final int itemId;
 
-  Function onToggleCheckBox;
+ final Function onToggleCheckBox;
   
   @override
   Widget build(BuildContext context) {

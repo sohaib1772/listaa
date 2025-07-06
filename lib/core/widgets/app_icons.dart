@@ -33,8 +33,8 @@ class AppIcons extends StatelessWidget {
   final AppIconsName icon;
   final double size;
   final Color? color;
-  int opacity = 255;
-  AppIcons({required this.icon, this.size = 24, this.color, this.opacity = 255});
+  final  int opacity;
+ const AppIcons({required this.icon, this.size = 24, this.color, this.opacity = 255});
   static const String _mainPath = "assets/svgs/icons";
   static Map<AppIconsName, String> get _iconPaths => {
     AppIconsName.trash: '$_mainPath/trash.svg',

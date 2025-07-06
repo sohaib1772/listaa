@@ -21,13 +21,13 @@ class HomeSelectProiority extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(width: horizontalPadding.w),
-          SelectPriorityButton(iconNames: AppIconsName.all,priority: 0,),
+          SelectPriorityButton(iconNames: AppIconsName.all,priority: 10,),
           SizedBox(width: 5.w),
-          SelectPriorityButton(iconNames: AppIconsName.redFlag,priority: 1,),
+          SelectPriorityButton(iconNames: AppIconsName.redFlag,priority: 2,),
           SizedBox(width: 5.w),
-          SelectPriorityButton(iconNames: AppIconsName.blueFlag,priority: 2,),
+          SelectPriorityButton(iconNames: AppIconsName.blueFlag,priority: 1,),
           SizedBox(width: 5.w),
-          SelectPriorityButton(iconNames: AppIconsName.grayFlag,priority: 3,),
+          SelectPriorityButton(iconNames: AppIconsName.grayFlag,priority: 0,),
           SizedBox(width: horizontalPadding.w),
         ],
       ),
@@ -59,13 +59,13 @@ class SelectPriorityButton extends StatelessWidget {
 
   String getTitle(int index) {
     switch (index) {
-      case 0:
+      case 10:
         return AppLocaleKeys.allPriority.tr;
-      case 1:
-        return AppLocaleKeys.highPriority.tr;
       case 2:
+        return AppLocaleKeys.highPriority.tr;
+      case 1:
         return AppLocaleKeys.midPriority.tr;
-      case 3:
+      case 0:
         return AppLocaleKeys.lowPriority.tr;
       default:
         return AppLocaleKeys.allPriority.tr;
@@ -76,6 +76,7 @@ class SelectPriorityButton extends StatelessWidget {
     return InkWell(
             onTap: () {
               controller.changePriority(priority);
+              print(controller.priority.value);
             },
             child: GetX<HomeController>(
               init: controller,

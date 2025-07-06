@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:listaa/controller/new_list_controller.dart';
 import 'package:listaa/core/theme/app_colors.dart';
-import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/app_text_form.dart';
 
@@ -15,8 +11,7 @@ class NewListInputRow extends StatelessWidget {
   final VoidCallback onDelete;
   final NewListController controller;
 
-  NewListInputRow({
-    super.key,
+const  NewListInputRow({
     required this.index,
     required this.nameController,
     required this.priceController,

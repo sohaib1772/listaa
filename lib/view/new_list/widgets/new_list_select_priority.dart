@@ -18,11 +18,11 @@ class NewListSelectPriority extends StatelessWidget {
 
   Widget setPriorityIcon() {
     switch (controller.selectedPriority.value) {
-      case 0:
+      case 2:
         return AppIcons(icon: AppIconsName.redFlag, size: 30);
       case 1:
         return AppIcons(icon: AppIconsName.blueFlag,size: 30);
-      case 2:
+      case 0:
         return AppIcons(icon:AppIconsName.grayFlag,size: 30);
       default:
         return AppIcons(icon: AppIconsName.redFlag,color: AppColors.primaryTextColor,size: 30,);
@@ -45,7 +45,7 @@ class NewListSelectPriority extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  controller.changePriority(1);
+                  controller.changePriority(2);
                   Get.back();
                 },
                 child: Row(
@@ -61,7 +61,7 @@ class NewListSelectPriority extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  controller.changePriority(2);
+                  controller.changePriority(1);
 
                   Get.back();
                 },
@@ -78,7 +78,7 @@ class NewListSelectPriority extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  controller.changePriority(3);
+                  controller.changePriority(0);
                   Get.back();
                 },
                 child: Row(

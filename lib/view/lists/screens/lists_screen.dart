@@ -76,40 +76,42 @@ class ListsScreen extends StatelessWidget {
             SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: ListView.separated(
-                    physics:
-                        NeverScrollableScrollPhysics(), 
-                    shrinkWrap: true,
-                    itemCount: controller.lists.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 20.h),
-                    itemBuilder: (context, index) {
-                      return GetBuilder<HomeController>(
-                        init: controller,
-                        initState: (_) {},
-                        builder: (_) {
-                          return ListsCard(
-                            totalPrice: controller.lists[index].totalPrice,
-                            isCompleted: false,
-                            title: controller.lists[index].title,
-                            items: controller.lists[index].items
-                                .map(
-                                  (e) => ItemCard(
-                                    name: e.name,
-                                    price: e.price,
-                                    isChecked: e.isDone,
-                                    listIndex: index,
-                                    itemId: e.id ?? 0,
-                                    onToggleCheckBox: (){},
-                                  ),
-                                )
-                                .toList(),
-                            isCollapsed: controller.lists[index].isCollapsed,
-                            index: index,
-                          );
-                        },
-                      );
-                    },
-                  ),
+                  child:GetX<HomeController>(
+                          init: controller,
+                          initState: (_) {},
+                          builder: (_) {
+                            return  ListView.separated(
+                      physics:
+                          NeverScrollableScrollPhysics(), 
+                      shrinkWrap: true,
+                      itemCount: controller.lists.value.length,
+                      separatorBuilder: (_, __) => SizedBox(height: 20.h),
+                      itemBuilder: (context, index) {
+                        return ListsCard(
+                              totalPrice: controller.lists[index].totalPrice,
+                              isCompleted: false,
+                              title: controller.lists[index].title,
+                              items: controller.lists[index].items
+                                  .map(
+                                    (e) => ItemCard(
+                                      name: e.name,
+                                      price: e.price,
+                                      isChecked: e.isDone,
+                                      listIndex: index,
+                                      itemId: e.id ?? 0,
+                                      onToggleCheckBox: (){
+                                        controller.toggleIsDone(index, e.id ?? 0);
+                                      },
+                                    ),
+                                  )
+                                  .toList(),
+                              isCollapsed: controller.lists[index].isCollapsed,
+                              index: index,
+                            );
+                          },
+                        );
+                      },
+                    ),
                 ),
               ),
               SliverToBoxAdapter(
@@ -126,17 +128,18 @@ class ListsScreen extends StatelessWidget {
             SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: ListView.separated(
-                    physics:
-                        NeverScrollableScrollPhysics(), 
-                    shrinkWrap: true,
-                    itemCount: controller.completedLists.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 20.h),
-                    itemBuilder: (context, index) {
-                      return GetBuilder<HomeController>(
-                        init: controller,
-                        initState: (_) {},
-                        builder: (_) {
+
+
+                  child:GetX<HomeController>(
+                   init: controller,
+                          initState: (_) {},
+                          builder: (_)=> ListView.separated(
+                        physics:
+                            NeverScrollableScrollPhysics(), 
+                        shrinkWrap: true,
+                        itemCount: controller.completedLists.value.length,
+                        separatorBuilder: (_, __) => SizedBox(height: 20.h),
+                        itemBuilder: (context, index) {
                           return ListsCard(
                             totalPrice: controller.completedLists[index].totalPrice,
                             isCompleted: true,
@@ -149,8 +152,8 @@ class ListsScreen extends StatelessWidget {
                                     isChecked: e.isDone,
                                     listIndex: index,
                                     itemId: e.id ?? 0,
-                                    onToggleCheckBox: () {
-
+                                    onToggleCheckBox: (){
+                                      controller.toggleIsDone(index, e.id ?? 0);
                                     },
                                   ),
                                 )
@@ -159,8 +162,7 @@ class ListsScreen extends StatelessWidget {
                             index: index,
                           );
                         },
-                      );
-                    },
+                      ),
                   ),
                 ),
               ),
