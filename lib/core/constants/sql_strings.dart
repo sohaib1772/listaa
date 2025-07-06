@@ -3,7 +3,8 @@ class SqlStrings {
   static const String createCategoriesTable = '''
     CREATE TABLE categories (
       category_id INTEGER PRIMARY KEY,
-      title TEXT
+      title TEXT,
+      is_default INTEGER
     )
   ''';
 

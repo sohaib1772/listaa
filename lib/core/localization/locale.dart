@@ -18,7 +18,8 @@ class AppLocaleKeys {
   static const String createYourListEasily = 'createYourListEasily';
   static const String youCanCreateALotOfLists = 'youCanCreateALotOfLists';
   static const String selectTimeAndDate = 'selectTimeAndDate';
-  static const String fromNowYouDontForgetAnything = 'fromNowYouDontForgetAnything';
+  static const String fromNowYouDontForgetAnything =
+      'fromNowYouDontForgetAnything';
   static const String moneyReportsWeakly = 'moneyReportsWeakly';
   static const String stayUpToDateAboutYourMoney = 'stayUpToDateAboutYourMoney';
   static const String welcome = 'welcome';
@@ -44,8 +45,6 @@ class AppLocaleKeys {
   static const String completedLists = 'completedLists';
   static const String editList = 'editList';
   static const String deleteListQuestion = 'deleteListQuestion';
-  
-
 
   // validations
 
@@ -58,37 +57,39 @@ class AppLocaleKeys {
   static const String mustBeInt = 'mustBeInt';
   static const String mustBeDouble = 'mustBeDouble';
 
+  //default data
 
-
-  
-
-
-
-
-
-
-
-
+  static const String occasions = 'occasions';
+  static const String groceries = 'groceries';
+  static const String entertainment = 'entertainment';
+  static const String dairyProducts = 'dairyProducts';
+  static const String meat = 'meat';
+  static const String beverages = 'beverages';
+  static const String study = 'study';
+  static const String fruits = 'fruits';
 }
-class AppLocale extends Translations{
-  
+
+class AppLocale extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
-    
     'ar': {
       AppLocaleKeys.listaApp: 'تطبيق “Listaa”',
-      AppLocaleKeys.yourBestChoiceForShopping: 'اختيارك الأمثل لأنشاء قوائمك بسهولة لن تنسى أي شيء بعد الان',
+      AppLocaleKeys.yourBestChoiceForShopping:
+          'اختيارك الأمثل لأنشاء قوائمك بسهولة لن تنسى أي شيء بعد الان',
       AppLocaleKeys.goNow: 'انطلق الان',
       AppLocaleKeys.next: 'التالي',
       AppLocaleKeys.skip: 'تخطي',
       AppLocaleKeys.homePage: 'الصفحة الرئيسية',
       AppLocaleKeys.back: 'رجوع',
       AppLocaleKeys.createYourListEasily: 'أنشئ قوائمك بسهولة',
-      AppLocaleKeys.youCanCreateALotOfLists: 'يمكنك إنشاء العديد من القوائم وتنظيمها حسب نوع التسوق',
+      AppLocaleKeys.youCanCreateALotOfLists:
+          'يمكنك إنشاء العديد من القوائم وتنظيمها حسب نوع التسوق',
       AppLocaleKeys.selectTimeAndDate: 'حدد تذكيرات لمناسباتك',
-      AppLocaleKeys.fromNowYouDontForgetAnything: 'لن تنسى أي شيء بعد الأن مع تنبيهات التقويم الذكي',
+      AppLocaleKeys.fromNowYouDontForgetAnything:
+          'لن تنسى أي شيء بعد الأن مع تنبيهات التقويم الذكي',
       AppLocaleKeys.moneyReportsWeakly: 'تقارير مالية ذكية أسبوعيًا',
-      AppLocaleKeys.stayUpToDateAboutYourMoney: 'ابقَ على اطلاع بمصاريفك الشهرية والسنوية عبر تقارير دورية',
+      AppLocaleKeys.stayUpToDateAboutYourMoney:
+          'ابقَ على اطلاع بمصاريفك الشهرية والسنوية عبر تقارير دورية',
       AppLocaleKeys.welcome: 'اهلا بك !! 👋',
       AppLocaleKeys.lists: 'قوائم',
       AppLocaleKeys.allPriority: 'الكل',
@@ -130,9 +131,14 @@ class AppLocale extends Translations{
       AppLocaleKeys.yes: 'نعم',
       AppLocaleKeys.no: 'لا',
 
-      
-      
-    
+      AppLocaleKeys.occasions: 'مناسبات',
+      AppLocaleKeys.groceries: 'بقالة',
+      AppLocaleKeys.entertainment: 'ترفيه',
+      AppLocaleKeys.dairyProducts: 'منتجات ألبان',
+      AppLocaleKeys.meat: 'لحوم',
+      AppLocaleKeys.beverages: 'مشروبات', 
+      AppLocaleKeys.study: 'دراسة',
+      AppLocaleKeys.fruits: 'فواكه',
     },
     'en': {
       AppLocaleKeys.listaApp: '“Listaa”  App',
@@ -143,11 +149,14 @@ class AppLocale extends Translations{
       AppLocaleKeys.homePage: 'Home Page',
       AppLocaleKeys.back: 'Back',
       AppLocaleKeys.createYourListEasily: 'Create Your List Easily',
-      AppLocaleKeys.youCanCreateALotOfLists: 'You can create a lot of lists and organize them according to the type of shopping',
+      AppLocaleKeys.youCanCreateALotOfLists:
+          'You can create a lot of lists and organize them according to the type of shopping',
       AppLocaleKeys.selectTimeAndDate: 'Set reminders for your events',
-      AppLocaleKeys.fromNowYouDontForgetAnything: 'You will not forget anything from now on with smart reminders',
+      AppLocaleKeys.fromNowYouDontForgetAnything:
+          'You will not forget anything from now on with smart reminders',
       AppLocaleKeys.moneyReportsWeakly: 'Smart Weekly Money Reports',
-      AppLocaleKeys.stayUpToDateAboutYourMoney: 'Stay up to date about your monthly and yearly expenses with recurring reports',
+      AppLocaleKeys.stayUpToDateAboutYourMoney:
+          'Stay up to date about your monthly and yearly expenses with recurring reports',
       AppLocaleKeys.welcome: 'Welcome !! 👋',
       AppLocaleKeys.lists: 'Lists',
       AppLocaleKeys.allPriority: 'All',
@@ -179,19 +188,24 @@ class AppLocale extends Translations{
       AppLocaleKeys.reset: 'Reset',
       AppLocaleKeys.date: 'Date',
       AppLocaleKeys.more: 'More',
-    
+
       AppLocaleKeys.completedLists: 'Completed',
       AppLocaleKeys.editList: 'Edit List',
       AppLocaleKeys.share: 'Share',
       AppLocaleKeys.delete: 'Delete',
-      AppLocaleKeys.deleteListQuestion: 'Are you sure you want to delete this list ?',
+      AppLocaleKeys.deleteListQuestion:
+          'Are you sure you want to delete this list ?',
       AppLocaleKeys.yes: 'Yes',
       AppLocaleKeys.no: 'No',
-    
-    
-    
-    
+
+      AppLocaleKeys.occasions: 'Occasions',
+      AppLocaleKeys.groceries: 'Groceries',
+      AppLocaleKeys.entertainment: 'Entertainment',
+      AppLocaleKeys.dairyProducts: 'Dairy Products',
+      AppLocaleKeys.meat: 'Meat',
+      AppLocaleKeys.beverages: 'Beverages',
+      AppLocaleKeys.study: 'Study',
+      AppLocaleKeys.fruits: 'Fruits',
     },
   };
-
 }
