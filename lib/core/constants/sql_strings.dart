@@ -16,7 +16,9 @@ class SqlStrings {
       total_price REAL,
       priority INTEGER,
       is_deleted INTEGER,
-      is_collapsed INTEGER
+      is_collapsed INTEGER,
+      category_id INTEGER,
+      FOREIGN KEY (category_id) REFERENCES categories(category_id)
     )
   ''';
 
@@ -29,17 +31,6 @@ class SqlStrings {
       is_done INTEGER,
       list_id INTEGER,
       FOREIGN KEY (list_id) REFERENCES lists(list_id)
-    )
-  ''';
-
-  // ListCategories table (many-to-many relationship)
-  static const String createListCategoriesTable = '''
-    CREATE TABLE list_categories (
-      id INTEGER PRIMARY KEY,
-      list_id INTEGER,
-      category_id INTEGER,
-      FOREIGN KEY (list_id) REFERENCES lists(id),
-      FOREIGN KEY (category_id) REFERENCES categories(id)
     )
   ''';
 
@@ -78,7 +69,6 @@ class SqlStrings {
     createCategoriesTable,
     createListsTable,
     createItemsTable,
-    createListCategoriesTable,
     createRemindersTable,
     createRecipesTable,
     createRecipesItemsTable,

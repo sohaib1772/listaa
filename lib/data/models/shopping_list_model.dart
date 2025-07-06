@@ -8,6 +8,7 @@ class ShoppingListModel {
   final int priority;
   final bool isDeleted;
   bool isCollapsed;
+  final int categoryId;
   List<ItemModel> items;
 
   ShoppingListModel({
@@ -18,8 +19,9 @@ class ShoppingListModel {
     required this.priority,
     required this.isDeleted,
     this.isCollapsed = false,
+    required this.categoryId,
     List<ItemModel>? items,
-  }): items = items ?? [];
+  }) : items = items ?? [];
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,6 +33,7 @@ class ShoppingListModel {
       'is_deleted': isDeleted ? 1 : 0,
       'items': items.map((item) => item.toMap()).toList(),
       'is_collapsed': isCollapsed ? 1 : 0,
+      'category_id': categoryId,
     };
   }
 
@@ -43,6 +46,7 @@ class ShoppingListModel {
       priority: map['priority'],
       isDeleted: map['is_deleted'] == 1,
       isCollapsed: map['is_collapsed'] == 1,
+      categoryId: map['category_id'],
     );
   }
 
