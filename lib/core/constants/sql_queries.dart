@@ -60,4 +60,26 @@ class SqlQueries {
     ) 
     VALUES (?, ?, ?, ?)
   ''';
+
+  static const String deleteList = '''
+  DELETE FROM lists 
+  WHERE list_id = ?
+  ''';
+
+  static const String deleteListItems = '''
+  DELETE FROM items 
+  WHERE list_id = ?
+  ''';
+
+  static const String softDeleteList = '''
+  UPDATE lists 
+  SET is_deleted = 1 
+  WHERE list_id = ?
+''';
+
+  static const String restoreList = '''
+  UPDATE lists 
+  SET is_deleted = 0 
+  WHERE list_id = ?
+''';  
 }
