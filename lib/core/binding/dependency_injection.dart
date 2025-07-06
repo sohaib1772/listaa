@@ -6,16 +6,17 @@ import 'package:listaa/controller/onboarding_controller.dart';
 import 'package:listaa/controller/welcome_controller.dart';
 import 'package:listaa/data/static/home_data.dart';
 import 'package:listaa/data/static/list_data.dart';
+import 'package:listaa/data/static/trash_data.dart';
 
-class DependencyInjection extends Bindings{
+class DependencyInjection extends Bindings {
   @override
   void dependencies() {
-   Get.lazyPut(()=> WelcomeController());
-   Get.lazyPut(()=> OnboardingController());
-   Get.lazyPut(()=> NewListController(),fenix: true);
-   Get.lazyPut(()=> HomeController(),fenix: true);
-  Get.lazyPut(()=>HomeDataImpl(), fenix: true);
-   Get.lazyPut(()=>ListDataImpl(), fenix: true);
-  
+    Get.lazyPut(() => WelcomeController());
+    Get.lazyPut(() => OnboardingController());
+    Get.lazyPut(() => NewListController(), fenix: true);
+    Get.lazyPut(() => HomeController(), fenix: true);
+    Get.lazyPut(() => HomeDataImpl(), fenix: true);
+    Get.lazyPut(() => ListDataImpl(), fenix: true);
+    Get.lazyPut(() => TrashDataImpl(), fenix: true);
   }
 }

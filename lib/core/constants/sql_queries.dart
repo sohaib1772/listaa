@@ -60,7 +60,24 @@ class SqlQueries {
     ) 
     VALUES (?, ?, ?, ?)
   ''';
-
+  static const String getSoftDeletedListsWithItems = '''
+  SELECT 
+    l.list_id,
+    l.title,
+    l.date,
+    l.total_price,
+    l.priority,
+    l.is_deleted,
+    l.is_collapsed,
+    i.item_id,
+    i.name AS item_name,
+    i.price AS item_price,
+    i.is_done AS item_is_done
+  FROM lists l
+  LEFT JOIN items i ON i.list_id = l.list_id
+  WHERE l.is_deleted = 1
+  ORDER BY l.date DESC, l.list_id, i.item_id
+''';
   static const String deleteList = '''
   DELETE FROM lists 
   WHERE list_id = ?
@@ -81,5 +98,5 @@ class SqlQueries {
   UPDATE lists 
   SET is_deleted = 0 
   WHERE list_id = ?
-''';  
+''';
 }
