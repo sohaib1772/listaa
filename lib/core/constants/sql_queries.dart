@@ -60,6 +60,24 @@ class SqlQueries {
     ) 
     VALUES (?, ?, ?, ?)
   ''';
+  static const String getRemindersList = '''
+  SELECT 
+    l.list_id,
+    l.title,
+    l.date,
+    l.total_price,
+    l.priority,
+    l.is_deleted,
+    l.is_collapsed,
+    i.item_id,
+    i.name AS item_name,
+    i.price AS item_price,
+    i.is_done AS item_is_done
+  FROM lists l
+  LEFT JOIN items i ON i.list_id = l.list_id
+  WHERE i.is_done = 0
+  ORDER BY l.date DESC, l.list_id, i.item_id
+''';
   static const String getSoftDeletedListsWithItems = '''
   SELECT 
     l.list_id,
