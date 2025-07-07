@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  bottom_picker: ^3.2.1
   calendar_date_picker2: ^2.0.1
   carousel_slider: ^5.1.1
   cupertino_icons: ^1.0.8
@@ -39,6 +40,8 @@ dependencies:
   flutter_svg: ^2.2.0
   get: ^4.7.2
   group_button: ^5.3.4
+  intl: ^0.20.2
+  qr_flutter: ^4.1.0
   shared_preferences: ^2.5.3
   sqflite: ^2.4.2
 

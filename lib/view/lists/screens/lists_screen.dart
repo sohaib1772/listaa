@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:listaa/controller/all_lists_controller.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
@@ -18,7 +19,7 @@ import 'package:listaa/view/home/widgets/home_sliders.dart';
 
 class ListsScreen extends StatelessWidget {
   ListsScreen({super.key});
-  final HomeController controller = Get.find();
+  final AllListsController controller = Get.find();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,14 @@ class ListsScreen extends StatelessWidget {
             // Home Slider
             SliverToBoxAdapter(
               
-              child: HomeSelectProiority(),
+              child: GetBuilder<AllListsController>(
+                init: controller,
+                builder: (_) {
+                  return HomeSelectProiority(
+                              controller: controller,
+                            ); 
+                },
+              ),
             ),
             SliverToBoxAdapter(
               child: SizedBox(height: 20.h),
@@ -76,7 +84,7 @@ class ListsScreen extends StatelessWidget {
             SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child:GetX<HomeController>(
+                  child:GetBuilder<AllListsController>(
                           init: controller,
                           initState: (_) {},
                           builder: (_) {
@@ -88,23 +96,13 @@ class ListsScreen extends StatelessWidget {
                       separatorBuilder: (_, __) => SizedBox(height: 20.h),
                       itemBuilder: (context, index) {
                         return ListsCard(
-                              totalPrice: controller.lists[index].totalPrice,
+                              controller: controller,
+                              model: controller.lists[index],
+                              toggleIsCollapse: (){
+                                controller.toggleIsCollapse(index,false);
+                              },
                               isCompleted: false,
-                              title: controller.lists[index].title,
-                              items: controller.lists[index].items
-                                  .map(
-                                    (e) => ItemCard(
-                                      name: e.name,
-                                      price: e.price,
-                                      isChecked: e.isDone,
-                                      listIndex: index,
-                                      itemId: e.id ?? 0,
-                                      onToggleCheckBox: (){
-                                        controller.toggleIsDone(index, e.id ?? 0);
-                                      },
-                                    ),
-                                  )
-                                  .toList(),
+                             
                               isCollapsed: controller.lists[index].isCollapsed,
                               index: index,
                             );
@@ -130,7 +128,7 @@ class ListsScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
 
 
-                  child:GetX<HomeController>(
+                  child:GetBuilder<AllListsController>(
                    init: controller,
                           initState: (_) {},
                           builder: (_)=> ListView.separated(
@@ -141,23 +139,12 @@ class ListsScreen extends StatelessWidget {
                         separatorBuilder: (_, __) => SizedBox(height: 20.h),
                         itemBuilder: (context, index) {
                           return ListsCard(
-                            totalPrice: controller.completedLists[index].totalPrice,
+                            controller: controller,
+                            toggleIsCollapse: (){
+                                controller.toggleIsCollapse(index,true);
+                              },
                             isCompleted: true,
-                            title: controller.completedLists[index].title,
-                            items: controller.completedLists[index].items
-                                .map(
-                                  (e) => ItemCard(
-                                    name: e.name,
-                                    price: e.price,
-                                    isChecked: e.isDone,
-                                    listIndex: index,
-                                    itemId: e.id ?? 0,
-                                    onToggleCheckBox: (){
-                                      controller.toggleIsDone(index, e.id ?? 0);
-                                    },
-                                  ),
-                                )
-                                .toList(),
+                            model: controller.completedLists[index],
                             isCollapsed: controller.completedLists[index].isCollapsed,
                             index: index,
                           );

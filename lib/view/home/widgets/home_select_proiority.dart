@@ -10,10 +10,10 @@ import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 
 class HomeSelectProiority extends StatelessWidget {
-  HomeSelectProiority({super.key, this.horizontalPadding = 20});
-  HomeController controller = Get.find();
+  HomeSelectProiority({super.key, this.horizontalPadding = 20,required this.controller});
   double horizontalPadding;
 
+  final controller;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -21,13 +21,28 @@ class HomeSelectProiority extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(width: horizontalPadding.w),
-          SelectPriorityButton(iconNames: AppIconsName.all,priority: 10,),
+          SelectPriorityButton(
+            controller: controller,
+            iconNames: AppIconsName.all,priority: 10,),
           SizedBox(width: 5.w),
-          SelectPriorityButton(iconNames: AppIconsName.redFlag,priority: 2,),
+          SelectPriorityButton(
+            controller: controller,
+            iconNames: AppIconsName.redFlag,priority: 0,
+            
+          ),
           SizedBox(width: 5.w),
-          SelectPriorityButton(iconNames: AppIconsName.blueFlag,priority: 1,),
+          SelectPriorityButton(
+            
+            controller: controller,
+            iconNames: AppIconsName.blueFlag,priority: 1,
+        
+          ),
           SizedBox(width: 5.w),
-          SelectPriorityButton(iconNames: AppIconsName.grayFlag,priority: 0,),
+          SelectPriorityButton(
+            controller: controller,
+            iconNames: AppIconsName.grayFlag,priority: 2,
+           
+          ),
           SizedBox(width: horizontalPadding.w),
         ],
       ),
@@ -35,15 +50,14 @@ class HomeSelectProiority extends StatelessWidget {
   }
 }
 
-class SelectPriorityButton extends StatelessWidget {
-   SelectPriorityButton({super.key,required this.iconNames,required this.priority});
+class SelectPriorityButton<T> extends StatelessWidget {
+   SelectPriorityButton({super.key,required this.iconNames,required this.priority,required this.controller});
 
-  HomeController controller = Get.find();
+  final controller;
   AppIconsName iconNames;
   int priority;
-
   BoxDecoration getDecoration(int index) {
-    if (index == controller.priority.value) {
+    if (index == controller.priority) {
       return BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -61,11 +75,11 @@ class SelectPriorityButton extends StatelessWidget {
     switch (index) {
       case 10:
         return AppLocaleKeys.allPriority.tr;
-      case 2:
+      case 0:
         return AppLocaleKeys.highPriority.tr;
       case 1:
         return AppLocaleKeys.midPriority.tr;
-      case 0:
+      case 2:
         return AppLocaleKeys.lowPriority.tr;
       default:
         return AppLocaleKeys.allPriority.tr;
@@ -76,9 +90,8 @@ class SelectPriorityButton extends StatelessWidget {
     return InkWell(
             onTap: () {
               controller.changePriority(priority);
-              print(controller.priority.value);
             },
-            child: GetX<HomeController>(
+            child: GetBuilder(
               init: controller,
               initState: (_) {},
               builder: (_) {

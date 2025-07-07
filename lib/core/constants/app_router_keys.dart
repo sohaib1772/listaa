@@ -4,4 +4,5 @@ class AppRouterKeys {
   static const String home = '/home';
   static const String newList = '/newList';
   static const String lists = '/lists';
+  static const String remainders = '/remainders';
 }

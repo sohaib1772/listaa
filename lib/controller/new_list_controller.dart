@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
-import 'package:listaa/data/static/list_data.dart';
+import 'package:listaa/data/repositories/list_data.dart';
 
 class RowItemsModel {
   TextEditingController nameController;
@@ -23,6 +23,7 @@ class NewListController extends GetxController {
   RxDouble totalAmount = 0.0.obs;
   RxInt selectedPriority = 10.obs;
   RxString date = "".obs;
+  RxString time = "".obs;
   RxString title = "".obs;
 
   RxBool isLoading = false.obs;
@@ -64,11 +65,15 @@ class NewListController extends GetxController {
   void changeDate(String date) {
     this.date.value = date;
   }
+  void changeTime(String time) {
+    this.time.value = time;
+  }
 
   Future<void> addNewList() async {
     isLoading.value = true;
     await listData.createNewList(
       ShoppingListModel(
+        categoryId: 0,
         isDeleted: false,
         title: title.value,
         date: DateTime.tryParse(date.value) ?? DateTime.now(),

@@ -105,6 +105,7 @@ class AppDrawerIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      
       style: getButtonStyle(appButtonType: AppButtonType.drawerButton),
       onPressed: () => onPressed(),
       child: AppIcons(icon: icon, size: icon == AppIconsName.close ? 18 : 24),

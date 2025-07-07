@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:get/get_navigation/get_navigation.dart';
 
 class AppLocaleKeys {
@@ -45,6 +47,8 @@ class AppLocaleKeys {
   static const String completedLists = 'completedLists';
   static const String editList = 'editList';
   static const String deleteListQuestion = 'deleteListQuestion';
+  static const String selectTime = 'selectTime';
+
 
   // validations
 
@@ -70,6 +74,8 @@ class AppLocaleKeys {
 }
 
 class AppLocale extends Translations {
+
+
   @override
   Map<String, Map<String, String>> get keys => {
     'ar': {
@@ -139,6 +145,7 @@ class AppLocale extends Translations {
       AppLocaleKeys.beverages: 'مشروبات', 
       AppLocaleKeys.study: 'دراسة',
       AppLocaleKeys.fruits: 'فواكه',
+      AppLocaleKeys.selectTime: 'اختر الوقت',
     },
     'en': {
       AppLocaleKeys.listaApp: '“Listaa”  App',
@@ -206,6 +213,7 @@ class AppLocale extends Translations {
       AppLocaleKeys.beverages: 'Beverages',
       AppLocaleKeys.study: 'Study',
       AppLocaleKeys.fruits: 'Fruits',
+      AppLocaleKeys.selectTime: 'Select time',
     },
   };
 }

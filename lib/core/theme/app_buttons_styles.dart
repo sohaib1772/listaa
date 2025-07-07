@@ -53,7 +53,7 @@ ButtonStyle getButtonStyle({required AppButtonType appButtonType}) {
       );
     case AppButtonType.drawerButton:
       return ButtonStyle(
-        fixedSize: WidgetStatePropertyAll(Size(36.w, 30.h)),
+        fixedSize: WidgetStatePropertyAll(Size(36.w, 36.h)),
         backgroundColor: WidgetStatePropertyAll(
           AppColors.drawerIconButtonsbackgroundColor,
         ),

@@ -46,7 +46,7 @@ class ShoppingListModel {
       priority: map['priority'],
       isDeleted: map['is_deleted'] == 1,
       isCollapsed: map['is_collapsed'] == 1,
-      categoryId: map['category_id'],
+      categoryId: map['category_id']
     );
   }
 

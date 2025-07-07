@@ -1,3 +1,5 @@
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:bottom_picker/resources/arrays.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,21 +8,25 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/instance_manager.dart';
+import 'package:intl/intl.dart';
 import 'package:listaa/controller/new_list_controller.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/theme/app_buttons_styles.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
+import 'package:listaa/view/new_list/widgets/new_list_select_time.dart';
 
 class NewListSelectDate extends StatelessWidget {
-   NewListSelectDate({super.key});
+  NewListSelectDate({super.key});
   NewListController controller = Get.find();
   String selectedDate = '';
+  String selectedTime = "";
   @override
   Widget build(BuildContext context) {
     return Obx(
-      ()=> IconButton(
+      () => IconButton(
         onPressed: () {
           Get.bottomSheet(
             enableDrag: true,
@@ -40,7 +46,10 @@ class NewListSelectDate extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(AppLocaleKeys.date.tr, style: AppTextStyles.darkbold20),
+                    Text(
+                      AppLocaleKeys.date.tr,
+                      style: AppTextStyles.darkbold20,
+                    ),
                     SizedBox(height: 10),
                     Container(
                       decoration: BoxDecoration(
@@ -55,7 +64,7 @@ class NewListSelectDate extends StatelessWidget {
                         ],
                       ),
                       child: Obx(
-                        ()=> CalendarDatePicker2(
+                        () => CalendarDatePicker2(
                           config: CalendarDatePicker2Config(
                             controlsHeight: 20.h,
                             calendarType: CalendarDatePicker2Type.single,
@@ -63,16 +72,19 @@ class NewListSelectDate extends StatelessWidget {
                             dayTextStyle: AppTextStyles.darkbold20,
                           ),
                           value: [
-                            DateTime.tryParse(controller.date.value) ?? DateTime.now(),
+                            DateTime.tryParse(controller.date.value) ??
+                                DateTime.now(),
                           ],
-                          
+
                           onValueChanged: (dates) {
                             selectedDate = dates.first.toString();
-                           controller.changeDate(selectedDate);
+                            controller.changeDate(selectedDate);
                           },
                         ),
                       ),
                     ),
+                    SizedBox(height: 10),
+                    NewListSelectTime(selectedTime: selectedTime),
                     SizedBox(height: 10),
                     Row(
                       children: [
@@ -80,7 +92,6 @@ class NewListSelectDate extends StatelessWidget {
                           child: AppTextButtons(
                             text: AppLocaleKeys.save.tr,
                             onPressed: () {
-                               
                               Get.back();
                             },
                           ),
@@ -91,8 +102,10 @@ class NewListSelectDate extends StatelessWidget {
                             type: AppButtonType.light,
                             text: AppLocaleKeys.reset.tr,
                             onPressed: () {
-                              selectedDate="";
+                              selectedDate = "";
+                              selectedTime = "";
                               controller.changeDate("");
+                              controller.changeTime("");
                             },
                           ),
                         ),
@@ -104,7 +117,13 @@ class NewListSelectDate extends StatelessWidget {
             ),
           );
         },
-         icon: AppIcons(icon: AppIconsName.clock, size: 24,color:controller.date.value.isNotEmpty ? AppColors.redIconColor :  AppColors.primaryTextColor), 
+        icon: AppIcons(
+          icon: AppIconsName.clock,
+          size: 24,
+          color: controller.date.value.isNotEmpty
+              ? AppColors.redIconColor
+              : AppColors.primaryTextColor,
+        ),
       ),
     );
   }

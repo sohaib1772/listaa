@@ -1,27 +1,34 @@
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:listaa/data/repositories/home_data.dart';
 
-
-class HomeController extends GetxController {
-  int priority = 10;
+class AllListsController extends GetxController{
+int priority = 10;
   var scrollAlpha = 0.obs;
   HomeData homeData = Get.find<HomeDataImpl>();
   RxBool isLoading = true.obs;
 
   void changePriority(int index) async{
     priority = index;
-    print("priority.value ${priority}");
     index == 10 ? await getAllLists() : await getHomeListsByPriority(index);
     update();
   }
 
   RxList<ShoppingListModel> lists = <ShoppingListModel>[].obs;
+  RxList<ShoppingListModel> completedLists = <ShoppingListModel>[].obs;
 
-  void toggleIsCollapse(int index) {
-   
+  void toggleIsCollapse(int index, bool isCompleted) {
+    if (isCompleted) {
+      completedLists[index].isCollapsed = !completedLists[index].isCollapsed;
+      print("completedLists[index].isCollapsed ${completedLists[index].isCollapsed}");
+    } else {
       lists[index].isCollapsed = !lists[index].isCollapsed;
-    
+      print("lists[index].isCollapsed ${lists[index].isCollapsed}");
+    }
+
     update();
   }
 
@@ -38,9 +45,8 @@ class HomeController extends GetxController {
   }
 
   void toggleIsDone(int listIndex, int itemId) {
-   //  lists[listIndex].items.where((element) => element.id == itemId).first.isDone = !lists[listIndex].items.where((element) => element.id == itemId).first.isDone;
-   
-   print("home screen check");
+    // lists[listIndex].items.where((element) => element.id == itemId).first.isDone = !lists[listIndex].items.where((element) => element.id == itemId).first.isDone;
+     print("all lists check");
     update();
   }
 
@@ -48,8 +54,7 @@ class HomeController extends GetxController {
   void onInit() async{
     await getAllLists();
     isLoading.value = false;
-    
-    update();
+      update();
     super.onInit();
   }
 }

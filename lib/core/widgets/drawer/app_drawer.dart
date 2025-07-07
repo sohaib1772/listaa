@@ -61,7 +61,9 @@ class AppDrawer extends StatelessWidget {
                               text: AppLocaleKeys.lists.tr,
                             ),
                             AppDrawerTextIconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(AppRouterKeys.remainders);
+                              },
                               text: AppLocaleKeys.remainders.tr,
                               icon: AppIconsName.clock,
                             ),

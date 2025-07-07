@@ -8,6 +8,7 @@ class SqlQueries {
     lists.priority,
     lists.is_deleted,
     lists.is_collapsed,
+    lists.category_id,
     items.item_id,
     items.name,
     items.price,
@@ -29,6 +30,7 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.category_id,
     i.item_id,
     i.name,
     i.price,
@@ -46,9 +48,10 @@ class SqlQueries {
       total_price, 
       priority, 
       is_deleted, 
-      is_collapsed
+      is_collapsed,
+      category_id
     ) 
-    VALUES (?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   ''';
 
   static const String createNewItem = '''
@@ -69,9 +72,10 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.category_id,
     i.item_id,
-    i.name AS item_name,
-    i.price AS item_price,
+    i.name,
+    i.price,
     i.is_done AS item_is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id

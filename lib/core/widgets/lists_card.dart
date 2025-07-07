@@ -13,23 +13,24 @@ import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/item_card.dart';
+import 'package:listaa/data/models/shopping_list_model.dart';
 
 class ListsCard extends StatelessWidget {
-const  ListsCard({
+  const ListsCard({
     super.key,
-    required this.title,
-    required this.items,
     this.index = 1,
     required this.isCollapsed,
     required this.isCompleted,
-    required this.totalPrice,
+    required this.toggleIsCollapse,
+    required this.model,
+    required this.controller,
   });
-  final double totalPrice;
-  final String title;
-  final List<ItemCard> items;
   final bool isCollapsed;
   final int index;
   final bool isCompleted;
+  final Function toggleIsCollapse;
+  final ShoppingListModel model;
+  final controller;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,25 +39,43 @@ const  ListsCard({
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.grey, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withAlpha(65),
+            spreadRadius: 2,
+            blurRadius: 10,
+          ),
+        ],
       ),
       child: isCollapsed
-          ? _ListCardCollapsed(title: title, items: items, index: index, isCompleted: isCompleted)
-          : _ListCardNotCollapsed(title: title, items: items, index: index, isCompleted: isCompleted, totalPrice: totalPrice),
+          ? _ListCardCollapsed(
+              index: index,
+              isCompleted: isCompleted,
+              toggleIsCollapse: toggleIsCollapse,
+              model: model,
+            )
+          : _ListCardNotCollapsed(
+              controller: controller,
+              index: index,
+              isCompleted: isCompleted,
+              toggleIsCollapse: toggleIsCollapse,
+              model: model,
+            ),
     );
   }
 }
 
 class _ListCardCollapsed extends StatefulWidget {
- const _ListCardCollapsed({
-    required this.title,
-    required this.items,
+  const _ListCardCollapsed({
     required this.index,
     required this.isCompleted,
+    required this.toggleIsCollapse,
+    required this.model,
   });
- final String title;
- final List<ItemCard> items;
- final int index;
- final bool isCompleted;
+  final int index;
+  final bool isCompleted;
+  final Function toggleIsCollapse;
+  final ShoppingListModel model;
 
   @override
   State<_ListCardCollapsed> createState() => _ListCardCollapsedState();
@@ -67,10 +86,10 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
   @override
   initState() {
     super.initState();
-    finishedItems = widget.items.where((element) => element.isChecked).length;
+    finishedItems = widget.model.items
+        .where((element) => element.isDone)
+        .length;
   }
-
-  HomeController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -83,15 +102,18 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
             SizedBox(width: 10),
             GestureDetector(
               onTap: () {
-                Get.toNamed(AppRouterKeys.newList, arguments: {"model": controller.lists[widget.index]});
+                Get.toNamed(
+                  AppRouterKeys.newList,
+                  arguments: {"model": widget.model},
+                );
               },
-              child: Text(widget.title, style: AppTextStyles.darkbold20)),
+              child: Text(widget.model.title, style: AppTextStyles.darkbold20),
+            ),
             Spacer(),
             IconButton(
               icon: AppIcons(icon: AppIconsName.arrowDown, size: 16),
               onPressed: () {
-                print('pressed');
-                controller.toggleIsCollapse(widget.index,widget.isCompleted);
+                widget.toggleIsCollapse();
               },
             ),
           ],
@@ -106,12 +128,12 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
                   minHeight: 8.h,
                   backgroundColor: Colors.grey,
                   color: AppColors.greenIconColor,
-                  value: finishedItems / widget.items.length,
+                  value: finishedItems / widget.model.items.length,
                 ),
               ),
               SizedBox(width: 10),
               Text(
-                '$finishedItems/${widget.items.length}',
+                '$finishedItems/${widget.model.items.length}',
                 style: AppTextStyles.darkbold20,
               ),
             ],
@@ -125,52 +147,97 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
 
 class _ListCardNotCollapsed extends StatelessWidget {
   _ListCardNotCollapsed({
-    required this.title,
-    required this.items,
     required this.index,
     required this.isCompleted,
-    required this.totalPrice,
+    required this.toggleIsCollapse,
+    required this.model,
+    required this.controller,
   });
- final double totalPrice;
- final String title;
- final List<ItemCard> items;
- final bool isCollapsed = false;
- final int index;
- final bool isCompleted;
- final HomeController controller = Get.find();
+  final bool isCollapsed = false;
+  final int index;
+  final bool isCompleted;
+  final Function toggleIsCollapse;
+  final ShoppingListModel model;
+  final controller;
+
+  Widget getPriorityFlag(int index) {
+    switch (index) {
+      case 10:
+        return AppIcons(icon: AppIconsName.all);
+      case 2:
+        return AppIcons(icon: AppIconsName.redFlag);
+      case 1:
+        return AppIcons(icon: AppIconsName.blueFlag);
+      case 0:
+        return AppIcons(icon: AppIconsName.grayFlag);
+      default:
+        return AppIcons(icon: AppIconsName.all);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: 10),
+        SizedBox(width: 10.w),
         Row(
           children: [
-            SizedBox(width: 10),
+            SizedBox(width: 10.w),
             GestureDetector(
               onTap: () {
-                Get.toNamed(AppRouterKeys.newList, arguments: {"model": controller.lists[index]});
+                Get.toNamed(AppRouterKeys.newList, arguments: {"model": model});
               },
-              child: Text(title, style: AppTextStyles.darkbold20)),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  getPriorityFlag(model.priority),
+                  SizedBox(width: 10.w),
+                  SizedBox(
+                    width: 150.w,
+                    child: Text(
+                      model.title,
+                      style: AppTextStyles.darkbold20.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Spacer(),
             IconButton(
-              icon: Transform( // we don't have arrow up icon for now. We use arrow down and flip it :) 
+              icon: Transform(
+                // we don't have arrow up icon for now. We use arrow down and flip it :)
                 alignment: Alignment.center,
-                transform: Matrix4.rotationX(math.pi), 
+                transform: Matrix4.rotationX(math.pi),
                 child: AppIcons(icon: AppIconsName.arrowDown, size: 16),
               ),
               onPressed: () {
-                controller.toggleIsCollapse(index,isCompleted);
+                toggleIsCollapse();
               },
             ),
           ],
         ),
 
-        Column(mainAxisSize: MainAxisSize.min, children: items),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: model.items.map((e) {
+            return ItemCard(
+              controller: controller,
+              onToggleCheckBox: () {},
+              name: e.name,
+              price: e.price,
+              isChecked: e.isDone,
+              listIndex: index,
+              itemId: e.id ?? 0,
+            );
+          }).toList(),
+        ),
 
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding:  EdgeInsets.symmetric(horizontal: 10.w),
           child: Divider(),
         ),
         Row(
@@ -180,9 +247,13 @@ class _ListCardNotCollapsed extends StatelessWidget {
             SizedBox(width: 4.w),
             Text(AppLocaleKeys.totalAmount.tr, style: AppTextStyles.darkbold20),
             Spacer(),
-            Text(totalPrice.toString(), style: AppTextStyles.darkbold20),
+            Text(model.totalPrice.toString(), style: AppTextStyles.darkbold20),
             SizedBox(width: 4.w),
-            AppIcons(icon: AppIconsName.dollar, size: 22,color: AppColors.greenIconColor,),
+            AppIcons(
+              icon: AppIconsName.dollar,
+              size: 22,
+              color: AppColors.greenIconColor,
+            ),
             SizedBox(width: 10.w),
           ],
         ),
