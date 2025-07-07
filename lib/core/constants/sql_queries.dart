@@ -127,4 +127,16 @@ class SqlQueries {
   SET is_deleted = 0 
   WHERE list_id = ?
 ''';
+
+  static const String getCategories = '''
+  Select * from categories
+''';
+
+  static const String createNewCategory = '''
+    INSERT INTO categories (
+      title, 
+      is_default
+    ) 
+    VALUES (?, ?)
+  ''';
 }

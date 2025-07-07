@@ -7,6 +7,7 @@ import 'package:listaa/controller/onboarding_controller.dart';
 import 'package:listaa/controller/remainder_controller.dart';
 import 'package:listaa/controller/welcome_controller.dart';
 import 'package:listaa/core/helper/formater.dart';
+import 'package:listaa/data/repositories/category_data.dart';
 import 'package:listaa/data/repositories/home_data.dart';
 import 'package:listaa/data/repositories/list_data.dart';
 import 'package:listaa/data/repositories/reminders_data.dart';
@@ -26,6 +27,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => RemainderController(), fenix: true);
     Get.lazyPut(() => AllListsController(), fenix: true);
     Get.lazyPut(() => Formater(), fenix: true);
-    
+    Get.lazyPut(() => CategoryDataImpl(), fenix: true);
   }
 }
