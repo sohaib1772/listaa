@@ -14,6 +14,7 @@ class SqlStrings {
       list_id INTEGER PRIMARY KEY,
       title TEXT,
       date DATETIME,
+      time DATETIME,
       total_price REAL,
       priority INTEGER,
       is_deleted INTEGER,

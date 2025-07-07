@@ -4,6 +4,7 @@ class SqlQueries {
     lists.list_id,
     lists.title,
     lists.date,
+    lists.time,
     lists.total_price,
     lists.priority,
     lists.is_deleted,
@@ -26,6 +27,7 @@ class SqlQueries {
     l.list_id,
     l.title,
     l.date,
+    l.time,
     l.total_price,
     l.priority,
     l.is_deleted,
@@ -44,14 +46,15 @@ class SqlQueries {
   static const String createNewList = '''
     INSERT INTO lists (
       title, 
-      date, 
+      date,
+      time,
       total_price, 
       priority, 
       is_deleted, 
       is_collapsed,
       category_id
     ) 
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   ''';
 
   static const String createNewItem = '''
@@ -68,6 +71,7 @@ class SqlQueries {
     l.list_id,
     l.title,
     l.date,
+    l.time,
     l.total_price,
     l.priority,
     l.is_deleted,
@@ -76,7 +80,7 @@ class SqlQueries {
     i.item_id,
     i.name,
     i.price,
-    i.is_done AS item_is_done
+    i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
   WHERE i.is_done = 0
@@ -87,14 +91,16 @@ class SqlQueries {
     l.list_id,
     l.title,
     l.date,
+    l.time,
     l.total_price,
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.category_id,
     i.item_id,
-    i.name AS item_name,
-    i.price AS item_price,
-    i.is_done AS item_is_done
+    i.name,
+    i.price,
+    i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
   WHERE l.is_deleted = 1
