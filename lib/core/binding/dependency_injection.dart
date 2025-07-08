@@ -7,7 +7,12 @@ import 'package:listaa/controller/onboarding_controller.dart';
 import 'package:listaa/controller/remainder_controller.dart';
 import 'package:listaa/controller/trash_controller.dart';
 import 'package:listaa/controller/welcome_controller.dart';
+<<<<<<< HEAD
 import 'package:listaa/core/helper/formatter.dart';
+=======
+import 'package:listaa/core/helper/formater.dart';
+import 'package:listaa/data/repositories/category_data.dart';
+>>>>>>> c8c24f9b3337b091d38d07e517848961cec2db09
 import 'package:listaa/data/repositories/home_data.dart';
 import 'package:listaa/data/repositories/list_data.dart';
 import 'package:listaa/data/repositories/reminders_data.dart';
@@ -26,8 +31,13 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => HomeController(), fenix: true);
     Get.lazyPut(() => RemainderController(), fenix: true);
     Get.lazyPut(() => AllListsController(), fenix: true);
+<<<<<<< HEAD
     Get.lazyPut(() => TrashController(), fenix: true);
     Get.lazyPut(() => Formatter(), fenix: true);
     
+=======
+    Get.lazyPut(() => Formater(), fenix: true);
+    Get.lazyPut(() => CategoryDataImpl(), fenix: true);
+>>>>>>> c8c24f9b3337b091d38d07e517848961cec2db09
   }
 }

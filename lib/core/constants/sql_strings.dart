@@ -4,7 +4,7 @@ class SqlStrings {
     CREATE TABLE categories (
       category_id INTEGER PRIMARY KEY,
       title TEXT,
-      is_default INTEGER
+      is_default INTEGER DEFAULT 0
     )
   ''';
 
@@ -14,6 +14,7 @@ class SqlStrings {
       list_id INTEGER PRIMARY KEY,
       title TEXT,
       date DATETIME,
+      time DATETIME,
       total_price REAL,
       priority INTEGER,
       is_deleted INTEGER,

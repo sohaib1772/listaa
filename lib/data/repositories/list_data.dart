@@ -28,12 +28,13 @@ class ListDataImpl extends DbHelper implements ListData {
     // Prepare arguments list
     final List<dynamic> arguments = [
       shoppingList.title,
-      shoppingList.date.toIso8601String(), // Convert DateTime to string
+      shoppingList.date.toIso8601String(),
+      shoppingList.time?.toIso8601String(),
       shoppingList.totalPrice,
       shoppingList.priority,
       shoppingList.isDeleted ? 1 : 0,
       shoppingList.isCollapsed ? 1 : 0,
-      shoppingList.categoryId 
+      shoppingList.categoryId,
     ];
 
     // Execute the insert

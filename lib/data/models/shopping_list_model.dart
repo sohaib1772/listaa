@@ -4,6 +4,7 @@ class ShoppingListModel {
   final int? id;
   final String title;
   final DateTime date;
+  final DateTime? time;
   final double totalPrice;
   final int priority;
   final bool isDeleted;
@@ -15,6 +16,7 @@ class ShoppingListModel {
     this.id,
     required this.title,
     required this.date,
+    this.time,
     required this.totalPrice,
     required this.priority,
     required this.isDeleted,
@@ -28,6 +30,7 @@ class ShoppingListModel {
       'list_id': id,
       'title': title,
       'date': date.toIso8601String(),
+      'time': time!.toIso8601String(),
       'total_price': totalPrice,
       'priority': priority,
       'is_deleted': isDeleted ? 1 : 0,
@@ -42,11 +45,12 @@ class ShoppingListModel {
       id: map['list_id'],
       title: map['title'],
       date: DateTime.parse(map['date']),
+      time: DateTime.parse(map['time']),
       totalPrice: map['total_price']?.toDouble() ?? 0.0,
       priority: map['priority'],
       isDeleted: map['is_deleted'] == 1,
       isCollapsed: map['is_collapsed'] == 1,
-      categoryId: map['category_id']
+      categoryId: map['category_id'],
     );
   }
 
