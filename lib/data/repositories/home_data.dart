@@ -22,6 +22,16 @@ abstract class HomeData {
   /// Returns a [Future] containing a list of [ShoppingListModel] objects
   /// that match the specified priority, including their associated items.
   Future<List<ShoppingListModel>> getHomeListsByPriority(Priority priority);
+
+  /// Marks an item as done or not done in the database.
+  ///
+  /// Updates the 'is_done' status of a specific item identified by [itemId].
+  ///
+  /// [itemId] The unique identifier of the item to update.
+  /// [isDone] A boolean indicating whether the item should be marked as done (true) or not done (false).
+  ///
+  /// Returns the number of rows affected by the update operation.
+  Future<int> markItemIsDone(int itemId, bool isDone);
 }
 
 class HomeDataImpl extends DbHelper implements HomeData {
@@ -72,5 +82,12 @@ class HomeDataImpl extends DbHelper implements HomeData {
       }
     }
     return listsMap.values.toList();
+  }
+
+  @override
+  Future<int> markItemIsDone(int itemId, bool isDone) async {
+    List<dynamic> arguments = [isDone ? 1 : 0, itemId];
+    int affectedRows = await update(SqlQueries.changeItemIsDone, arguments);
+    return affectedRows;
   }
 }

@@ -139,4 +139,15 @@ class SqlQueries {
     ) 
     VALUES (?, ?)
   ''';
+
+  static const String deleteCategory = '''
+  DELETE FROM categories 
+  WHERE category_id = ?
+  ''';
+
+  static const String changeItemIsDone = '''
+  UPDATE items 
+  SET is_done = ?
+  WHERE item_id = ?
+  ''';
 }

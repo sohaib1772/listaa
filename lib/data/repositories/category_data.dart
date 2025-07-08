@@ -34,6 +34,9 @@ abstract class CategoryData {
   ///
   /// Returns a [Future] list of [CategoryModel] containing all stored categories.
   Future<List<CategoryModel>> getCategories();
+
+  /// Delete category from the database.
+  Future<int> deleteCategory(int categoryId);
 }
 
 class CategoryDataImpl extends DbHelper implements CategoryData {
@@ -74,5 +77,10 @@ class CategoryDataImpl extends DbHelper implements CategoryData {
       categories.add(CategoryModel.fromMap(row));
     }
     return categories;
+  }
+
+  @override
+  Future<int> deleteCategory(int categoryId) async {
+    return await delete(SqlQueries.deleteCategory, [categoryId]);
   }
 }
