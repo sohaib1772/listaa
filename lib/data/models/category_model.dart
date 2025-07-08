@@ -6,12 +6,12 @@ class CategoryModel {
   CategoryModel({this.id, required this.title, required this.isDefault});
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'title': title, 'is_default': isDefault};
+    return {'category_id': id, 'title': title, 'is_default': isDefault};
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'],
+      id: map['category_id'],
       title: map['title'],
       isDefault: map['is_default'] == 1 ? true : false,
     );

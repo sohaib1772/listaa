@@ -2,7 +2,7 @@ class ItemModel {
   final int? id;
   final String name;
   final double price;
-  final bool isDone;
+   bool isDone;
   final int? listId;
 
   ItemModel({

@@ -9,6 +9,7 @@ class TrashController extends GetxController{
 
   var scrollAlpha = 0.obs;
   TrashData data = Get.find<TrashDataImpl>();
+  HomeData homeData = Get.find<HomeDataImpl>();
   RxBool isLoading = true.obs;
 
 
@@ -38,10 +39,19 @@ class TrashController extends GetxController{
   }
   
 
-  void toggleIsDone(int listIndex, int itemId) {
-    // lists[listIndex].items.where((element) => element.id == itemId).first.isDone = !lists[listIndex].items.where((element) => element.id == itemId).first.isDone;
-    
-     print("trash check");
+  void toggleIsDone(int listIndex, int itemId,int groupIndex)async {
+   await homeData.markItemAsDone(
+       itemId,
+       !lists[groupIndex].shoppingLists[listIndex].items.firstWhere(
+        (item) => item.id == itemId,
+      ).isDone,
+    );
+    lists[groupIndex].shoppingLists[listIndex].items.firstWhere(
+      (item) => item.id == itemId,
+    ).isDone = !lists[groupIndex].shoppingLists[listIndex].items.firstWhere(
+      (item) => item.id == itemId,
+    ).isDone;
+  
     update();
   }
 

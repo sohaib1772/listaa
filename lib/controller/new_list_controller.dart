@@ -82,7 +82,7 @@ class NewListController extends GetxController {
         isDeleted: false,
         title: title.value,
         date: DateTime.tryParse(date.value) ?? DateTime.now(),
-        time:time.value.isNotEmpty ? DateTime.parse("0000-00-00${time.value}") : DateTime.now().add(Duration(hours: 12)),
+        time:time.value.isNotEmpty ? DateTime.parse("0000-00-00 ${time.value}") : DateTime.now().add(Duration(hours: 12)),
         totalPrice: totalAmount.value,
         priority: selectedPriority.value == 10 ? 0 : selectedPriority.value,
         items: items
@@ -98,6 +98,33 @@ class NewListController extends GetxController {
     );
     isLoading.value = false;
     Get.offNamed(AppRouterKeys.home);
+  }
+
+  Future<void> updateList(int id) async {
+    isLoading.value = true;
+    await listData.editList(
+      ShoppingListModel(
+        id: id,
+        categoryId: selectedCategoryId,
+        isDeleted: false,
+        title: title.value,
+        date: DateTime.tryParse(date.value) ?? DateTime.now(),
+        time: time.value.isNotEmpty ? DateTime.parse("0000-00-00 ${time.value}") : DateTime.now().add(Duration(hours: 12)),
+        totalPrice: totalAmount.value,  
+        priority: selectedPriority.value == 10 ? 0 : selectedPriority.value,
+        items: items
+            .map(
+              (e) => ItemModel(
+                name: e.nameController.text,
+                price: double.tryParse(e.priceController.text) ?? 0,
+                isDone: false,
+              ),
+            )
+            .toList(),
+      ),
+
+    );
+    isLoading.value = false;
   }
 
   Future<void> getCategories() async {

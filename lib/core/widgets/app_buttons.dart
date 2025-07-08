@@ -119,13 +119,16 @@ const  AppDrawerTextIconButton({
     required this.onPressed,
     this.icon = AppIconsName.doneList,
     required this.text,
+    this.onLongPress,
   });
  final Function onPressed;
  final AppIconsName icon;
  final String text;
+  final Function? onLongPress;
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      onLongPress: ()=> onLongPress?.call(),
       onPressed: () => onPressed(),
       child: Row(
         children: [

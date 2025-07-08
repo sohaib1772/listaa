@@ -11,4 +11,8 @@ class Formatter{
     ).format(DateTime.parse(date));
   }
 
+  String time(DateTime? time){
+    return DateFormat.Hms().format(time ?? DateTime.now());
+  }
+
 }

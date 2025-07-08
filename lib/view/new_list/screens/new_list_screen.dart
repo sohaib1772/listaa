@@ -10,9 +10,11 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:group_button/group_button.dart';
+import 'package:intl/intl.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/controller/new_list_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
+import 'package:listaa/core/helper/formatter.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -40,7 +42,7 @@ class _NewListScreenState extends State<NewListScreen> {
   final args = Get.arguments;
 
   NewListController controller = Get.find();
-  late ShoppingListModel model;
+   ShoppingListModel? model;
   @override
   void initState() {
     // TODO: implement initState
@@ -50,10 +52,13 @@ class _NewListScreenState extends State<NewListScreen> {
     if (args['model'] == null) return;
      model = args['model'];
     controller.isEditing.value = true;
-    controller.title.value = model.title;
-    final List<ItemModel> itemModels = List<ItemModel>.from(model.items);
-    controller.selectedPriority.value = model.priority;
-    controller.date.value = model.date.toString();
+    controller.title.value = model!.title;
+    final List<ItemModel> itemModels = List<ItemModel>.from(model!.items);
+    controller.selectedPriority.value = model!.priority;
+    print("model category id: ${model!.categoryId}");
+    controller.selectedCategoryId = model!.categoryId;
+    controller.date.value = model!.date.toString();
+    controller.time.value = Get.find<Formatter>().time(model!.time);
     controller.items = itemModels.map((e) {
       return RowItemsModel(
         nameController: TextEditingController(text: e.name),
@@ -99,7 +104,7 @@ class _NewListScreenState extends State<NewListScreen> {
                   TextButton(
                     onPressed: ()async {
                    await   controller.delete(
-                        model.id ?? 0
+                        model?.id ?? 0
                       );
                       Get.back();
                     await  Get.find<HomeController>().getAllLists();
@@ -138,7 +143,9 @@ class _NewListScreenState extends State<NewListScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               NewListHeader(title: controller.title.value),
-              NewListSelectCategories(),
+              NewListSelectCategories(
+                controller: controller,
+              ),
               SizedBox(
                 height: 300.h,
                 child: GetBuilder<NewListController>(
@@ -173,6 +180,16 @@ class _NewListScreenState extends State<NewListScreen> {
                               AppLocaleKeys.listShouldHaveAtLeastOneItem.tr,
                               snackPosition: SnackPosition.TOP,
                             );
+                            return;
+                          }
+                          if( model != null) {
+                            await controller.updateList(model?.id ?? 0);
+                            Get.snackbar(
+                              AppLocaleKeys.success.tr,
+                              AppLocaleKeys.listUpdatedSuccessfully.tr,
+                              snackPosition: SnackPosition.TOP,
+                            );
+                           await Get.find<HomeController>().getAllLists();
                             return;
                           }
                           await controller.addNewList();

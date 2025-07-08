@@ -17,10 +17,15 @@ class ItemCard extends StatelessWidget {
     required this.itemId,
     required this.onToggleCheckBox,
     required this.controller,
+    this.groupIndex = -1,
+
+
   });
+  
   final String name;
   final double price;
   bool isChecked;
+  int groupIndex;
   final int listIndex;
   final int itemId;
   final  controller;
@@ -44,7 +49,7 @@ class ItemCard extends StatelessWidget {
           value: isChecked,
           onChanged: (v) {
             isChecked = !isChecked;
-            controller.toggleIsDone(listIndex, itemId);
+            controller.toggleIsDone(listIndex, itemId,groupIndex);
             // onToggleCheckBox();
           },
         ),

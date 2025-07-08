@@ -1,6 +1,7 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:listaa/controller/all_lists_controller.dart';
+import 'package:listaa/controller/category_controller.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/controller/new_list_controller.dart';
 import 'package:listaa/controller/onboarding_controller.dart';
@@ -27,6 +28,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => HomeController(), fenix: true);
     Get.lazyPut(() => RemainderController(), fenix: true);
     Get.lazyPut(() => AllListsController(), fenix: true);
+    Get.lazyPut(() => CategoryController(), fenix: true);
     Get.lazyPut(() => TrashController(), fenix: true);
     Get.lazyPut(() => Formatter(), fenix: true);
     Get.lazyPut(() => CategoryDataImpl(), fenix: true);

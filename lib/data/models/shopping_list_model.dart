@@ -41,7 +41,7 @@ class ShoppingListModel {
   }
 
   factory ShoppingListModel.fromJoinedMap(Map<String, dynamic> map) {
-
+    print("my category id: ${map['category_id']}");
     return ShoppingListModel(
       id: map['list_id'],
       title: map['title'],

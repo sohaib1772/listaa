@@ -24,9 +24,11 @@ class ListsCard extends StatelessWidget {
     required this.toggleIsCollapse,
     required this.model,
     required this.controller,
+    this.groupIndex = -1,
   });
   final bool isCollapsed;
   final int index;
+  final int groupIndex;
   final bool isCompleted;
   final Function toggleIsCollapse;
   final ShoppingListModel model;
@@ -55,6 +57,7 @@ class ListsCard extends StatelessWidget {
               model: model,
             )
           : _ListCardNotCollapsed(
+              groupIndex: groupIndex,
               controller: controller,
               index: index,
               isCompleted: isCompleted,
@@ -152,10 +155,12 @@ class _ListCardNotCollapsed extends StatelessWidget {
     required this.toggleIsCollapse,
     required this.model,
     required this.controller,
+    this.groupIndex = -1,
   });
   final bool isCollapsed = false;
   final int index;
   final bool isCompleted;
+  final int groupIndex;
   final Function toggleIsCollapse;
   final ShoppingListModel model;
   final controller;
@@ -225,6 +230,7 @@ class _ListCardNotCollapsed extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: model.items.map((e) {
             return ItemCard(
+             groupIndex:groupIndex,
               controller: controller,
               onToggleCheckBox: () {},
               name: e.name,

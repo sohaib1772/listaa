@@ -123,7 +123,8 @@ class TrashScreen extends StatelessWidget {
                                                     .id ??
                                                 0,
                                           );
-                                          Get.find<HomeController>().getAllLists();
+                                          Get.find<HomeController>()
+                                              .getAllLists();
                                         },
                                       ),
                                       IconButton(
@@ -183,7 +184,6 @@ class TrashScreen extends StatelessWidget {
                                                             0,
                                                       );
                                                       Get.back();
-                                                      
                                                     },
                                                     text: AppLocaleKeys.yes.tr,
                                                   ),
@@ -202,6 +202,7 @@ class TrashScreen extends StatelessWidget {
                                         MediaQuery.of(context).size.width.w *
                                         0.8,
                                     child: ListsCard(
+                                      groupIndex: mainIndex,
                                       controller: controller,
                                       model: controller
                                           .lists[mainIndex]

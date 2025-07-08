@@ -8,6 +8,7 @@ class RemainderController extends GetxController{
 
   var scrollAlpha = 0.obs;
   RemindersData data = Get.find<RemindersDataImpl>();
+  HomeData homeData = Get.find<HomeDataImpl>();
   RxBool isLoading = true.obs;
 
 
@@ -25,10 +26,19 @@ class RemainderController extends GetxController{
   }
   
 
-  void toggleIsDone(int listIndex, int itemId) {
-    // lists[listIndex].items.where((element) => element.id == itemId).first.isDone = !lists[listIndex].items.where((element) => element.id == itemId).first.isDone;
-    
-     print("remainders check");
+   void toggleIsDone(int listIndex, int itemId,int groupIndex)async {
+   await homeData.markItemAsDone(
+       itemId,
+       !lists[groupIndex].shoppingLists[listIndex].items.firstWhere(
+        (item) => item.id == itemId,
+      ).isDone,
+    );
+    lists[groupIndex].shoppingLists[listIndex].items.firstWhere(
+      (item) => item.id == itemId,
+    ).isDone = !lists[groupIndex].shoppingLists[listIndex].items.firstWhere(
+      (item) => item.id == itemId,
+    ).isDone;
+  
     update();
   }
 

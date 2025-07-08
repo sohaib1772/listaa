@@ -115,44 +115,10 @@ class ListsScreen extends StatelessWidget {
               SliverToBoxAdapter(
               child: Divider(height: 20.h),
             ),
-              SliverToBoxAdapter(
-              child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal:  20.w),
-                child: Text(AppLocaleKeys.completedLists.tr, style: AppTextStyles.darkbold24,),
-              )
-            ),
+            
 
             // completed lists
-            SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-
-
-                  child:GetBuilder<AllListsController>(
-                   init: controller,
-                          initState: (_) {},
-                          builder: (_)=> ListView.separated(
-                        physics:
-                            NeverScrollableScrollPhysics(), 
-                        shrinkWrap: true,
-                        itemCount: controller.completedLists.value.length,
-                        separatorBuilder: (_, __) => SizedBox(height: 20.h),
-                        itemBuilder: (context, index) {
-                          return ListsCard(
-                            controller: controller,
-                            toggleIsCollapse: (){
-                                controller.toggleIsCollapse(index,true);
-                              },
-                            isCompleted: true,
-                            model: controller.completedLists[index],
-                            isCollapsed: controller.completedLists[index].isCollapsed,
-                            index: index,
-                          );
-                        },
-                      ),
-                  ),
-                ),
-              ),
+            
             
           ],
         ),

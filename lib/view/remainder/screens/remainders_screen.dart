@@ -116,6 +116,7 @@ class RemaindersScreen extends StatelessWidget {
                                         MediaQuery.of(context).size.width.w *
                                         0.8,
                                     child: ListsCard(
+                                      groupIndex: mainIndex,
                                       controller: controller,
                                       model: controller
                                           .lists[mainIndex]

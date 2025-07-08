@@ -11,6 +11,7 @@ class AppLocaleKeys {
   static const String save = 'save';
   static const String yes = 'yes';
   static const String no = 'no';
+  static const String cancel= 'cancel';
   static const String delete = 'delete';
   static const String share = 'share';
   static const String reset = 'reset';
@@ -48,6 +49,10 @@ class AppLocaleKeys {
   static const String editList = 'editList';
   static const String deleteListQuestion = 'deleteListQuestion';
   static const String selectTime = 'selectTime';
+  static const String title = 'title';
+  static const String success = 'success';
+  static const String listUpdatedSuccessfully = 'listUpdatedSuccessfully';
+
 
 
   // validations
@@ -68,14 +73,7 @@ class AppLocaleKeys {
 
   //default data
 
-  static const String occasions = 'occasions';
-  static const String groceries = 'groceries';
-  static const String entertainment = 'entertainment';
-  static const String dairyProducts = 'dairyProducts';
-  static const String meat = 'meat';
-  static const String beverages = 'beverages';
-  static const String study = 'study';
-  static const String fruits = 'fruits';
+
   static const String public = 'public';
   static const String noListsYet = 'noListsYet';
 
@@ -84,6 +82,7 @@ class AppLocaleKeys {
 
   // confirmations
   static const String deleteListConfirmation = 'deleteListConfirmation';
+  static const String deleteCategoryConfirmation = 'deleteCategoryConfirmation';
 }
 
 class AppLocale extends Translations {
@@ -134,6 +133,8 @@ class AppLocale extends Translations {
       AppLocaleKeys.mustBeInt: 'يجب ان يكون رقم صحيح',
       AppLocaleKeys.mustBeDouble: 'يجب ان يكون رقم عشري',
       AppLocaleKeys.listTitle: 'عنوان القائمة',
+      AppLocaleKeys.titleRequired: 'يرجى ادخال العنوان',
+
 
       AppLocaleKeys.done: 'تم',
       AppLocaleKeys.save: 'حفظ',
@@ -149,15 +150,9 @@ class AppLocale extends Translations {
       AppLocaleKeys.deleteListQuestion: 'هل انت متاكد من حذف القائمة؟',
       AppLocaleKeys.yes: 'نعم',
       AppLocaleKeys.no: 'لا',
+      AppLocaleKeys.cancel: 'الغاء',
 
-      AppLocaleKeys.occasions: 'مناسبات',
-      AppLocaleKeys.groceries: 'بقالة',
-      AppLocaleKeys.entertainment: 'ترفيه',
-      AppLocaleKeys.dairyProducts: 'منتجات ألبان',
-      AppLocaleKeys.meat: 'لحوم',
-      AppLocaleKeys.beverages: 'مشروبات', 
-      AppLocaleKeys.study: 'دراسة',
-      AppLocaleKeys.fruits: 'فواكه',
+      
       AppLocaleKeys.public: 'عام',
       AppLocaleKeys.selectTime: 'اختر الوقت',
 
@@ -167,6 +162,13 @@ class AppLocale extends Translations {
       AppLocaleKeys.listShouldHaveAtLeastOneItem: 'يجب أن تحتوي القائمة على عنصر واحد على الأقل',
       AppLocaleKeys.warning: 'تحذير ⚠️',
       AppLocaleKeys.noListsYet: 'لا توجد قوائم حتى الآن',
+
+      AppLocaleKeys.title: 'العنوان',
+
+      AppLocaleKeys.deleteCategoryConfirmation: 'هل تريد حذف هذا التصنيف نهائيا؟',
+
+      AppLocaleKeys.success: 'تمت العملية بنجاح ✅',
+      AppLocaleKeys.listUpdatedSuccessfully: 'تم تحديث القائمة',
 
 
 
@@ -231,14 +233,7 @@ class AppLocale extends Translations {
       AppLocaleKeys.yes: 'Yes',
       AppLocaleKeys.no: 'No',
 
-      AppLocaleKeys.occasions: 'Occasions',
-      AppLocaleKeys.groceries: 'Groceries',
-      AppLocaleKeys.entertainment: 'Entertainment',
-      AppLocaleKeys.dairyProducts: 'Dairy Products',
-      AppLocaleKeys.meat: 'Meat',
-      AppLocaleKeys.beverages: 'Beverages',
-      AppLocaleKeys.study: 'Study',
-      AppLocaleKeys.fruits: 'Fruits',
+     
       AppLocaleKeys.public: 'Public',
       AppLocaleKeys.selectTime: 'Select time',
 
@@ -246,6 +241,15 @@ class AppLocale extends Translations {
       AppLocaleKeys.listShouldHaveAtLeastOneItem: 'List should have at least one item',
       AppLocaleKeys.warning: 'Warning ⚠️',
       AppLocaleKeys.noListsYet: 'No lists yet',
+      AppLocaleKeys.titleRequired: 'Please enter a title',
+      AppLocaleKeys.title: 'Title',
+      AppLocaleKeys.cancel: 'Cancel',
+      AppLocaleKeys.deleteCategoryConfirmation: 'Are you sure you want to delete this category permanently?',
+
+      AppLocaleKeys.success: 'Operation completed successfully ✅',
+      AppLocaleKeys.listUpdatedSuccessfully: 'List updated successfully',
+
+
     },
   };
 }

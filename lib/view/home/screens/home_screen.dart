@@ -160,7 +160,6 @@ class HomeScreen extends StatelessWidget {
             ),
             SliverToBoxAdapter(child: Divider(height: 20.h)),
 
-            SliverToBoxAdapter(child: SizedBox(height: 20.h)),
             SliverToBoxAdapter(child: Divider()),
 
             SliverToBoxAdapter(
@@ -181,13 +180,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 )
-                : AppTextButtonsWithIcon(
-                  icon: Icons.arrow_forward_ios_rounded,
-                  onPressed: () {
-                    Get.toNamed(AppRouterKeys.lists);
-                  },
-                  text: AppLocaleKeys.more.tr,
-                ),
+                : SizedBox.shrink()
               ),
             ),
 

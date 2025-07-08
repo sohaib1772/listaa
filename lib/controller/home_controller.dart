@@ -38,10 +38,19 @@ class HomeController extends GetxController {
    
   }
 
-  void toggleIsDone(int listIndex, int itemId) {
-   //  lists[listIndex].items.where((element) => element.id == itemId).first.isDone = !lists[listIndex].items.where((element) => element.id == itemId).first.isDone;
-   
-   print("home screen check");
+  void toggleIsDone(int listIndex, int itemId)async {
+   await homeData.markItemAsDone(
+       itemId,
+       !lists[listIndex].items.firstWhere(
+        (item) => item.id == itemId,
+      ).isDone,
+    );
+    lists[listIndex].items.firstWhere(
+      (item) => item.id == itemId,
+    ).isDone = !lists[listIndex].items.firstWhere(
+      (item) => item.id == itemId,
+    ).isDone;
+  
     update();
   }
 
