@@ -150,4 +150,18 @@ class SqlQueries {
   SET is_done = ?
   WHERE item_id = ?
   ''';
+
+  static const String updateList = '''
+  UPDATE lists 
+  SET 
+    title = ?,
+    date = ?,
+    time = ?,
+    total_price = ?,
+    priority = ?,
+    is_deleted = ?,
+    is_collapsed = ?,
+    category_id = ?
+  WHERE list_id = ?
+''';
 }

@@ -20,6 +20,14 @@ abstract class ListData {
   /// Returns the number of affected rows in the database after the soft delete operation.
   /// If 0 rows are affected, the deletion was not successful.
   Future<int> softDeleteList(int listId);
+
+  /// Updates an existing shopping list and its items in the database.
+  ///
+  /// [shoppingList] - The ShoppingListModel with updated values
+  ///
+  /// Returns a [Future] that completes when the list and items are updated.
+  /// Returns the number of affected rows for the list update.
+  Future<int> editList(ShoppingListModel shoppingList);
 }
 
 class ListDataImpl extends DbHelper implements ListData {
@@ -62,5 +70,43 @@ class ListDataImpl extends DbHelper implements ListData {
     final affectedRows = await update(SqlQueries.softDeleteList, [listId]);
 
     return affectedRows; // Returns number of rows affected (should be 1 if list exists)
+  }
+
+  @override
+  Future<int> editList(ShoppingListModel shoppingList) async {
+    if (shoppingList.id == null) {
+      throw ArgumentError('Cannot edit list without an ID');
+    }
+
+    // Prepare arguments list
+    final List<dynamic> arguments = [
+      shoppingList.title,
+      shoppingList.date.toIso8601String(),
+      shoppingList.time?.toIso8601String(),
+      shoppingList.totalPrice,
+      shoppingList.priority,
+      shoppingList.isDeleted ? 1 : 0,
+      shoppingList.isCollapsed ? 1 : 0,
+      shoppingList.categoryId,
+      shoppingList.id,
+    ];
+
+    // Update the list
+    final affectedRows = await update(SqlQueries.updateList, arguments);
+
+    // Update items - delete existing and insert new ones
+    await _updateListItems(shoppingList.id!, shoppingList.items);
+
+    return affectedRows;
+  }
+
+  Future<void> _updateListItems(int listId, List<ItemModel> items) async {
+    // First delete all existing items
+    await delete(SqlQueries.deleteListItems, [listId]);
+
+    // Then insert the updated items
+    if (items.isNotEmpty) {
+      await _insertListItems(listId, items);
+    }
   }
 }

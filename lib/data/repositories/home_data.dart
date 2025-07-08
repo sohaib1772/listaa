@@ -31,7 +31,7 @@ abstract class HomeData {
   /// [isDone] A boolean indicating whether the item should be marked as done (true) or not done (false).
   ///
   /// Returns the number of rows affected by the update operation.
-  Future<int> markItemIsDone(int itemId, bool isDone);
+  Future<int> markItemAsDone(int itemId, bool isDone);
 }
 
 class HomeDataImpl extends DbHelper implements HomeData {
@@ -85,7 +85,7 @@ class HomeDataImpl extends DbHelper implements HomeData {
   }
 
   @override
-  Future<int> markItemIsDone(int itemId, bool isDone) async {
+  Future<int> markItemAsDone(int itemId, bool isDone) async {
     List<dynamic> arguments = [isDone ? 1 : 0, itemId];
     int affectedRows = await update(SqlQueries.changeItemIsDone, arguments);
     return affectedRows;
