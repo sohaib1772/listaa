@@ -71,6 +71,11 @@ class AppLocaleKeys {
   static const String beverages = 'beverages';
   static const String study = 'study';
   static const String fruits = 'fruits';
+
+
+
+  // confirmations
+  static const String deleteListConfirmation = 'deleteListConfirmation';
 }
 
 class AppLocale extends Translations {
@@ -146,6 +151,12 @@ class AppLocale extends Translations {
       AppLocaleKeys.study: 'دراسة',
       AppLocaleKeys.fruits: 'فواكه',
       AppLocaleKeys.selectTime: 'اختر الوقت',
+
+
+      AppLocaleKeys.deleteListConfirmation: 'هل تريد حذف هذه القائمة نهائيا؟',
+
+
+
     },
     'en': {
       AppLocaleKeys.listaApp: '“Listaa”  App',
@@ -214,6 +225,8 @@ class AppLocale extends Translations {
       AppLocaleKeys.study: 'Study',
       AppLocaleKeys.fruits: 'Fruits',
       AppLocaleKeys.selectTime: 'Select time',
+
+      AppLocaleKeys.deleteListConfirmation: 'Do you want to delete this list permanently?',
     },
   };
 }

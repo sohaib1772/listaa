@@ -28,6 +28,7 @@ class HomeController extends GetxController {
   Future<void> getAllLists()async{
     
    lists.value =  await homeData.getAllHomeLists();
+   update();
   }
   Future<void> getHomeListsByPriority(int priority)async{
    lists.value =  await homeData.getHomeListsByPriority(
@@ -49,7 +50,6 @@ class HomeController extends GetxController {
     await getAllLists();
     isLoading.value = false;
     
-    update();
     super.onInit();
   }
 }

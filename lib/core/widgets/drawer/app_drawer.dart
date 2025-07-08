@@ -111,7 +111,9 @@ class AppDrawer extends StatelessWidget {
                             ),
                             AppDrawerTextIconButton(
                               icon:  AppIconsName.trash,
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(AppRouterKeys.trash);
+                              },
                               text: AppLocaleKeys.trashBasket.tr,
                             ),
                           ],

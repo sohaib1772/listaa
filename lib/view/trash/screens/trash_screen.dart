@@ -8,11 +8,13 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/instance_manager.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/controller/remainder_controller.dart';
+import 'package:listaa/controller/trash_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/helper/formatter.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
+import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/bottom_container.dart';
 import 'package:listaa/core/widgets/item_card.dart';
@@ -21,11 +23,11 @@ import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
 import 'package:listaa/view/home/widgets/home_select_proiority.dart';
 import 'package:listaa/view/home/widgets/home_sliders.dart';
 
-class RemaindersScreen extends StatelessWidget {
-  RemaindersScreen({super.key});
+class TrashScreen extends StatelessWidget {
+  TrashScreen({super.key});
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final RemainderController controller = Get.find();
+  final TrashController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class RemaindersScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      AppLocaleKeys.remainders.tr,
+                      AppLocaleKeys.trashBasket.tr,
                       style: AppTextStyles.darkbold28,
                     ),
                   ],
@@ -73,7 +75,7 @@ class RemaindersScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: GetBuilder<RemainderController>(
+                child: GetBuilder<TrashController>(
                   init: controller,
                   initState: (_) {},
                   builder: (_) {
@@ -105,9 +107,93 @@ class RemaindersScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
 
                                 children: [
-                                  Text(
-                                    "20:10",
-                                    style: AppTextStyles.darkbold20,
+                                  Column(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.restore,
+                                          color: AppColors.primaryTextColor,
+                                          size: 30.w,
+                                        ),
+                                        onPressed: () async {
+                                          await controller.restoreDeletedList(
+                                            controller
+                                                    .lists[mainIndex]
+                                                    .shoppingLists[index]
+                                                    .id ??
+                                                0,
+                                          );
+                                          Get.find<HomeController>().getAllLists();
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.delete_forever_outlined,
+                                          color: AppColors.redIconColor,
+                                          size: 30.w,
+                                        ),
+                                        onPressed: () {
+                                          Get.bottomSheet(
+                                            Container(
+                                              padding: EdgeInsets.all(20.w),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                    20.r,
+                                                  ),
+                                                  topRight: Radius.circular(
+                                                    20.r,
+                                                  ),
+                                                ),
+                                                color: AppColors
+                                                    .datePickerBackgroundColor,
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    AppLocaleKeys
+                                                        .deleteListConfirmation
+                                                        .tr,
+                                                    style: AppTextStyles
+                                                        .darkbold24,
+                                                  ),
+                                                  SizedBox(height: 20.h),
+
+                                                  AppTextButtons(
+                                                    type: AppButtonType
+                                                        .floatingButton,
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    text: AppLocaleKeys.no.tr,
+                                                  ),
+                                                  SizedBox(height: 10.h),
+                                                  AppTextButtons(
+                                                    type: AppButtonType
+                                                        .floatingButton,
+                                                    onPressed: () {
+                                                      controller.deleteList(
+                                                        controller
+                                                                .lists[mainIndex]
+                                                                .shoppingLists[index]
+                                                                .id ??
+                                                            0,
+                                                      );
+                                                      Get.back();
+                                                      
+                                                    },
+                                                    text: AppLocaleKeys.yes.tr,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(width: 10.w),
 

@@ -1,7 +1,7 @@
 import 'package:get/utils.dart';
 import 'package:intl/intl.dart';
 
-class Formater{
+class Formatter{
 
    String date(String date,String locale){
     return DateFormat.yMMMMd(

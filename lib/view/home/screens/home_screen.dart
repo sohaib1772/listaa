@@ -121,6 +121,10 @@ class HomeScreen extends StatelessWidget {
             // List of items (ListView -> SliverList)
             SliverToBoxAdapter(
               child: GetBuilder<HomeController>(
+                
+                initState: (_){
+                  controller.getAllLists();
+                },
                 builder: (controller) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),

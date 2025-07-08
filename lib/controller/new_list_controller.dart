@@ -94,6 +94,10 @@ class NewListController extends GetxController {
     Get.offNamed(AppRouterKeys.home);
   }
 
+  Future<void> delete(int id)async{
+    await listData.softDeleteList(id);
+  }
+
   @override
   void onReady() {
     if (isEditing.value == false) addNewItemToRows();

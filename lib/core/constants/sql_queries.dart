@@ -91,9 +91,10 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.category_id,
     i.item_id,
-    i.name AS item_name,
-    i.price AS item_price,
+    i.name,
+    i.price,
     i.is_done AS item_is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id

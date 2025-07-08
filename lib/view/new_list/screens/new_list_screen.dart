@@ -9,7 +9,9 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:group_button/group_button.dart';
+import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/controller/new_list_controller.dart';
+import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -37,7 +39,7 @@ class _NewListScreenState extends State<NewListScreen> {
   final args = Get.arguments;
 
   NewListController controller = Get.find();
-
+  late ShoppingListModel model;
   @override
   void initState() {
     // TODO: implement initState
@@ -45,7 +47,7 @@ class _NewListScreenState extends State<NewListScreen> {
     if (args['title'] != null) controller.title.value = args['title'];
 
     if (args['model'] == null) return;
-    ShoppingListModel model = args['model'];
+     model = args['model'];
     controller.isEditing.value = true;
     controller.title.value = model.title;
     final List<ItemModel> itemModels = List<ItemModel>.from(model.items);
@@ -94,7 +96,15 @@ class _NewListScreenState extends State<NewListScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: ()async {
+                   await   controller.delete(
+                        model.id ?? 0
+                      );
+                      Get.back();
+                    await  Get.find<HomeController>().getAllLists();
+                    
+                      Get.back();
+                    },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
