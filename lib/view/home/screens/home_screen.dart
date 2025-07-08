@@ -15,6 +15,7 @@ import 'package:listaa/core/widgets/bottom_container.dart';
 import 'package:listaa/core/widgets/item_card.dart';
 import 'package:listaa/core/widgets/lists_card.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
+import 'package:listaa/view/home/widgets/home_add_list_bottom_sheet.dart';
 
 import 'package:listaa/view/home/widgets/home_select_proiority.dart';
 import 'package:listaa/view/home/widgets/home_sliders.dart';
@@ -128,7 +129,13 @@ class HomeScreen extends StatelessWidget {
                 builder: (controller) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: ListView.separated(
+                    child: controller.lists.isEmpty ?  
+                    Text(
+                      AppLocaleKeys.noListsYet.tr,
+                      style: AppTextStyles.darkbold20,
+                      textAlign: TextAlign.center,
+                    ) 
+                    : ListView.separated(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: controller.lists.value.length,
@@ -154,13 +161,27 @@ class HomeScreen extends StatelessWidget {
             SliverToBoxAdapter(child: Divider(height: 20.h)),
 
             SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+            SliverToBoxAdapter(child: Divider()),
 
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.3,
+                  horizontal: MediaQuery.of(context).size.width * 0.25,
                 ),
-                child: AppTextButtonsWithIcon(
+                child:controller.lists.isEmpty ? 
+                AppTextButtons(
+                  type: AppButtonType.floatingButton,
+                  text: AppLocaleKeys.addNewList.tr,
+                  width: 40.w,
+                  onPressed: () {
+                    Get.bottomSheet(
+                      HomeAddListBottomSheet(
+                        
+                      ),
+                    );
+                  },
+                )
+                : AppTextButtonsWithIcon(
                   icon: Icons.arrow_forward_ios_rounded,
                   onPressed: () {
                     Get.toNamed(AppRouterKeys.lists);

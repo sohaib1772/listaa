@@ -100,11 +100,7 @@ class SqlQueries {
     i.item_id,
     i.name,
     i.price,
-<<<<<<< HEAD
     i.is_done AS item_is_done
-=======
-    i.is_done
->>>>>>> c8c24f9b3337b091d38d07e517848961cec2db09
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
   WHERE l.is_deleted = 1

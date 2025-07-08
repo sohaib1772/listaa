@@ -60,6 +60,11 @@ class AppLocaleKeys {
   static const String mustBeBool = 'mustBeBool';
   static const String mustBeInt = 'mustBeInt';
   static const String mustBeDouble = 'mustBeDouble';
+  static const String titleRequired = 'titleRequired';
+  static const String listShouldHaveAtLeastOneItem = 'listShouldHaveAtLeastOneItem';
+  static const String warning = 'warning';
+
+
 
   //default data
 
@@ -71,6 +76,9 @@ class AppLocaleKeys {
   static const String beverages = 'beverages';
   static const String study = 'study';
   static const String fruits = 'fruits';
+  static const String public = 'public';
+  static const String noListsYet = 'noListsYet';
+
 
 
 
@@ -150,10 +158,17 @@ class AppLocale extends Translations {
       AppLocaleKeys.beverages: 'مشروبات', 
       AppLocaleKeys.study: 'دراسة',
       AppLocaleKeys.fruits: 'فواكه',
+      AppLocaleKeys.public: 'عام',
       AppLocaleKeys.selectTime: 'اختر الوقت',
 
 
+
       AppLocaleKeys.deleteListConfirmation: 'هل تريد حذف هذه القائمة نهائيا؟',
+      AppLocaleKeys.listShouldHaveAtLeastOneItem: 'يجب أن تحتوي القائمة على عنصر واحد على الأقل',
+      AppLocaleKeys.warning: 'تحذير ⚠️',
+      AppLocaleKeys.noListsYet: 'لا توجد قوائم حتى الآن',
+
+
 
 
 
@@ -224,9 +239,13 @@ class AppLocale extends Translations {
       AppLocaleKeys.beverages: 'Beverages',
       AppLocaleKeys.study: 'Study',
       AppLocaleKeys.fruits: 'Fruits',
+      AppLocaleKeys.public: 'Public',
       AppLocaleKeys.selectTime: 'Select time',
 
       AppLocaleKeys.deleteListConfirmation: 'Do you want to delete this list permanently?',
+      AppLocaleKeys.listShouldHaveAtLeastOneItem: 'List should have at least one item',
+      AppLocaleKeys.warning: 'Warning ⚠️',
+      AppLocaleKeys.noListsYet: 'No lists yet',
     },
   };
 }

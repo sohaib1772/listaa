@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
+import 'package:listaa/data/models/category_model.dart';
 import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
+import 'package:listaa/data/repositories/category_data.dart';
 import 'package:listaa/data/repositories/list_data.dart';
 
 class RowItemsModel {
@@ -18,8 +20,11 @@ class RowItemsModel {
 
 class NewListController extends GetxController {
   ListData listData = Get.find<ListDataImpl>();
+  CategoryData categoryData = Get.find<CategoryDataImpl>();
+  int selectedCategoryId = 0;
   RxBool isEditing = false.obs;
   List<RowItemsModel> items = [];
+  List<CategoryModel> categories = [];
   RxDouble totalAmount = 0.0.obs;
   RxInt selectedPriority = 10.obs;
   RxString date = "".obs;
@@ -73,10 +78,11 @@ class NewListController extends GetxController {
     isLoading.value = true;
     await listData.createNewList(
       ShoppingListModel(
-        categoryId: 0,
+        categoryId: selectedCategoryId,
         isDeleted: false,
         title: title.value,
         date: DateTime.tryParse(date.value) ?? DateTime.now(),
+        time:time.value.isNotEmpty ? DateTime.parse("0000-00-00${time.value}") : DateTime.now().add(Duration(hours: 12)),
         totalPrice: totalAmount.value,
         priority: selectedPriority.value == 10 ? 0 : selectedPriority.value,
         items: items
@@ -94,12 +100,25 @@ class NewListController extends GetxController {
     Get.offNamed(AppRouterKeys.home);
   }
 
+  Future<void> getCategories() async {
+    isLoading.value = true;
+    categories =  await categoryData.getCategories();
+    isLoading.value = false;
+  }
+
   Future<void> delete(int id)async{
     await listData.softDeleteList(id);
+  }
+  
+  @override
+  void onInit() async{
+   await getCategories();
+    if (isEditing.value == false) addNewItemToRows();
+    super.onInit();
   }
 
   @override
   void onReady() {
-    if (isEditing.value == false) addNewItemToRows();
+   
   }
 }

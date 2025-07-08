@@ -41,11 +41,12 @@ class ShoppingListModel {
   }
 
   factory ShoppingListModel.fromJoinedMap(Map<String, dynamic> map) {
+
     return ShoppingListModel(
       id: map['list_id'],
       title: map['title'],
       date: DateTime.parse(map['date']),
-      time: DateTime.parse(map['time']),
+      time: DateTime.tryParse(map['time'] ?? "") ?? DateTime.now(), 
       totalPrice: map['total_price']?.toDouble() ?? 0.0,
       priority: map['priority'],
       isDeleted: map['is_deleted'] == 1,

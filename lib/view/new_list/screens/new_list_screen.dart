@@ -4,6 +4,7 @@ import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/instance_manager.dart';
@@ -166,6 +167,14 @@ class _NewListScreenState extends State<NewListScreen> {
                     : AppTextButtons(
                         text: AppLocaleKeys.save.tr,
                         onPressed: () async {
+                          if (controller.items.first.nameController.text.isEmpty) {
+                            Get.snackbar(
+                              AppLocaleKeys.warning.tr,
+                              AppLocaleKeys.listShouldHaveAtLeastOneItem.tr,
+                              snackPosition: SnackPosition.TOP,
+                            );
+                            return;
+                          }
                           await controller.addNewList();
                         },
                       ),

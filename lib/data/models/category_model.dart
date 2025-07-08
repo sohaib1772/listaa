@@ -13,7 +13,7 @@ class CategoryModel {
     return CategoryModel(
       id: map['id'],
       title: map['title'],
-      isDefault: map['is_default'],
+      isDefault: map['is_default'] == 1 ? true : false,
     );
   }
 }
