@@ -1,5 +1,5 @@
 class SqlQueries {
-  static const String getAllHomeLists = '''
+  static const String getAllLists = '''
  SELECT 
     lists.list_id,
     lists.title,
@@ -22,7 +22,7 @@ class SqlQueries {
   ORDER BY 
     lists.date DESC, items.item_id;
 ''';
-  static const String getHomeListsByPriority = '''
+  static const String getListsByPriority = '''
   SELECT 
     l.list_id,
     l.title,
