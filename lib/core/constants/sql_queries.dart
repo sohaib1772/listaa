@@ -206,56 +206,7 @@ class SqlQueries {
 ''';
   //Money Report Queries
 
-  static const String dailySpendingReport = '''
-  SELECT 
-    date(l.date) as period,
-    SUM(i.price) as total_spent,
-    COUNT(DISTINCT l.list_id) as lists_count,
-    COUNT(i.item_id) as items_count
-  FROM lists l
-  JOIN items i ON l.list_id = i.list_id
-  WHERE i.is_done = 1
-  GROUP BY period
-  ORDER BY period DESC
-''';
-
-  static const String weeklySpendingReport = '''
-  SELECT 
-    strftime('%Y-%W', l.date) as period,
-    SUM(i.price) as total_spent,
-    COUNT(DISTINCT l.list_id) as lists_count
-  FROM lists l
-  JOIN items i ON l.list_id = i.list_id
-  WHERE i.is_done = 1
-  GROUP BY period
-  ORDER BY period DESC
-''';
-
-  static const String monthlySpendingReport = '''
-  SELECT 
-    strftime('%Y-%m', l.date) as period,
-    SUM(i.price) as total_spent,
-    COUNT(DISTINCT l.list_id) as lists_count
-  FROM lists l
-  JOIN items i ON l.list_id = i.list_id
-  WHERE i.is_done = 1
-  GROUP BY period
-  ORDER BY period DESC
-''';
-
-  static const String yearlySpendingReport = '''
-  SELECT 
-    strftime('%Y', l.date) as period,
-    SUM(i.price) as total_spent,
-    COUNT(DISTINCT l.list_id) as lists_count
-  FROM lists l
-  JOIN items i ON l.list_id = i.list_id
-  WHERE i.is_done = 1
-  GROUP BY period
-  ORDER BY period DESC
-''';
-
-  static const String spendingByCategory = '''
+  static const String spendingInGeneral = '''
   SELECT 
     c.title as category,
     SUM(i.price) as total_spent,
@@ -263,6 +214,20 @@ class SqlQueries {
   FROM categories c
   LEFT JOIN lists l ON c.category_id = l.category_id
   LEFT JOIN items i ON l.list_id = i.list_id AND i.is_done = 1
+  GROUP BY c.category_id
+  ORDER BY total_spent DESC
+''';
+
+  static const String spendingByWeek = '''
+  SELECT
+      c.title as category,
+      SUM(i.price) as total_spent,
+      COUNT(DISTINCT l.list_id) as lists_count
+  FROM categories c
+  LEFT JOIN lists l ON c.category_id = l.category_id
+      AND strftime('%Y-%W', l.date) = strftime('%Y-%W', 'now', 'localtime', '-7 days')
+  LEFT JOIN items i ON l.list_id = i.list_id 
+      AND i.is_done = 1
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
