@@ -10,6 +10,11 @@ abstract class ListData {
 
   Future<List<ShoppingListModel>> getListsByPriority(Priority priority);
 
+  Future<List<ShoppingListModel>> getListsByCategory(
+    int categoryId,
+    Priority priority,
+  );
+
   Future<int> markItemAsDone(int itemId, bool isDone);
 
   Future<int> createNewList(ShoppingListModel shoppingList);
@@ -54,6 +59,42 @@ class ListDataImpl extends DbHelper implements ListData {
       arguments: [priorityValue],
     );
 
+    return _processJoinedListData(dataList);
+  }
+
+  /// Retrieves shopping lists filtered by category and optionally by priority.
+  ///
+  /// If [priority] is provided, fetches lists matching both the category ID and priority.
+  /// Otherwise, fetches lists matching only the category ID.
+  ///
+  /// [categoryId] - The ID of the category to filter the lists.
+  /// [priority] - Optional priority level to filter by (high, medium, normal).
+  ///
+  /// Returns a [Future] containing a list of [ShoppingListModel] objects
+  /// that belong to the specified category and optionally match the specified priority,
+  /// including their associated items.
+  @override
+  Future<List<ShoppingListModel>> getListsByCategory(
+    int categoryId,
+    Priority? priority,
+  ) async {
+    List<Map<String, dynamic>> dataList = [];
+    if (priority != null) {
+      int priorityValue = switch (priority) {
+        Priority.high => 2,
+        Priority.medium => 1,
+        Priority.normal => 0,
+      };
+      dataList = await inquiry(
+        SqlQueries.getListsByCategoryAndPriority,
+        arguments: [categoryId, priorityValue],
+      );
+    } else {
+      dataList = await inquiry(
+        SqlQueries.getListsByCategory,
+        arguments: [categoryId],
+      );
+    }
     return _processJoinedListData(dataList);
   }
 

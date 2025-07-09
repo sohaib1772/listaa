@@ -42,6 +42,46 @@ class SqlQueries {
   WHERE l.is_deleted = 0 AND l.priority = ?
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
+  static const String getListsByCategory = '''
+  SELECT 
+    l.list_id,
+    l.title,
+    l.date,
+    l.time,
+    l.total_price,
+    l.priority,
+    l.is_deleted,
+    l.is_collapsed,
+    l.category_id,
+    i.item_id,
+    i.name,
+    i.price,
+    i.is_done
+  FROM lists l
+  LEFT JOIN items i ON i.list_id = l.list_id
+  WHERE l.is_deleted = 0 AND l.category_id = ?
+  ORDER BY l.date DESC, l.list_id, i.item_id
+''';
+  static const String getListsByCategoryAndPriority = '''
+  SELECT 
+    l.list_id,
+    l.title,
+    l.date,
+    l.time,
+    l.total_price,
+    l.priority,
+    l.is_deleted,
+    l.is_collapsed,
+    l.category_id,
+    i.item_id,
+    i.name,
+    i.price,
+    i.is_done
+  FROM lists l
+  LEFT JOIN items i ON i.list_id = l.list_id
+  WHERE l.is_deleted = 0 AND l.category_id = ? AND l.priority = ?
+  ORDER BY l.date DESC, l.list_id, i.item_id
+''';
   //
   static const String createNewList = '''
     INSERT INTO lists (
