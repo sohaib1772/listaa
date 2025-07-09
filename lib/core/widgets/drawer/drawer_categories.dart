@@ -5,6 +5,7 @@ import 'package:listaa/controller/category_controller.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
+import 'package:listaa/core/widgets/add_category_bottom_sheet.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/app_text_form.dart';
@@ -97,34 +98,7 @@ class DrawerCategories extends StatelessWidget {
           icon: AppIconsName.add,
           onPressed: () {
             Get.bottomSheet(
-              Container(
-                padding: EdgeInsets.all(20.w),
-                decoration: BoxDecoration(
-                  color: AppColors.allListsScreenBackgroundColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.r),
-                    topRight: Radius.circular(20.r),
-                  ),
-                ),
-                child: AppTextForm(
-                  validator: (p0) =>
-                      p0!.isEmpty ? AppLocaleKeys.titleRequired.tr : null,
-                  controller: categoryController,
-                  hint: AppLocaleKeys.title.tr,
-                  onFieldSubmitted: (value) async{
-                    if (value.isEmpty) {
-                      Get.snackbar(
-                        AppLocaleKeys.warning.tr,
-                        AppLocaleKeys.titleRequired.tr,
-                        snackPosition: SnackPosition.TOP,
-                      );
-                      return;
-                    }
-                    await controller.addCategory(value);
-                    Get.back();
-                  },
-                ),
-              ),
+              AddCategoryBottomSheet()
             );
           },
           text: AppLocaleKeys.newCategory.tr,

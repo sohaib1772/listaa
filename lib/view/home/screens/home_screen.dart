@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:listaa/controller/category_controller.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/localization/locale.dart';
@@ -16,6 +17,7 @@ import 'package:listaa/core/widgets/item_card.dart';
 import 'package:listaa/core/widgets/lists_card.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
 import 'package:listaa/view/home/widgets/home_add_list_bottom_sheet.dart';
+import 'package:listaa/view/home/widgets/home_categories.dart';
 
 import 'package:listaa/view/home/widgets/home_select_proiority.dart';
 import 'package:listaa/view/home/widgets/home_sliders.dart';
@@ -23,6 +25,7 @@ import 'package:listaa/view/home/widgets/home_sliders.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController controller = Get.find();
+  final CategoryController categoryController = Get.find();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -123,8 +126,9 @@ class HomeScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: GetBuilder<HomeController>(
                 
-                initState: (_){
+                initState: (_)async{
                   controller.getAllLists();
+               await categoryController.getAllCategories();
                 },
                 builder: (controller) {
                   return Padding(
@@ -160,7 +164,6 @@ class HomeScreen extends StatelessWidget {
             ),
             SliverToBoxAdapter(child: Divider(height: 20.h)),
 
-            SliverToBoxAdapter(child: Divider()),
 
             SliverToBoxAdapter(
               child: Padding(
@@ -182,6 +185,17 @@ class HomeScreen extends StatelessWidget {
                 )
                 : SizedBox.shrink()
               ),
+            ),
+            SliverToBoxAdapter(child: Padding(
+              padding:  EdgeInsets.symmetric(horizontal:  20.w),
+              child: Text(
+                AppLocaleKeys.categories.tr,
+                style: AppTextStyles.darkbold24,
+                textAlign: TextAlign.start,
+              ),
+            )),
+            SliverToBoxAdapter(
+              child: HomeCategories(categoryController: categoryController)
             ),
 
             SliverToBoxAdapter(child: SizedBox(height: 40.h)),

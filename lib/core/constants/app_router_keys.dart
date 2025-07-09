@@ -6,4 +6,5 @@ class AppRouterKeys {
   static const String lists = '/lists';
   static const String remainders = '/remainders';
   static const String trash = '/trash';
+  static const String reports = '/reports';
 }

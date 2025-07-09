@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_buttons_styles.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -31,7 +32,12 @@ class AppTextButtons extends StatelessWidget {
           TextButton(
                 style: getButtonStyle(appButtonType: type),
                 onPressed: () => onPressed(),
-                child: Text(text, style: AppTextStyles.darkbold20),
+                child: Text(
+                  text,
+                  style: AppTextStyles.darkbold20.copyWith(
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               )
               .animate(
                 autoPlay: autoPlayAnimation,
@@ -43,7 +49,7 @@ class AppTextButtons extends StatelessWidget {
 }
 
 class AppTextButtonsWithIcon extends StatelessWidget {
- const AppTextButtonsWithIcon({
+  const AppTextButtonsWithIcon({
     super.key,
     required this.text,
     required this.onPressed,
@@ -52,12 +58,12 @@ class AppTextButtonsWithIcon extends StatelessWidget {
     this.width = double.infinity,
     this.icon = Icons.add_box_outlined,
   });
- final double width;
- final Function onPressed;
- final String text;
- final AppButtonType type;
- final bool autoPlayAnimation;
- final IconData icon;
+  final double width;
+  final Function onPressed;
+  final String text;
+  final AppButtonType type;
+  final bool autoPlayAnimation;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,17 +101,16 @@ class AppTextButtonsWithIcon extends StatelessWidget {
 }
 
 class AppDrawerIconButton extends StatelessWidget {
- const AppDrawerIconButton({
+  const AppDrawerIconButton({
     super.key,
     required this.onPressed,
     this.icon = AppIconsName.add,
   });
- final Function onPressed;
- final AppIconsName icon;
+  final Function onPressed;
+  final AppIconsName icon;
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      
       style: getButtonStyle(appButtonType: AppButtonType.drawerButton),
       onPressed: () => onPressed(),
       child: AppIcons(icon: icon, size: icon == AppIconsName.close ? 18 : 24),
@@ -114,21 +119,21 @@ class AppDrawerIconButton extends StatelessWidget {
 }
 
 class AppDrawerTextIconButton extends StatelessWidget {
-const  AppDrawerTextIconButton({
+  const AppDrawerTextIconButton({
     super.key,
     required this.onPressed,
     this.icon = AppIconsName.doneList,
     required this.text,
     this.onLongPress,
   });
- final Function onPressed;
- final AppIconsName icon;
- final String text;
+  final Function onPressed;
+  final AppIconsName icon;
+  final String text;
   final Function? onLongPress;
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onLongPress: ()=> onLongPress?.call(),
+      onLongPress: () => onLongPress?.call(),
       onPressed: () => onPressed(),
       child: Row(
         children: [
@@ -142,7 +147,7 @@ const  AppDrawerTextIconButton({
 }
 
 class AppIconButton extends StatelessWidget {
- const AppIconButton({
+  const AppIconButton({
     super.key,
     required this.onPressed,
     this.type = AppButtonType.floatingButton,
@@ -151,12 +156,12 @@ class AppIconButton extends StatelessWidget {
     this.icon = Icons.add_box_outlined,
     this.iconSize = 40,
   });
- final double width;
- final Function onPressed;
- final AppButtonType type;
- final bool autoPlayAnimation;
- final IconData icon;
- final double iconSize;
+  final double width;
+  final Function onPressed;
+  final AppButtonType type;
+  final bool autoPlayAnimation;
+  final IconData icon;
+  final double iconSize;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -180,6 +185,100 @@ class AppIconButton extends StatelessWidget {
                   icon,
                   color: AppColors.primaryTextColor,
                   size: iconSize.sp,
+                ),
+              )
+              .animate(
+                autoPlay: autoPlayAnimation,
+                onPlay: (controller) => controller.repeat(),
+              )
+              .shimmer(duration: 2.seconds),
+    );
+  }
+}
+
+class AppHomeCategoriesButton extends StatelessWidget {
+  const AppHomeCategoriesButton({
+    super.key,
+    required this.onPressed,
+    this.type = AppButtonType.light,
+    this.autoPlayAnimation = false,
+    this.width = double.infinity,
+    required this.icon,
+    this.iconSize = 30,
+    required this.text,
+  });
+  final double width;
+  final String text;
+  final Function onPressed;
+  final AppButtonType type;
+  final bool autoPlayAnimation;
+  final String icon;
+  final double iconSize;
+  AppIconsName getDeafultCategoryIcon(String title) {
+    switch (title) {
+      case AppLocaleKeys.holyDaysAndEvents:
+        return AppIconsName.event;
+      case AppLocaleKeys.fruitsAndVegetable:
+        return AppIconsName.fruits;
+      case AppLocaleKeys.marketAndOthers:
+        return AppIconsName.drink;
+      case AppLocaleKeys.public:
+        return AppIconsName.all;
+      case AppLocaleKeys.add:
+        return AppIconsName.add;
+      default:
+        return AppIconsName.doneList;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withAlpha(115),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: Offset(2, 3),
+          ),
+        ],
+      ),
+      width: width.w,
+      child:
+          TextButton(
+                style: getButtonStyle(appButtonType: type),
+                onPressed: () => onPressed(),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(5.w),
+                      decoration: BoxDecoration(
+                        color: AppColors.datePickerBackgroundColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: AppIcons(
+                        icon: getDeafultCategoryIcon(icon),
+                        color: AppColors.primaryTextColor,
+                        size: iconSize.sp,
+                      ),
+                    ),
+                    SizedBox(width: 10.w),
+                    Expanded(
+                      child: Text(
+                        text,
+                        style: AppTextStyles.darkbold20.copyWith(
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.primaryTextColor,
+                      size: 18.sp,
+                    ),
+                  ],
                 ),
               )
               .animate(

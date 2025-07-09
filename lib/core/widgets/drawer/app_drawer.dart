@@ -20,8 +20,9 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      width: double.infinity,
+    return Drawer(  
+       
+      width: MediaQuery.of(context).size.width * 0.7,
       child: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(gradient: AppColors.drawerLinerGradient),
@@ -43,11 +44,7 @@ class AppDrawer extends StatelessWidget {
                     AppLocaleKeys.listaApp.tr,
                     style: AppTextStyles.darkbold28,
                   ),
-                  Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: AppIcons(icon: AppIconsName.notifications, size: 30),
-                  ),
+                 
                 ],
               ),
             ),
@@ -59,7 +56,7 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -77,7 +74,9 @@ class AppDrawer extends StatelessWidget {
                             icon: AppIconsName.clock,
                           ),
                           AppDrawerTextIconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(AppRouterKeys.reports);
+                            },
                             text: AppLocaleKeys.moneyReports.tr,
                             icon: AppIconsName.chart,
                           ),
@@ -104,35 +103,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Stack(
-                    alignment: AlignmentDirectional.centerEnd,
-                    children: [
-                      Container(
-                        width: 67.w,
-                        height: 314.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Container(
-                        width: 43.w,
-                        height: 373.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                          color: Color(0xFFB3D3D4),
-                        ),
-                      ),
-                    ],
-                  ),
+                
                 ],
               ),
             ),

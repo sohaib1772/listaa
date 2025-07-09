@@ -11,6 +11,7 @@ class AppLocaleKeys {
   static const String save = 'save';
   static const String yes = 'yes';
   static const String no = 'no';
+  static const String add = 'add';
   static const String cancel= 'cancel';
   static const String delete = 'delete';
   static const String share = 'share';
@@ -139,6 +140,7 @@ class AppLocale extends Translations {
       AppLocaleKeys.done: 'تم',
       AppLocaleKeys.save: 'حفظ',
       AppLocaleKeys.reset: 'اعادة تعيين',
+      AppLocaleKeys.add: 'اضافة',
 
       AppLocaleKeys.date: 'التاريخ',
       AppLocaleKeys.more: 'المزيد',
@@ -232,6 +234,7 @@ class AppLocale extends Translations {
           'Are you sure you want to delete this list ?',
       AppLocaleKeys.yes: 'Yes',
       AppLocaleKeys.no: 'No',
+      AppLocaleKeys.add: 'Add',
 
      
       AppLocaleKeys.public: 'Public',

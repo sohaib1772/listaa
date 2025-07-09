@@ -27,9 +27,13 @@ int priority = 10;
     update();
   }
 
-  Future<void> getAllLists()async{
+  Future<void> getAllLists({int categoryId = 0})async{
     
+  if (categoryId != 0) {
+     // lists.value = await homeData.getAllHomeListsByCategory(categoryId);
+    } else {
    lists.value =  await homeData.getAllHomeLists();
+    }
   }
   Future<void> getHomeListsByPriority(int priority)async{
    lists.value =  await homeData.getHomeListsByPriority(
@@ -39,7 +43,7 @@ int priority = 10;
    
   }
 
-  void toggleIsDone(int listIndex, int itemId)async {
+  void toggleIsDone(int listIndex, int itemId,int groupInedx)async {
    await homeData.markItemAsDone(
        itemId,
        !lists[listIndex].items.firstWhere(

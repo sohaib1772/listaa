@@ -106,7 +106,11 @@ class RemaindersScreen extends StatelessWidget {
 
                                 children: [
                                   Text(
-                                    "20:10",
+                                     Get.find<Formatter>().time(
+                                       controller
+                                          .lists[mainIndex]
+                                          .shoppingLists[index].time
+                                     ),
                                     style: AppTextStyles.darkbold20,
                                   ),
                                   SizedBox(width: 10.w),

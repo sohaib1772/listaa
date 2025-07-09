@@ -38,7 +38,7 @@ class HomeController extends GetxController {
    
   }
 
-  void toggleIsDone(int listIndex, int itemId)async {
+  void toggleIsDone(int listIndex, int itemId,int groupInedx)async {
    await homeData.markItemAsDone(
        itemId,
        !lists[listIndex].items.firstWhere(
