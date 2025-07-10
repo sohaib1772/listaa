@@ -186,17 +186,9 @@ class HomeScreen extends StatelessWidget {
                 : SizedBox.shrink()
               ),
             ),
-            SliverToBoxAdapter(child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal:  20.w),
-              child: Text(
-                AppLocaleKeys.categories.tr,
-                style: AppTextStyles.darkbold24,
-                textAlign: TextAlign.start,
-              ),
+            SliverToBoxAdapter(child: HomeCategories(
+              categoryController: categoryController,
             )),
-            SliverToBoxAdapter(
-              child: HomeCategories(categoryController: categoryController)
-            ),
 
             SliverToBoxAdapter(child: SizedBox(height: 40.h)),
           ],

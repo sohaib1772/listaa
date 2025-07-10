@@ -3,17 +3,27 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
-import 'package:listaa/data/repositories/home_data.dart';
+import 'package:listaa/data/repositories/list_data.dart';
 
 class AllListsController extends GetxController{
 int priority = 10;
   var scrollAlpha = 0.obs;
-  HomeData homeData = Get.find<HomeDataImpl>();
+  ListData homeData = Get.find<ListDataImpl>();
   RxBool isLoading = true.obs;
 
-  void changePriority(int index) async{
+  void changePriority(int index,{int categoryId = 0}) async{
     priority = index;
+    if(categoryId != 0 ){
+      if(priority == 10){
+        await getAllLists(categoryId: categoryId);
+        return;
+      }
+       lists.value = await homeData.getListsByCategory(
+        categoryId
+       ,Priority.values[priority],);
+    }else{
     index == 10 ? await getAllLists() : await getHomeListsByPriority(index);
+    }
     update();
   }
 
@@ -28,15 +38,18 @@ int priority = 10;
   }
 
   Future<void> getAllLists({int categoryId = 0})async{
-    
+    print("category is $categoryId");
   if (categoryId != 0) {
-     // lists.value = await homeData.getAllHomeListsByCategory(categoryId);
+      lists.value = await homeData.getListsByCategory(
+        categoryId
+       ,null);
     } else {
-   lists.value =  await homeData.getAllHomeLists();
+   lists.value =  await homeData.getAllLists();
     }
+    update();
   }
   Future<void> getHomeListsByPriority(int priority)async{
-   lists.value =  await homeData.getHomeListsByPriority(
+   lists.value =  await homeData.getListsByPriority(
 
     Priority.values[priority],
    );

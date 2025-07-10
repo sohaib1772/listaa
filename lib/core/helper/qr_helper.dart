@@ -10,4 +10,5 @@ class QrHelper{
   gapless: false,
 );
   }
+
 }

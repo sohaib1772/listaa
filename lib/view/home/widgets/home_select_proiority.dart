@@ -10,9 +10,9 @@ import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 
 class HomeSelectProiority extends StatelessWidget {
-  HomeSelectProiority({super.key, this.horizontalPadding = 20,required this.controller});
+  HomeSelectProiority({super.key, this.horizontalPadding = 20,required this.controller,this.categoryId = 0});
   double horizontalPadding;
-
+  int categoryId;
   final controller;
   @override
   Widget build(BuildContext context) {
@@ -22,23 +22,26 @@ class HomeSelectProiority extends StatelessWidget {
         children: [
           SizedBox(width: horizontalPadding.w),
           SelectPriorityButton(
+            categoryId: categoryId,
             controller: controller,
             iconNames: AppIconsName.all,priority: 10,),
           SizedBox(width: 5.w),
           SelectPriorityButton(
+              categoryId: categoryId,
             controller: controller,
             iconNames: AppIconsName.redFlag,priority: 0,
             
           ),
           SizedBox(width: 5.w),
           SelectPriorityButton(
-            
+            categoryId: categoryId,
             controller: controller,
             iconNames: AppIconsName.blueFlag,priority: 1,
         
           ),
           SizedBox(width: 5.w),
           SelectPriorityButton(
+            categoryId: categoryId,
             controller: controller,
             iconNames: AppIconsName.grayFlag,priority: 2,
            
@@ -51,7 +54,7 @@ class HomeSelectProiority extends StatelessWidget {
 }
 
 class SelectPriorityButton<T> extends StatelessWidget {
-   SelectPriorityButton({super.key,required this.iconNames,required this.priority,required this.controller});
+   SelectPriorityButton({super.key,required this.iconNames,required this.priority,required this.controller,this.categoryId = 0});
 
   final controller;
   AppIconsName iconNames;
@@ -85,11 +88,12 @@ class SelectPriorityButton<T> extends StatelessWidget {
         return AppLocaleKeys.allPriority.tr;
     }
   }
+  int categoryId;
   @override
   Widget build(BuildContext context) {
     return InkWell(
             onTap: () {
-              controller.changePriority(priority);
+              controller.changePriority(priority,categoryId: categoryId);
             },
             child: GetBuilder(
               init: controller,

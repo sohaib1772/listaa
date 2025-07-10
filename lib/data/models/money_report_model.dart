@@ -12,7 +12,7 @@ class MoneyReportModel {
   factory MoneyReportModel.fromMap(Map<String, dynamic> map) {
     return MoneyReportModel(
       category: map['category'] as String,
-      totalSpent: (map['total_spent'] as num).toDouble(),
+      totalSpent: (map['total_spent'] as num?)?.toDouble() ?? 0.0,
       listsCount: map['lists_count'] as int,
     );
   }

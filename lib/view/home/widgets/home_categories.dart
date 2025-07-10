@@ -40,9 +40,7 @@ class HomeCategories extends StatelessWidget {
                   final category = categoryController.categories[index];
                   return AppHomeCategoriesButton(
                     icon: category.title,
-                    text: category.isDefault
-                        ? category.title.tr
-                        : category.title,
+                    text: category.title.tr,
                     onPressed: () {
                       Get.toNamed(AppRouterKeys.lists, arguments: category);
                     },

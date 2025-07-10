@@ -84,6 +84,16 @@ class AppLocaleKeys {
   // confirmations
   static const String deleteListConfirmation = 'deleteListConfirmation';
   static const String deleteCategoryConfirmation = 'deleteCategoryConfirmation';
+
+
+  // report types
+
+  static const String today = 'today';
+  static const String currentWeek = 'currentWeek';
+  static const String currentMonth = 'currentMonth';
+  static const String lastMonth = 'lastMonth';
+  static const String currentYear = 'currentYear';
+  static const String all = 'all';
 }
 
 class AppLocale extends Translations {
@@ -172,6 +182,13 @@ class AppLocale extends Translations {
       AppLocaleKeys.success: 'تمت العملية بنجاح ✅',
       AppLocaleKeys.listUpdatedSuccessfully: 'تم تحديث القائمة',
 
+      AppLocaleKeys.today: 'اليوم',
+      AppLocaleKeys.currentWeek: 'الاسبوع الحالي',
+      AppLocaleKeys.currentMonth: 'الشهر الحالي',
+      AppLocaleKeys.lastMonth: 'الشهر الماضي',
+      AppLocaleKeys.currentYear: 'السنة الحالية',
+      AppLocaleKeys.all: 'الكل',
+
 
 
 
@@ -252,6 +269,14 @@ class AppLocale extends Translations {
       AppLocaleKeys.success: 'Operation completed successfully ✅',
       AppLocaleKeys.listUpdatedSuccessfully: 'List updated successfully',
 
+      
+     
+      AppLocaleKeys.today: 'Today',
+      AppLocaleKeys.currentWeek: 'Current Week',
+      AppLocaleKeys.currentMonth: 'Current Month',
+      AppLocaleKeys.lastMonth: 'Last Month',
+      AppLocaleKeys.currentYear: 'Current Year',
+      AppLocaleKeys.all: 'All',
 
     },
   };

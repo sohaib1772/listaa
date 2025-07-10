@@ -1,17 +1,16 @@
 import 'package:get/get.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
-import 'package:listaa/data/repositories/home_data.dart';
+import 'package:listaa/data/repositories/list_data.dart';
 
 
 class HomeController extends GetxController {
   int priority = 10;
   var scrollAlpha = 0.obs;
-  HomeData homeData = Get.find<HomeDataImpl>();
+  ListData homeData = Get.find<ListDataImpl>();
   RxBool isLoading = true.obs;
 
-  void changePriority(int index) async{
+  void changePriority(int index,{int categoryId = 0}) async{
     priority = index;
-    print("priority.value ${priority}");
     index == 10 ? await getAllLists() : await getHomeListsByPriority(index);
     update();
   }
@@ -27,11 +26,11 @@ class HomeController extends GetxController {
 
   Future<void> getAllLists()async{
     
-   lists.value =  await homeData.getAllHomeLists();
+   lists.value =  await homeData.getAllLists();
    update();
   }
-  Future<void> getHomeListsByPriority(int priority)async{
-   lists.value =  await homeData.getHomeListsByPriority(
+  Future<void> getHomeListsByPriority(int priority,{int categoryId = 0})async{
+   lists.value =  await homeData.getListsByPriority(
 
     Priority.values[priority],
    );

@@ -80,9 +80,7 @@ class DrawerCategories extends StatelessWidget {
                       );
                     },
                     onPressed: () {},
-                    text: controller.categories[index].isDefault
-                        ? controller.categories[index].title.tr
-                        : controller.categories[index].title,
+                    text:controller.categories[index].title.tr,
                     icon: controller.getDeafultCategoryIcon(
                       controller.categories[index].title,
                     ),

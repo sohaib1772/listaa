@@ -12,7 +12,7 @@ abstract class ListData {
 
   Future<List<ShoppingListModel>> getListsByCategory(
     int categoryId,
-    Priority priority,
+    Priority? priority,
   );
 
   Future<int> markItemAsDone(int itemId, bool isDone);

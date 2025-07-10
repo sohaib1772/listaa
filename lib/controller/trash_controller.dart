@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/data/models/grouped_shopping_lists_model.dart';
-import 'package:listaa/data/repositories/home_data.dart';
+import 'package:listaa/data/repositories/list_data.dart';
 import 'package:listaa/data/repositories/reminders_data.dart';
 import 'package:listaa/data/repositories/trash_data.dart';
 
@@ -9,7 +9,7 @@ class TrashController extends GetxController{
 
   var scrollAlpha = 0.obs;
   TrashData data = Get.find<TrashDataImpl>();
-  HomeData homeData = Get.find<HomeDataImpl>();
+  ListData homeData = Get.find<ListDataImpl>();
   RxBool isLoading = true.obs;
 
 

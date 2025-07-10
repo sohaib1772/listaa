@@ -77,6 +77,8 @@ class AppColors {
   static const Color allListsScreenBackgroundColor = Color(0xFFFFF8E7);
   static const Color datePickerBackgroundColor = Color(0xFFF6DCB0);
   static const Color addNewListBottomSheetBackgroundColor = Color(0xFFfff8e8);
+  static const Color bottomContainerBackgroundColor = Color(0xFFFFF8E7);
+  static const Color darkBlue = Color(0xFF012639);
 
   // borders 
 

@@ -218,14 +218,69 @@ class SqlQueries {
   ORDER BY total_spent DESC
 ''';
 
-  static const String spendingByWeek = '''
+static const String spendingByWeek   = '''
   SELECT
       c.title as category,
       SUM(i.price) as total_spent,
       COUNT(DISTINCT l.list_id) as lists_count
   FROM categories c
   LEFT JOIN lists l ON c.category_id = l.category_id
-      AND strftime('%Y-%W', l.date) = strftime('%Y-%W', 'now', 'localtime', '-7 days')
+      AND datetime(l.date) BETWEEN datetime('now', 'localtime', '-6 days') AND datetime('now', 'localtime', '+1 day')
+  LEFT JOIN items i ON l.list_id = i.list_id 
+      AND i.is_done = 1
+  GROUP BY c.category_id
+  ORDER BY total_spent DESC
+''';
+static const String spendingToday = '''
+  SELECT
+      c.title as category,
+      SUM(i.price) as total_spent,
+      COUNT(DISTINCT l.list_id) as lists_count
+  FROM categories c
+  LEFT JOIN lists l ON c.category_id = l.category_id
+      AND date(l.date) = date('now', 'localtime')
+  LEFT JOIN items i ON l.list_id = i.list_id 
+      AND i.is_done = 1
+  GROUP BY c.category_id
+  ORDER BY total_spent DESC
+''';
+static const String spendingCurrentMonth = '''
+  SELECT
+      c.title as category,
+      SUM(i.price) as total_spent,
+      COUNT(DISTINCT l.list_id) as lists_count
+  FROM categories c
+  LEFT JOIN lists l ON c.category_id = l.category_id
+      AND date(l.date) BETWEEN date('now', 'start of month', 'localtime')
+                         AND date('now', 'localtime')
+  LEFT JOIN items i ON l.list_id = i.list_id 
+      AND i.is_done = 1
+  GROUP BY c.category_id
+  ORDER BY total_spent DESC
+''';
+static const String spendingPreviousMonth = '''
+  SELECT
+      c.title as category,
+      SUM(i.price) as total_spent,
+      COUNT(DISTINCT l.list_id) as lists_count
+  FROM categories c
+  LEFT JOIN lists l ON c.category_id = l.category_id
+      AND date(l.date) BETWEEN date('now', 'start of month', '-1 month', 'localtime')
+                         AND date('now', 'start of month', '-1 day', 'localtime')
+  LEFT JOIN items i ON l.list_id = i.list_id 
+      AND i.is_done = 1
+  GROUP BY c.category_id
+  ORDER BY total_spent DESC
+''';
+static const String spendingCurrentYear = '''
+  SELECT
+      c.title as category,
+      SUM(i.price) as total_spent,
+      COUNT(DISTINCT l.list_id) as lists_count
+  FROM categories c
+  LEFT JOIN lists l ON c.category_id = l.category_id
+      AND date(l.date) BETWEEN date('now', 'start of year', 'localtime')
+                         AND date('now', 'localtime')
   LEFT JOIN items i ON l.list_id = i.list_id 
       AND i.is_done = 1
   GROUP BY c.category_id

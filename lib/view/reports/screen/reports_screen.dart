@@ -1,26 +1,35 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/get.dart';
+import 'package:listaa/controller/reports_controller.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
+import 'package:listaa/view/reports/widgets/reports_categories_list.dart';
+import 'package:listaa/view/reports/widgets/reports_circle_chart.dart';
+import 'package:listaa/view/reports/widgets/reports_select_date.dart';
 
 class ReportsScreen extends StatelessWidget {
   ReportsScreen({super.key});
 
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final ReportsController controller = Get.find();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.loadAll('monthly');
+    });
+
     return CustomScaffold(
       scaffoldKey: scaffoldKey,
       showAppbar: false,
-      showAddListButton: true,
+      showAddListButton: false,
       body: Container(
         color: AppColors.allListsScreenBackgroundColor,
         child: CustomScrollView(
@@ -40,9 +49,7 @@ class ReportsScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
+                      onPressed: () => Get.back(),
                       icon: Icon(
                         Icons.arrow_back,
                         color: AppColors.primaryTextColor,
@@ -56,112 +63,64 @@ class ReportsScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                child: Column(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocaleKeys.add.tr,
-                          style: AppTextStyles.darkbold20,
-                        ),
-                        Text(
-                          AppLocaleKeys.yes.tr,
-                          style: AppTextStyles.darkbold20,
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        SizedBox(
-                          width: 200.w,
-                          height: 200.h,
-                          child: PieChart(
-                            PieChartData(
-                              pieTouchData: PieTouchData(),
-                              borderData: FlBorderData(show: false),
-                              sectionsSpace: 0,
-                              centerSpaceRadius: 60,
-                              sections: showingSections(),
-                            ),
-                          ),
-                        ),
-                        CircleAvatar(
-                          radius: 55.r,
-                          backgroundColor: AppColors.primaryTextColor,
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                            Text(
-                              "421",
-                              style: AppTextStyles.darkbold20.copyWith(color: Colors.white),
-                            ),
-                            AppIcons(
-                              color:AppColors.greenIconColor,
-                              icon: AppIconsName.dollar,
-                              size: 24.sp,
-                            )
-                          ])
-                        )
-                      ],
-                    ),
+                    ReportsCircleChart(),
+                    SizedBox(height: 20.h),
+                    ReportsSelectDate(),
                   ],
                 ),
               ),
             ),
+            SliverToBoxAdapter(
+              child: ReportsCategoriesList(),
+            ),
+            SliverToBoxAdapter(child: SizedBox(height: 40.h)),
+            SliverToBoxAdapter(
+              child: Obx(() => Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                height: 60.h,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.symmetric(
+                  vertical: 6.h,
+                  horizontal: 40.w,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('الإجمالي', style: AppTextStyles.darkbold24),
+                    Row(
+                      children: [
+                        Text(controller.totalSpent.toInt().toString(), style: AppTextStyles.darkbold24),
+                        SizedBox(width: 10.w),
+                        AppIcons(
+                          icon: AppIconsName.dollar,
+                          color: AppColors.greenIconColor,
+                          size: 30.sp,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+            ),
+            SliverToBoxAdapter(child: SizedBox(height: 80.h)),
           ],
         ),
       ),
     );
   }
-}
-
-List<PieChartSectionData> showingSections() {
-  return List.generate(4, (i) {
-    final fontSize = 16.0;
-    final radius = 30.0;
-    const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
-    switch (i) {
-      case 0:
-        return PieChartSectionData(
-          color: AppColors.redIconColor,
-          value: 40,
-          title: '40%',
-          radius: radius,
-          titleStyle: AppTextStyles.darkbold16,
-        );
-      case 1:
-        return PieChartSectionData(
-          color: AppColors.blueIconColor,
-          value: 30,
-          title: '30%',
-          radius: radius,
-          titleStyle: AppTextStyles.darkbold16,
-        );
-      case 2:
-        return PieChartSectionData(
-          color: AppColors.greenIconColor,
-          value: 15,
-          title: '15%',
-          radius: radius,
-          titleStyle: AppTextStyles.darkbold16,
-        );
-      case 3:
-        return PieChartSectionData(
-          color: AppColors.grayIconColor,
-          value: 15,
-          title: '15%',
-          radius: radius,
-          titleStyle: AppTextStyles.darkbold16,
-        );
-      default:
-        throw Error();
-    }
-  });
 }

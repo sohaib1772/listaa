@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_popup/flutter_popup.dart';
@@ -15,6 +17,7 @@ import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/controller/new_list_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/helper/formatter.dart';
+import 'package:listaa/core/helper/qr_helper.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -40,9 +43,10 @@ class _NewListScreenState extends State<NewListScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final args = Get.arguments;
+  final GlobalKey qrKey = GlobalKey();
 
   NewListController controller = Get.find();
-   ShoppingListModel? model;
+  ShoppingListModel? model;
   @override
   void initState() {
     // TODO: implement initState
@@ -50,7 +54,7 @@ class _NewListScreenState extends State<NewListScreen> {
     if (args['title'] != null) controller.title.value = args['title'];
 
     if (args['model'] == null) return;
-     model = args['model'];
+    model = args['model'];
     controller.isEditing.value = true;
     controller.title.value = model!.title;
     final List<ItemModel> itemModels = List<ItemModel>.from(model!.items);
@@ -61,6 +65,7 @@ class _NewListScreenState extends State<NewListScreen> {
     controller.time.value = Get.find<Formatter>().time(model!.time);
     controller.items = itemModels.map((e) {
       return RowItemsModel(
+        id: e.id ?? 0,
         nameController: TextEditingController(text: e.name),
         priceController: TextEditingController(text: e.price.toString()),
         focusNode: FocusNode(),
@@ -84,7 +89,97 @@ class _NewListScreenState extends State<NewListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.bottomSheet(
+                        Container(
+                          padding: EdgeInsets.all(20.w),
+                          decoration: BoxDecoration(
+                            color: AppColors.allListsScreenBackgroundColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.r),
+                              topRight: Radius.circular(20.r),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              RepaintBoundary(
+                                key: qrKey,
+                                child: Container(
+                                  padding: EdgeInsets.all(10.w),
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.containerLinerGradient,
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      QrHelper.generateQrCode(
+                                        json.encode(
+                                          ShoppingListModel(
+                                            id: model?.id ?? 0,
+                                            isDeleted: false,
+                                            totalPrice:
+                                                controller.totalAmount.value,
+                                            title: controller.title.value,
+                                            date: DateTime.parse(
+                                              controller.date.value,
+                                            ),
+                                            time: DateTime.parse(
+                                              "0000-00-00 ${controller.time.value}",
+                                            ),
+                                            items: controller.items
+                                                .map(
+                                                  (e) => ItemModel(
+                                                    id: e.id,
+                                                    listId: model?.id ?? 0,
+                                                    name: e.nameController.text,
+                                                    price:
+                                                        double.tryParse(
+                                                          e
+                                                              .priceController
+                                                              .text,
+                                                        ) ??
+                                                        0,
+                                                    isDone: false,
+                                                  ),
+                                                )
+                                                .toList(),
+                                            priority: controller
+                                                .selectedPriority
+                                                .value,
+                                            categoryId:
+                                                controller.selectedCategoryId,
+                                          ).toMap(),
+                                        ),
+                                        200,
+                                      ),
+                                      SizedBox(height: 20.h),
+                                      Text(
+                                        AppLocaleKeys.listaApp.tr,
+                                        style: AppTextStyles.darkbold20,
+                                      ),
+                                      SizedBox(height: 10.h),
+                                      Text(
+                                        controller.title.value,
+                                        style: AppTextStyles.darkbold16,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              AppTextButtons(
+                                text: AppLocaleKeys.share.tr,
+                                onPressed: () {
+                                  controller.shareQrCode(qrKey: qrKey);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -102,13 +197,11 @@ class _NewListScreenState extends State<NewListScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: ()async {
-                   await   controller.delete(
-                        model?.id ?? 0
-                      );
+                    onPressed: () async {
+                      await controller.delete(model?.id ?? 0);
                       Get.back();
-                    await  Get.find<HomeController>().getAllLists();
-                    
+                      await Get.find<HomeController>().getAllLists();
+
                       Get.back();
                     },
                     child: Row(
@@ -143,9 +236,7 @@ class _NewListScreenState extends State<NewListScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               NewListHeader(title: controller.title.value),
-              NewListSelectCategories(
-                controller: controller,
-              ),
+              NewListSelectCategories(controller: controller),
               SizedBox(
                 height: 300.h,
                 child: GetBuilder<NewListController>(
@@ -174,7 +265,12 @@ class _NewListScreenState extends State<NewListScreen> {
                     : AppTextButtons(
                         text: AppLocaleKeys.save.tr,
                         onPressed: () async {
-                          if (controller.items.first.nameController.text.isEmpty) {
+                          if (controller
+                              .items
+                              .first
+                              .nameController
+                              .text
+                              .isEmpty) {
                             Get.snackbar(
                               AppLocaleKeys.warning.tr,
                               AppLocaleKeys.listShouldHaveAtLeastOneItem.tr,
@@ -182,14 +278,14 @@ class _NewListScreenState extends State<NewListScreen> {
                             );
                             return;
                           }
-                          if( model != null) {
+                          if (model != null) {
                             await controller.updateList(model?.id ?? 0);
                             Get.snackbar(
                               AppLocaleKeys.success.tr,
                               AppLocaleKeys.listUpdatedSuccessfully.tr,
                               snackPosition: SnackPosition.TOP,
                             );
-                           await Get.find<HomeController>().getAllLists();
+                            await Get.find<HomeController>().getAllLists();
                             return;
                           }
                           await controller.addNewList();

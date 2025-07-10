@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
@@ -6,12 +12,17 @@ import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:listaa/data/repositories/category_data.dart';
 import 'package:listaa/data/repositories/list_data.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 class RowItemsModel {
+  int id;
   TextEditingController nameController;
   TextEditingController priceController;
   FocusNode focusNode = FocusNode();
   RowItemsModel({
+    required this.id,
     required this.nameController,
     required this.priceController,
     required this.focusNode,
@@ -35,6 +46,7 @@ class NewListController extends GetxController {
   RowItemsModel addNewItemToRows() {
     items.add(
       RowItemsModel(
+        id: 0,
         nameController: TextEditingController(),
         priceController: TextEditingController(),
         focusNode: FocusNode(),
@@ -136,7 +148,45 @@ class NewListController extends GetxController {
   Future<void> delete(int id)async{
     await listData.softDeleteList(id);
   }
-  
+
+
+
+  Future<void> shareQrCode({required GlobalKey qrKey}) async {
+  try {
+    await Future.delayed(const Duration(milliseconds: 100)); // Wait for the frame to be rendered
+    await WidgetsBinding.instance.endOfFrame;
+
+    final boundary = qrKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+    if (boundary == null) {
+      Get.snackbar("خطأ", "لم يتم العثور على QR لالتقاطه");
+      return;
+    }
+
+    final image = await boundary.toImage(pixelRatio: 3.0);
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
+    final pngBytes = byteData?.buffer.asUint8List();
+
+    if (pngBytes == null) {
+      Get.snackbar("خطأ", "تعذر توليد صورة QR");
+      return;
+    }
+
+    final tempDir = await getTemporaryDirectory();
+    final file = await File('${tempDir.path}/qr_code.png').create();
+    await file.writeAsBytes(pngBytes);
+
+    await SharePlus.instance.share(
+      ShareParams(
+        text: 'Listaa QR Code',
+        files: [XFile(file.path)],
+      )
+    );
+  } catch (e) {
+    // print(e);
+    // Get.snackbar("خطأ", "فشل في مشاركة QR: $e");
+  }
+}
+
   @override
   void onInit() async{
    await getCategories();

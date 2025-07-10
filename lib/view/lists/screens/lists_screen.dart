@@ -58,9 +58,7 @@ class ListsScreen extends StatelessWidget {
                     ),
                     Text(
                       category != null
-                          ? (category!.isDefault
-                                ? category!.title.tr
-                                : category!.title)
+                          ? category!.title.tr
                           : AppLocaleKeys.lists.tr,
                       style: AppTextStyles.darkbold28,
                     ),
@@ -75,7 +73,8 @@ class ListsScreen extends StatelessWidget {
               child: GetBuilder<AllListsController>(
                 init: controller,
                 builder: (_) {
-                  return HomeSelectProiority(controller: controller);
+                  return HomeSelectProiority(controller: controller,
+                      categoryId: category?.id ?? 0);
                 },
               ),
             ),
