@@ -64,11 +64,13 @@ class _NewListScreenState extends State<NewListScreen> {
     controller.date.value = model!.date.toString();
     controller.time.value = Get.find<Formatter>().time(model!.time);
     controller.items = itemModels.map((e) {
+      print("is dooooooone ? :${e.isDone}");
       return RowItemsModel(
         id: e.id ?? 0,
         nameController: TextEditingController(text: e.name),
         priceController: TextEditingController(text: e.price.toString()),
         focusNode: FocusNode(),
+        isDone: e.isDone,
       );
     }).toList();
 
@@ -141,7 +143,7 @@ class _NewListScreenState extends State<NewListScreen> {
                                                               .text,
                                                         ) ??
                                                         0,
-                                                    isDone: false,
+                                                    isDone: e.isDone,
                                                   ),
                                                 )
                                                 .toList(),
@@ -279,6 +281,10 @@ class _NewListScreenState extends State<NewListScreen> {
                             return;
                           }
                           if (model != null) {
+                            if(args["qr"] == true){
+                              await controller.addNewList();
+                              return;
+                            }
                             await controller.updateList(model?.id ?? 0);
                             Get.snackbar(
                               AppLocaleKeys.success.tr,

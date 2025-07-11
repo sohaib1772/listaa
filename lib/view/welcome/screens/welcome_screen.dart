@@ -33,7 +33,6 @@ final  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
             GetBuilder<WelcomeController>(
               builder: (controller) {
                 if (controller.startSlidersAnimation) {
-                  print("xxxxxxxxxxxx");
                   return InfiniteBoxAnimation();
                 }
                 return Container();

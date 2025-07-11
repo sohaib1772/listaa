@@ -3,16 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:listaa/core/binding/dependency_injection.dart';
+import 'package:listaa/core/helper/notifications_helper.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/routing/app_router.dart';
 import 'package:listaa/core/services/my_services.dart';
 import 'package:listaa/core/theme/app_theme.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
-
+  await NotificationsHelper.init();
   await ScreenUtil.ensureScreenSize();
   runApp(const MyApp());
 }

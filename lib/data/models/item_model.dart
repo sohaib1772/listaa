@@ -28,7 +28,16 @@ class ItemModel {
       id: map['item_id'],
       name: map['name'],
       price: map['price'],
-      isDone: map['is_done'] == 1,
+      isDone: map['is_done'] == 1 ,
+      listId: map['list_id'],
+    );
+  }
+  factory ItemModel.fromMapQR(Map<String, dynamic> map) {
+    return ItemModel(
+      id: map['item_id'],
+      name: map['name'],
+      price: map['price'],
+      isDone: map['is_done'],
       listId: map['list_id'],
     );
   }

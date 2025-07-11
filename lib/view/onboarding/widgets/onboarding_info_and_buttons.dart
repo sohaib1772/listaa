@@ -9,6 +9,7 @@ import 'package:get/get_utils/get_utils.dart';
 import 'package:listaa/controller/onboarding_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/services/my_services.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
@@ -18,6 +19,7 @@ class OnboardingInfoAndButtons extends StatelessWidget {
   OnboardingInfoAndButtons({super.key});
 
   OnboardingController controller = Get.find();
+  MyServices myServices = Get.find();
   @override
   Widget build(BuildContext context) {
     return Animate(
@@ -81,6 +83,7 @@ class OnboardingInfoAndButtons extends StatelessWidget {
                             ? AppLocaleKeys.goNow.tr
                             : AppLocaleKeys.next.tr,
                         onPressed: () {
+                          controller.isLastPage ? myServices.sharedPreferences.setBool("firstTime", true) : null;
                           controller.isLastPage
                               ? Get.offAllNamed(AppRouterKeys.home)
                               : controller.nextPage();
@@ -94,6 +97,7 @@ class OnboardingInfoAndButtons extends StatelessWidget {
                               text: AppLocaleKeys.skip.tr,
                               onPressed: () {
                                 Get.offAllNamed(AppRouterKeys.home);
+                                myServices.sharedPreferences.setBool("firstTime", true);
                               },
                               type: AppButtonType.light,
                             ),

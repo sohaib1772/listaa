@@ -41,7 +41,6 @@ class ShoppingListModel {
   }
 
   factory ShoppingListModel.fromJoinedMap(Map<String, dynamic> map) {
-    print("my category id: ${map['category_id']}");
     return ShoppingListModel(
       id: map['list_id'],
       title: map['title'],
@@ -52,6 +51,7 @@ class ShoppingListModel {
       isDeleted: map['is_deleted'] == 1,
       isCollapsed: map['is_collapsed'] == 1,
       categoryId: map['category_id'],
+      items: map['items'] != null ?  List<ItemModel>.from(map['items'].map((item) => ItemModel.fromMapQR(item))) : [],
     );
   }
 

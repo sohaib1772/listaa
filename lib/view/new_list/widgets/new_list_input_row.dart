@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:listaa/controller/new_list_controller.dart';
+import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/app_text_form.dart';
@@ -56,7 +58,7 @@ const  NewListInputRow({
                   focusNode: focusNode,
                   controller: nameController,
                   validator: (val) => null,
-                  hint: "المنتج",
+                  hint: AppLocaleKeys.name.tr,
                 ),
               ),
               SizedBox(width: 5),
@@ -88,7 +90,7 @@ const  NewListInputRow({
                       keyboardType: TextInputType.number,
                       controller: priceController,
                       validator: (val) => null,
-                      hint: "السعر",
+                      hint: AppLocaleKeys.price.tr,
                     ),
                     AppIcons(
                       icon: AppIconsName.dollar,

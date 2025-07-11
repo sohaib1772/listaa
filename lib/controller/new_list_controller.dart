@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
+import 'package:listaa/core/helper/notifications_helper.dart';
 import 'package:listaa/data/models/category_model.dart';
 import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
@@ -20,12 +22,14 @@ class RowItemsModel {
   int id;
   TextEditingController nameController;
   TextEditingController priceController;
+  bool isDone;
   FocusNode focusNode = FocusNode();
   RowItemsModel({
     required this.id,
     required this.nameController,
     required this.priceController,
     required this.focusNode,
+    this.isDone = false,
   });
 }
 
@@ -50,6 +54,7 @@ class NewListController extends GetxController {
         nameController: TextEditingController(),
         priceController: TextEditingController(),
         focusNode: FocusNode(),
+        isDone: false,
       ),
     );
     var row = items.last;
@@ -87,6 +92,8 @@ class NewListController extends GetxController {
   }
 
   Future<void> addNewList() async {
+    
+ 
     isLoading.value = true;
     await listData.createNewList(
       ShoppingListModel(
@@ -99,16 +106,27 @@ class NewListController extends GetxController {
         priority: selectedPriority.value == 10 ? 0 : selectedPriority.value,
         items: items
             .map(
-              (e) => ItemModel(
+              (e) {
+                return ItemModel(
                 name: e.nameController.text,
                 price: double.tryParse(e.priceController.text) ?? 0,
-                isDone: false,
-              ),
+                isDone: e.isDone,
+              );
+              }
             )
             .toList(),
       ),
     );
     isLoading.value = false;
+    DateTime scheduledDate = DateTime(
+      date.value.isNotEmpty ? DateTime.parse(date.value).year : DateTime.now().year,
+      date.value.isNotEmpty ? DateTime.parse(date.value).month : DateTime.now().month,
+      date.value.isNotEmpty ? DateTime.parse(date.value).day : DateTime.now().day,
+      time.value.isNotEmpty ? DateTime.parse("0000-00-00 ${time.value}").hour : DateTime.now().add(Duration(hours: 12)).hour,
+      time.value.isNotEmpty ? DateTime.parse("0000-00-00 ${time.value}").minute : DateTime.now().add(Duration(hours: 12)).minute
+     );
+     print("scheduled date: $scheduledDate");
+    await NotificationsHelper.scheduleNotification(id: Random().nextInt(10000), title:  title.value, scheduledDate: scheduledDate);
     Get.offNamed(AppRouterKeys.home);
   }
 

@@ -53,6 +53,10 @@ class AppLocaleKeys {
   static const String title = 'title';
   static const String success = 'success';
   static const String listUpdatedSuccessfully = 'listUpdatedSuccessfully';
+  static const String qrByImages = 'qrByImages';
+  static const String qrByCamera = 'qrByCamera';
+  static const String name = 'name';
+  static const String price = 'price';
 
 
 
@@ -189,7 +193,12 @@ class AppLocale extends Translations {
       AppLocaleKeys.currentYear: 'السنة الحالية',
       AppLocaleKeys.all: 'الكل',
 
+      AppLocaleKeys.qrByImages:"مسح الكود عن طريق الصورة",
+      AppLocaleKeys.qrByCamera:"مسح الكود عن طريق الكاميرا",
 
+
+      AppLocaleKeys.name:"الاسم",
+      AppLocaleKeys.price:"السعر",
 
 
 
@@ -277,6 +286,12 @@ class AppLocale extends Translations {
       AppLocaleKeys.lastMonth: 'Last Month',
       AppLocaleKeys.currentYear: 'Current Year',
       AppLocaleKeys.all: 'All',
+
+      AppLocaleKeys.qrByImages:"Scan the code via image",
+      AppLocaleKeys.qrByCamera:"Scan the code via camera",
+
+      AppLocaleKeys.name:"Name",
+      AppLocaleKeys.price:"Price",
 
     },
   };

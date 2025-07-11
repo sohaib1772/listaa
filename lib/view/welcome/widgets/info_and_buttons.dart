@@ -3,15 +3,18 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:get/instance_manager.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/services/my_services.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/bottom_container.dart';
 
 class InfoAndButtons extends StatelessWidget {
-  const InfoAndButtons({super.key});
+   InfoAndButtons({super.key});
 
+  MyServices myServices = Get.find();
   @override
 
   Widget build(BuildContext context) {
@@ -49,6 +52,7 @@ class InfoAndButtons extends StatelessWidget {
               AppTextButtons(
                 text: AppLocaleKeys.homePage.tr,
                 onPressed: () {
+                  myServices.sharedPreferences.setBool("firstTime", true);
                  Get.offAllNamed(AppRouterKeys.home);
                 },
                 type: AppButtonType.light,
