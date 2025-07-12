@@ -12,6 +12,7 @@ import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/helper/notifications_helper.dart';
 import 'package:listaa/core/helper/qr_helper.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/services/my_services.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
@@ -72,6 +73,10 @@ class HomeScreen extends StatelessWidget {
                     Spacer(),
                     IconButton(
                       onPressed: () async {
+                      bool isGranted =  await Get.find<MyServices>().requestPermission();
+                      if(!isGranted){
+                        return;
+                      }
                         Get.bottomSheet(
                           Container(
                             padding: EdgeInsets.all(20),

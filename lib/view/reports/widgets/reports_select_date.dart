@@ -59,7 +59,7 @@ class ReportsSelectDate extends StatelessWidget {
                               await  controller.loadReportsByDate(type:   ReportType.all);
                               Get.back();
                             },
-                            child: Text( AppLocaleKeys.all.tr, style: AppTextStyles.darkbold20)),
+                            child: Text(controller.selectedReportType, style: AppTextStyles.darkbold20)),
                         ],
                       ),
                       child: Container(

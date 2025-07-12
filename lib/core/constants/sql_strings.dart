@@ -66,6 +66,7 @@ class SqlStrings {
     )
   ''';
 
+
   // Combined create all tables
   static List<String> get createAllTables => [
     createCategoriesTable,

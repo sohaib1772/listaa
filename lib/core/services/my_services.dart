@@ -9,13 +9,11 @@ class MyServices extends GetxService {
   late SharedPreferences sharedPreferences;
   CategoryData categoryData = Get.put(CategoryDataImpl());
   Future<MyServices> init() async {
-    await requestExactAlarmPermission();
     sharedPreferences = await SharedPreferences.getInstance();
     Get.locale = sharedPreferences.getString("lang") != null ? Locale(sharedPreferences.getString("lang")!) : Get.deviceLocale;
     await initializeDateFormatting('ar', null);
     await initializeDateFormatting('en', null);
     await _setDefaultCategories();
-    await requestPermission();
     return this;
   }
 
@@ -27,24 +25,18 @@ class MyServices extends GetxService {
     }
   }
 
-  Future<void> requestPermission() async {
-  final permissions = [
-    Permission.camera,
-    Permission.photos,    
-    Permission.storage,   
-  ];
-
-
-  for (var permission in permissions) {
-    final status = await permission.status;
-
-    if (!status.isGranted) {
-     await permission.request();
-     
-    }
+  Future<bool> requestPermission() async {
+  
+    
+  
+  final cameraStatus = await Permission.camera.request();
+  final photosStatus = await Permission.photos.request();
+  final allGranted = cameraStatus.isGranted && photosStatus.isGranted;
+  if(!allGranted){
+    return false;
   }
 
-  
+  return allGranted;
 
   }
 

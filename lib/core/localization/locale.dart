@@ -57,7 +57,9 @@ class AppLocaleKeys {
   static const String qrByCamera = 'qrByCamera';
   static const String name = 'name';
   static const String price = 'price';
-
+  static const String aboutUs = 'aboutUs';
+  static const  String contactUs = "contactUs";
+  static const String privacyPolicy = "privacyPolicy";
 
 
   // validations
@@ -200,6 +202,11 @@ class AppLocale extends Translations {
       AppLocaleKeys.name:"الاسم",
       AppLocaleKeys.price:"السعر",
 
+      AppLocaleKeys.aboutUs:"من نحن",
+      AppLocaleKeys.contactUs:"تواصل معنا",
+      AppLocaleKeys.privacyPolicy:"سياسة الخصوصية",
+
+
 
 
     },
@@ -292,6 +299,9 @@ class AppLocale extends Translations {
 
       AppLocaleKeys.name:"Name",
       AppLocaleKeys.price:"Price",
+      AppLocaleKeys.aboutUs:"About Us",
+      AppLocaleKeys.contactUs:"Contact Us",
+      AppLocaleKeys.privacyPolicy:"Privacy Policy",
 
     },
   };

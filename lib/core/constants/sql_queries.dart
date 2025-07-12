@@ -286,4 +286,7 @@ static const String spendingCurrentYear = '''
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
+
+
+
 }

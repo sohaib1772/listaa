@@ -8,4 +8,6 @@ class AppRouterKeys {
   static const String trash = '/trash';
   static const String reports = '/reports';
   static const String qrCameraScannerScreen = '/qrCameraScannerScreen';
+  static const String aboutUs = '/aboutUs';
+  static const String privacy= '/privacy';
 }

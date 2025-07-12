@@ -28,13 +28,13 @@ class TrashController extends GetxController{
 
   Future<void> deleteList(int listId) async {
     await data.deleteList(listId);
-    lists.removeWhere((element) => element.shoppingLists.any((list) => list.id == listId));
+    await getAllLists();
     update();
   }
   Future<void> restoreDeletedList(int listId) async {
     
     await data.restoreDeletedList(listId);
-    lists.removeWhere((element) => element.shoppingLists.any((list) => list.id == listId));
+    await getAllLists();
     update();
   }
   

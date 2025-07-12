@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:listaa/core/services/my_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -66,15 +69,15 @@ class NotificationsHelper {
       onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
     );
 
-    await requestPermission();
     await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
   }
 
-  static Future<void> requestPermission() async {
+  static Future<bool> requestPermission() async {
     final androidImplementation =
         _notificationsPlugin.resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
-    await androidImplementation?.requestNotificationsPermission();
+   final status =  await androidImplementation?.requestNotificationsPermission();
+    return status ?? false;
   }
 
   static Future<void> simpleNotification({
@@ -103,6 +106,12 @@ class NotificationsHelper {
     required DateTime scheduledDate,
     String? title,
   }) async {
+
+    bool isGranted = await Get.find<MyServices>().requestExactAlarmPermission();
+    if(!isGranted){
+      return;
+    }
+
     final now = DateTime.now();
     if (scheduledDate.isBefore(now)) {
       print("\u274c Cannot schedule in the past");

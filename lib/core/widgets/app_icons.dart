@@ -27,6 +27,10 @@ enum AppIconsName {
   cake,
   all,
   close,
+  aboutUs,
+  privacy,
+  contact,
+  linkedin
 }
 
 class AppIcons extends StatelessWidget {
@@ -61,6 +65,10 @@ class AppIcons extends StatelessWidget {
     AppIconsName.cake: '$_mainPath/cake.svg',
     AppIconsName.all: '$_mainPath/all.svg',
     AppIconsName.close: '$_mainPath/close.svg',
+    AppIconsName.aboutUs: '$_mainPath/about_us.svg',
+    AppIconsName.privacy: '$_mainPath/privacy.svg',
+    AppIconsName.contact: '$_mainPath/contact.svg',
+    AppIconsName.linkedin: '$_mainPath/linkedin.svg',
   };
   bool matchTextDirection() {
     switch (icon) {
@@ -83,6 +91,8 @@ class AppIcons extends StatelessWidget {
       case AppIconsName.doneList:
         return false;
       case AppIconsName.settings:
+        return false;
+      case AppIconsName.linkedin:
         return false;
 
       default:

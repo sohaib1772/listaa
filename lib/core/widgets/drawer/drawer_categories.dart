@@ -19,77 +19,76 @@ class DrawerCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 230.h,
-          child: GetBuilder<CategoryController>(
-            initState: (_) {
-              controller.getAllCategories();
-            },
-            builder: (controller) {
-              return ListView.builder(
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) {
-                  return AppDrawerTextIconButton(
-                    onLongPress: (){
-                      Get.bottomSheet(
-                        
-                        Container(
-                          height: 250.h,
-                          padding: EdgeInsets.all(20.w),
-                          decoration: BoxDecoration(
-                            color: AppColors.allListsScreenBackgroundColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20.r),
-                              topRight: Radius.circular(20.r),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                AppLocaleKeys.deleteCategoryConfirmation.tr,
-                                style: AppTextStyles.darkbold20,
-                              ),
-                              SizedBox(height: 20.h),
-                              Column(
-                                children: [
-                                  AppTextButtons(
-                                    type: AppButtonType.floatingButton,
-                                    text: AppLocaleKeys.cancel.tr,
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  AppTextButtons(
-
-                                    type: AppButtonType.floatingButton,
-                                    text: AppLocaleKeys.delete.tr,
-                                    onPressed: () async {
-                                      print(controller.categories[index].id);
-                                      await controller.deleteCategory(controller.categories[index].id ?? 0);
-                                      Get.back();
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+        GetBuilder<CategoryController>(
+          initState: (_) {
+            controller.getAllCategories();
+          },
+          builder: (controller) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                return AppDrawerTextIconButton(
+                  onLongPress: (){
+                    Get.bottomSheet(
+                      
+                      Container(
+                        height: 250.h,
+                        padding: EdgeInsets.all(20.w),
+                        decoration: BoxDecoration(
+                          color: AppColors.allListsScreenBackgroundColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.r),
+                            topRight: Radius.circular(20.r),
                           ),
                         ),
-                      );
-                    },
-                    onPressed: () {},
-                    text:controller.categories[index].title.tr,
-                    icon: controller.getDeafultCategoryIcon(
-                      controller.categories[index].title,
-                    ),
-                  );
-                },
-                itemCount: controller.categories.length,
-              );
-            },
-          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppLocaleKeys.deleteCategoryConfirmation.tr,
+                              style: AppTextStyles.darkbold20,
+                            ),
+                            SizedBox(height: 20.h),
+                            Column(
+                              children: [
+                                AppTextButtons(
+                                  type: AppButtonType.floatingButton,
+                                  text: AppLocaleKeys.cancel.tr,
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                ),
+                                SizedBox(height: 10.h),
+                                AppTextButtons(
+        
+                                  type: AppButtonType.floatingButton,
+                                  text: AppLocaleKeys.delete.tr,
+                                  onPressed: () async {
+                                    print(controller.categories[index].id);
+                                    await controller.deleteCategory(controller.categories[index].id ?? 0);
+                                    Get.back();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  onPressed: () {},
+                  text:controller.categories[index].title.tr,
+                  icon: controller.getDeafultCategoryIcon(
+                    controller.categories[index].title,
+                  ),
+                );
+              },
+              itemCount: controller.categories.length,
+            );
+          },
         ),
 
         AppDrawerTextIconButton(

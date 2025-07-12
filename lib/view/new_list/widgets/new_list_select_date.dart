@@ -10,7 +10,9 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/instance_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:listaa/controller/new_list_controller.dart';
+import 'package:listaa/core/helper/notifications_helper.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/services/my_services.dart';
 import 'package:listaa/core/theme/app_buttons_styles.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
@@ -27,7 +29,12 @@ class NewListSelectDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => IconButton(
-        onPressed: () {
+        onPressed: ()async {
+         bool isGranted =  await  NotificationsHelper.requestPermission();
+
+        if(!isGranted){
+          return;
+        }
           Get.bottomSheet(
             enableDrag: true,
             isScrollControlled: true,

@@ -19,6 +19,7 @@ import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/helper/formatter.dart';
 import 'package:listaa/core/helper/qr_helper.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/services/my_services.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
@@ -91,7 +92,11 @@ class _NewListScreenState extends State<NewListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async{
+                       bool isGranted =  await Get.find<MyServices>().requestPermission();
+                      if(!isGranted){
+                        return;
+                      }
                       Get.bottomSheet(
                         Container(
                           padding: EdgeInsets.all(20.w),
