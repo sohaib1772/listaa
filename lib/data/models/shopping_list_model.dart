@@ -7,8 +7,9 @@ class ShoppingListModel {
   final DateTime? time;
   final double totalPrice;
   final int priority;
-  final bool isDeleted;
+  bool isDeleted;
   bool isCollapsed;
+  bool isTemplate;
   final int categoryId;
   List<ItemModel> items;
 
@@ -17,10 +18,11 @@ class ShoppingListModel {
     required this.title,
     required this.date,
     this.time,
-    required this.totalPrice,
-    required this.priority,
-    required this.isDeleted,
+    this.totalPrice = 0.0,
+    this.priority = 0,
+    this.isDeleted = false,
     this.isCollapsed = false,
+    this.isTemplate = false,
     required this.categoryId,
     List<ItemModel>? items,
   }) : items = items ?? [];
@@ -36,6 +38,7 @@ class ShoppingListModel {
       'is_deleted': isDeleted ? 1 : 0,
       'items': items.map((item) => item.toMap()).toList(),
       'is_collapsed': isCollapsed ? 1 : 0,
+      'is_template': isTemplate ? 1 : 0,
       'category_id': categoryId,
     };
   }
@@ -45,13 +48,18 @@ class ShoppingListModel {
       id: map['list_id'],
       title: map['title'],
       date: DateTime.parse(map['date']),
-      time: DateTime.tryParse(map['time'] ?? "") ?? DateTime.now(), 
+      time: DateTime.tryParse(map['time'] ?? "") ?? DateTime.now(),
       totalPrice: map['total_price']?.toDouble() ?? 0.0,
       priority: map['priority'],
       isDeleted: map['is_deleted'] == 1,
       isCollapsed: map['is_collapsed'] == 1,
+      isTemplate: map['is_template'] == 1,
       categoryId: map['category_id'],
-      items: map['items'] != null ?  List<ItemModel>.from(map['items'].map((item) => ItemModel.fromMapQR(item))) : [],
+      items: map['items'] != null
+          ? List<ItemModel>.from(
+              map['items'].map((item) => ItemModel.fromMapQR(item)),
+            )
+          : [],
     );
   }
 

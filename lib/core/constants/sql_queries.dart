@@ -9,6 +9,7 @@ class SqlQueries {
     lists.priority,
     lists.is_deleted,
     lists.is_collapsed,
+    lists.is_template,
     lists.category_id,
     items.item_id,
     items.name,
@@ -18,7 +19,7 @@ class SqlQueries {
     lists
   LEFT JOIN 
     items ON items.list_id = lists.list_id
-  WHERE lists.is_deleted = 0 
+  WHERE lists.is_deleted = 0 AND lists.is_template = 0
   ORDER BY 
     lists.date DESC, items.item_id;
 ''';
@@ -32,6 +33,7 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.is_template,
     l.category_id,
     i.item_id,
     i.name,
@@ -39,7 +41,7 @@ class SqlQueries {
     i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
-  WHERE l.is_deleted = 0 AND l.priority = ?
+  WHERE l.is_deleted = 0 AND l.is_template = 0 AND l.priority = ?
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
   static const String getListsByCategory = '''
@@ -52,6 +54,7 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.is_template,
     l.category_id,
     i.item_id,
     i.name,
@@ -59,7 +62,7 @@ class SqlQueries {
     i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
-  WHERE l.is_deleted = 0 AND l.category_id = ?
+  WHERE l.is_deleted = 0 AND l.is_template = 0 AND l.category_id = ?
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
   static const String getListsByCategoryAndPriority = '''
@@ -72,6 +75,7 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.is_template,
     l.category_id,
     i.item_id,
     i.name,
@@ -79,7 +83,7 @@ class SqlQueries {
     i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
-  WHERE l.is_deleted = 0 AND l.category_id = ? AND l.priority = ?
+  WHERE l.is_deleted = 0 AND AND l.is_template = 0 l.category_id = ? AND l.priority = ?
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
   //
@@ -116,6 +120,7 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.is_template,
     l.category_id,
     i.item_id,
     i.name,
@@ -123,7 +128,7 @@ class SqlQueries {
     i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
-  WHERE i.is_done = 0
+  WHERE i.is_done = 0 AND l.is_template = 0
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
   static const String getSoftDeletedListsWithItems = '''
@@ -136,6 +141,7 @@ class SqlQueries {
     l.priority,
     l.is_deleted,
     l.is_collapsed,
+    l.is_template,
     l.category_id,
     i.item_id,
     i.name,
@@ -143,7 +149,7 @@ class SqlQueries {
     i.is_done AS item_is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
-  WHERE l.is_deleted = 1
+  WHERE l.is_deleted = 1 AND l.is_template = 0
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
   static const String deleteList = '''
@@ -218,7 +224,7 @@ class SqlQueries {
   ORDER BY total_spent DESC
 ''';
 
-static const String spendingByWeek   = '''
+  static const String spendingByWeek = '''
   SELECT
       c.title as category,
       SUM(i.price) as total_spent,
@@ -231,7 +237,7 @@ static const String spendingByWeek   = '''
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
-static const String spendingToday = '''
+  static const String spendingToday = '''
   SELECT
       c.title as category,
       SUM(i.price) as total_spent,
@@ -244,7 +250,7 @@ static const String spendingToday = '''
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
-static const String spendingCurrentMonth = '''
+  static const String spendingCurrentMonth = '''
   SELECT
       c.title as category,
       SUM(i.price) as total_spent,
@@ -258,7 +264,7 @@ static const String spendingCurrentMonth = '''
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
-static const String spendingPreviousMonth = '''
+  static const String spendingPreviousMonth = '''
   SELECT
       c.title as category,
       SUM(i.price) as total_spent,
@@ -272,7 +278,7 @@ static const String spendingPreviousMonth = '''
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
-static const String spendingCurrentYear = '''
+  static const String spendingCurrentYear = '''
   SELECT
       c.title as category,
       SUM(i.price) as total_spent,
@@ -287,6 +293,31 @@ static const String spendingCurrentYear = '''
   ORDER BY total_spent DESC
 ''';
 
+  static const String createRecipeItem = '''
+    INSERT INTO items (
+      item_id,
+      name, 
+      list_id
+    ) 
+    VALUES (?, ?, ?)
+  ''';
 
-
+  static const String getRecipes = '''
+ SELECT 
+    lists.list_id,
+    lists.title,
+    lists.date,
+    lists.is_collapsed,
+    lists.is_template,
+    lists.category_id,
+    items.item_id,
+    items.name,
+  FROM 
+    lists
+  LEFT JOIN 
+    items ON items.list_id = lists.list_id
+  WHERE lists.is_template = 1
+  ORDER BY 
+    lists.date DESC, items.item_id;
+''';
 }

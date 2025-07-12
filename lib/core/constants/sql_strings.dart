@@ -13,12 +13,13 @@ class SqlStrings {
     CREATE TABLE lists (
       list_id INTEGER PRIMARY KEY,
       title TEXT,
-      date DATETIME,
-      time DATETIME,
-      total_price REAL,
-      priority INTEGER,
-      is_deleted INTEGER,
-      is_collapsed INTEGER,
+      date DATETIME DEFAULT CURRENT_TIMESTAMP,
+      time DATETIME DEFAULT CURRENT_TIMESTAMP,
+      total_price REAL DEFAULT 0.0,
+      priority INTEGER DEFAULT 0,
+      is_deleted INTEGER DEFAULT 0,
+      is_collapsed INTEGER DEFAULT 0,
+      is_template INTEGER DEFAULT 0,
       category_id INTEGER,
       FOREIGN KEY (category_id) REFERENCES categories(category_id)
     )
@@ -29,8 +30,8 @@ class SqlStrings {
     CREATE TABLE items (
       item_id INTEGER PRIMARY KEY,
       name TEXT,
-      price REAL,
-      is_done INTEGER,
+      price REAL DEFAULT 0.0,
+      is_done INTEGER DEFAULT 0,
       list_id INTEGER,
       FOREIGN KEY (list_id) REFERENCES lists(list_id)
     )
@@ -46,34 +47,11 @@ class SqlStrings {
     )
   ''';
 
-  // Recipes table
-  static const String createRecipesTable = '''
-    CREATE TABLE recipes (
-      recipe_id INTEGER PRIMARY KEY,
-      title TEXT,
-      description TEXT
-    )
-  ''';
-
-  // RecipesItems table (many-to-many relationship)
-  static const String createRecipesItemsTable = '''
-    CREATE TABLE recipes_items (
-      id INTEGER PRIMARY KEY,
-      recipe_id INTEGER,
-      item_id INTEGER,
-      FOREIGN KEY (recipe_id) REFERENCES recipes(id),
-      FOREIGN KEY (item_id) REFERENCES items(id)
-    )
-  ''';
-
-
   // Combined create all tables
   static List<String> get createAllTables => [
     createCategoriesTable,
     createListsTable,
     createItemsTable,
     createRemindersTable,
-    createRecipesTable,
-    createRecipesItemsTable,
   ];
 }
