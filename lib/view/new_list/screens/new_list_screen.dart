@@ -15,6 +15,7 @@ import 'package:group_button/group_button.dart';
 import 'package:intl/intl.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/controller/new_list_controller.dart';
+import 'package:listaa/controller/recpice_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/helper/formatter.dart';
 import 'package:listaa/core/helper/qr_helper.dart';
@@ -48,24 +49,24 @@ class _NewListScreenState extends State<NewListScreen> {
 
   NewListController controller = Get.find();
   ShoppingListModel? model;
+  
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (args['title'] != null) controller.title.value = args['title'];
 
     if (args['model'] == null) return;
+
+
     model = args['model'];
     controller.isEditing.value = true;
     controller.title.value = model!.title;
     final List<ItemModel> itemModels = List<ItemModel>.from(model!.items);
     controller.selectedPriority.value = model!.priority;
-    print("model category id: ${model!.categoryId}");
     controller.selectedCategoryId = model!.categoryId;
     controller.date.value = model!.date.toString();
     controller.time.value = Get.find<Formatter>().time(model!.time);
     controller.items = itemModels.map((e) {
-      print("is dooooooone ? :${e.isDone}");
       return RowItemsModel(
         id: e.id ?? 0,
         nameController: TextEditingController(text: e.name),
@@ -82,7 +83,7 @@ class _NewListScreenState extends State<NewListScreen> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       appBarTitle: controller.isEditing.value
-          ? AppLocaleKeys.editList.tr
+          ? model!.title
           : AppLocaleKeys.addNewList.tr,
       scaffoldKey: scaffoldKey,
       appBarAction: controller.isEditing.value
@@ -97,95 +98,9 @@ class _NewListScreenState extends State<NewListScreen> {
                       if(!isGranted){
                         return;
                       }
-                      Get.bottomSheet(
-                        Container(
-                          padding: EdgeInsets.all(20.w),
-                          decoration: BoxDecoration(
-                            color: AppColors.allListsScreenBackgroundColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20.r),
-                              topRight: Radius.circular(20.r),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              RepaintBoundary(
-                                key: qrKey,
-                                child: Container(
-                                  padding: EdgeInsets.all(10.w),
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.containerLinerGradient,
-                                    borderRadius: BorderRadius.circular(10.r),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      QrHelper.generateQrCode(
-                                        json.encode(
-                                          ShoppingListModel(
-                                            id: model?.id ?? 0,
-                                            isDeleted: false,
-                                            totalPrice:
-                                                controller.totalAmount.value,
-                                            title: controller.title.value,
-                                            date: DateTime.parse(
-                                              controller.date.value,
-                                            ),
-                                            time: DateTime.parse(
-                                              "0000-00-00 ${controller.time.value}",
-                                            ),
-                                            items: controller.items
-                                                .map(
-                                                  (e) => ItemModel(
-                                                    id: e.id,
-                                                    listId: model?.id ?? 0,
-                                                    name: e.nameController.text,
-                                                    price:
-                                                        double.tryParse(
-                                                          e
-                                                              .priceController
-                                                              .text,
-                                                        ) ??
-                                                        0,
-                                                    isDone: e.isDone,
-                                                  ),
-                                                )
-                                                .toList(),
-                                            priority: controller
-                                                .selectedPriority
-                                                .value,
-                                            categoryId:
-                                                controller.selectedCategoryId,
-                                          ).toMap(),
-                                        ),
-                                        200,
-                                      ),
-                                      SizedBox(height: 20.h),
-                                      Text(
-                                        AppLocaleKeys.listaApp.tr,
-                                        style: AppTextStyles.darkbold20,
-                                      ),
-                                      SizedBox(height: 10.h),
-                                      Text(
-                                        controller.title.value,
-                                        style: AppTextStyles.darkbold16,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 20.h),
-                              AppTextButtons(
-                                text: AppLocaleKeys.share.tr,
-                                onPressed: () {
-                                  controller.shareQrCode(qrKey: qrKey);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      QrHelper.showBottomSheet(model, (key){
+                        controller.shareQrCode(qrKey: key);
+                      }, qrKey);
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -208,6 +123,8 @@ class _NewListScreenState extends State<NewListScreen> {
                       await controller.delete(model?.id ?? 0);
                       Get.back();
                       await Get.find<HomeController>().getAllLists();
+                      await Get.find<RecipeController>().getAllRecipes();
+
 
                       Get.back();
                     },
@@ -266,6 +183,23 @@ class _NewListScreenState extends State<NewListScreen> {
               SizedBox(height: 20.h),
               NewListTotalAmount(),
               SizedBox(height: 20.h),
+
+            (model == null || model?.isTemplate == false) ?    Obx(()=>Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(AppLocaleKeys.saveAsTemplate.tr,
+                  style: AppTextStyles.darkbold16,
+                  ),
+
+                  Switch(
+                    thumbColor: WidgetStatePropertyAll(AppColors.onboardingBackgroundColor),
+                    activeTrackColor: AppColors.darkBlue,
+                    activeColor: AppColors.darkBlue,
+                    value: controller.saveAsTemplate.value, onChanged: (v){
+                    controller.saveAsTemplate.value = !controller.saveAsTemplate.value;
+                  }),
+                ],
+              )):SizedBox.shrink(),
               Obx(
                 () => controller.isLoading.value
                     ? Center(child: CircularProgressIndicator())
@@ -299,6 +233,7 @@ class _NewListScreenState extends State<NewListScreen> {
                             await Get.find<HomeController>().getAllLists();
                             return;
                           }
+
                           await controller.addNewList();
                         },
                       ),

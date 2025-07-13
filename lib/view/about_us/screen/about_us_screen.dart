@@ -67,7 +67,7 @@ class AboutUsScreen extends StatelessWidget {
                     Text("Who We Are", style: AppTextStyles.darkbold20 ),
                     SizedBox(height: 10.h),
                     Text(
-                      """We are an independent and specialized software development team comprised of highly skilled professionals in the fields of mobile and web development. Our mission is to deliver advanced digital solutions tailored to meet the evolving needs of businesses and individuals, utilizing the latest technologies and best practices in frameworks such as Flutter, Laravel, and other modern stacks.
+                      """We are an independent and specialized software development team comprised of highly skilled professionals in the fields of mobile and web development. Our mission is to deliver advanced digital solutions tailored to meet the evolving needs of businesses and individuals, utilizing the latest technologies and best practices in frameworks.
         We believe that effective collaboration, structured planning, and technical adaptability are key to building world-class software products.""",
                       style: AppTextStyles.darkbold16,
                     ),
@@ -77,7 +77,7 @@ class AboutUsScreen extends StatelessWidget {
                     Text("من نحن", style: AppTextStyles.darkbold20),
                     SizedBox(height: 10.h),
                     Text(
-                      """نحن فريق تقني مستقل يضم نخبة من المطورين والمتخصصين في مجالات تطوير البرمجيات وتكنولوجيا المعلومات. نكرّس جهودنا لتصميم وتطوير حلول رقمية متقدمة تلبي احتياجات المؤسسات والأفراد، وذلك من خلال توظيف أحدث التقنيات والمنهجيات في مجالات تطوير التطبيقات باستخدام Flutter وLaravel.
+                      """نحن فريق تقني مستقل يضم نخبة من المطورين والمتخصصين في مجالات تطوير البرمجيات وتكنولوجيا المعلومات. نكرّس جهودنا لتصميم وتطوير حلول رقمية متقدمة تلبي احتياجات المؤسسات والأفراد، وذلك من خلال توظيف أحدث التقنيات والمنهجيات في مجالات تطوير التطبيقات .
         
         نطمح إلى صناعة تطبيقات تُحدث فرقًا حقيقيًا في تجربة المستخدم وتلبي احتياجات السوق بكفاءة واحترافية.""",
                       style: AppTextStyles.darkbold16,

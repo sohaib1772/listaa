@@ -50,7 +50,7 @@ class ShoppingListModel {
       date: DateTime.parse(map['date']),
       time: DateTime.tryParse(map['time'] ?? "") ?? DateTime.now(),
       totalPrice: map['total_price']?.toDouble() ?? 0.0,
-      priority: map['priority'],
+      priority: map['priority'] ?? 0,
       isDeleted: map['is_deleted'] == 1,
       isCollapsed: map['is_collapsed'] == 1,
       isTemplate: map['is_template'] == 1,

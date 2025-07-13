@@ -27,7 +27,7 @@ class ItemModel {
     return ItemModel(
       id: map['item_id'],
       name: map['name'],
-      price: map['price'],
+      price: map['price'] ?? 0.0,
       isDone: map['is_done'] == 1 ,
       listId: map['list_id'],
     );

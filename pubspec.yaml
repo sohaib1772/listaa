@@ -16,7 +16,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.2
+  flutter_launcher_icons: ^0.13.1
   flutter_local_notifications: ^19.3.0
+  flutter_native_splash: ^2.4.6
   flutter_popup: ^3.3.9
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.0
@@ -27,6 +29,7 @@ dependencies:
   image_picker: ^1.1.2
   intl: ^0.20.2
   mobile_scanner: ^7.0.1
+  overflow_text_animated: ^0.0.6
   path_provider: ^2.1.5
   permission_handler: ^12.0.1
   qr_flutter: ^4.1.0
@@ -36,8 +39,6 @@ dependencies:
   timezone: ^0.10.1
   url_launcher: ^6.3.2
   workmanager: ^0.8.0
-  flutter_native_splash: ^2.4.6
-  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0

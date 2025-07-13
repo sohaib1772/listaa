@@ -10,4 +10,5 @@ class AppRouterKeys {
   static const String qrCameraScannerScreen = '/qrCameraScannerScreen';
   static const String aboutUs = '/aboutUs';
   static const String privacy= '/privacy';
+  static const String recipes= '/recipes';
 }

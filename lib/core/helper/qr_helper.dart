@@ -1,11 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:listaa/controller/new_list_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
+import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/theme/app_colors.dart';
+import 'package:listaa/core/theme/app_text_styles.dart';
+import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr/qr.dart';
@@ -40,4 +47,63 @@ static Future<ShoppingListModel?> scanQrFromCamera()async{
   return ShoppingListModel.fromJoinedMap(jsonDecode(barcode!));
 } 
 
+  static void showBottomSheet(ShoppingListModel ? model,Function(GlobalKey qrKey) onShare, GlobalKey qrKey) {
+    Get.bottomSheet(
+                        Container(
+                          padding: EdgeInsets.all(20.w),
+                          decoration: BoxDecoration(
+                            color: AppColors.allListsScreenBackgroundColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.r),
+                              topRight: Radius.circular(20.r),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              RepaintBoundary(
+                                key: qrKey,
+                                child: Container(
+                                  padding: EdgeInsets.all(10.w),
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.containerLinerGradient,
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      QrHelper.generateQrCode(
+                                        json.encode(
+                                          model!.toMap(),
+                                        ),
+                                        200,
+                                      ),
+                                      SizedBox(height: 20.h),
+                                      Text(
+                                        AppLocaleKeys.listaApp.tr,
+                                        style: AppTextStyles.darkbold20,
+                                      ),
+                                      SizedBox(height: 10.h),
+                                      Text(
+                                        model.title.tr,
+                                        style: AppTextStyles.darkbold16,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              AppTextButtons(
+                                text: AppLocaleKeys.share.tr,
+                                onPressed: () {
+                                  onShare(
+                                    qrKey,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+  }
 }

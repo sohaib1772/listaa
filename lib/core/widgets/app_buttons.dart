@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/localization/locale_controller.dart';
 import 'package:listaa/core/theme/app_buttons_styles.dart';
 import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_icons.dart';
+import 'package:overflow_text_animated/overflow_text_animated.dart';
 
 enum AppButtonType { orange, light, floatingButton, drawerButton }
 
@@ -43,7 +48,7 @@ class AppTextButtons extends StatelessWidget {
                 autoPlay: autoPlayAnimation,
                 onPlay: (controller) => controller.repeat(),
               )
-              .shimmer(duration: 2.seconds),
+              .shimmer(duration: Duration(seconds: 2)),
     );
   }
 }
@@ -95,7 +100,7 @@ class AppTextButtonsWithIcon extends StatelessWidget {
                 autoPlay: autoPlayAnimation,
                 onPlay: (controller) => controller.repeat(),
               )
-              .shimmer(duration: 2.seconds),
+              .shimmer(duration: Duration(seconds: 2)),
     );
   }
 }
@@ -191,7 +196,7 @@ class AppIconButton extends StatelessWidget {
                 autoPlay: autoPlayAnimation,
                 onPlay: (controller) => controller.repeat(),
               )
-              .shimmer(duration: 2.seconds),
+              .shimmer(duration: Duration(seconds: 2)),
     );
   }
 }
@@ -266,12 +271,15 @@ class AppHomeCategoriesButton extends StatelessWidget {
                     ),
                     SizedBox(width: 10.w),
                     Expanded(
-                      child: Text(
-                        text,
-                        style: AppTextStyles.darkbold20.copyWith(
-                          overflow: TextOverflow.ellipsis,
+                      child: OverflowTextAnimated(
+                          key: ValueKey(text),
+                          style: AppTextStyles.darkbold20,
+                          text: text,
+                          curve: Curves.fastEaseInToSlowEaseOut,
+                          animation: OverFlowTextAnimations.scrollOpposite,
+                          animateDuration: Duration(milliseconds: 1500),
+                          delay: Duration(milliseconds: 500),
                         ),
-                      ),
                     ),
                     Icon(
                       Icons.arrow_forward_ios,
@@ -285,7 +293,7 @@ class AppHomeCategoriesButton extends StatelessWidget {
                 autoPlay: autoPlayAnimation,
                 onPlay: (controller) => controller.repeat(),
               )
-              .shimmer(duration: 2.seconds),
+              .shimmer(duration: Duration(seconds: 2)),
     );
   }
 }

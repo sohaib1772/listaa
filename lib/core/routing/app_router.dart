@@ -7,6 +7,7 @@ import 'package:listaa/view/lists/screens/lists_screen.dart';
 import 'package:listaa/view/new_list/screens/new_list_screen.dart';
 import 'package:listaa/view/privacy/privacy_screen.dart';
 import 'package:listaa/view/qr_scanner/screen/qr_camera_scanner_screen.dart';
+import 'package:listaa/view/recipes/screen/recipes_screen.dart';
 import 'package:listaa/view/remainder/screens/remainders_screen.dart';
 import 'package:listaa/view/onboarding/screens/onboarding_screen.dart';
 import 'package:listaa/view/reports/screen/reports_screen.dart';
@@ -31,5 +32,6 @@ class AppRouter {
     GetPage(name: AppRouterKeys.qrCameraScannerScreen, page: () =>  QrCameraScannerScreen()),
     GetPage(name: AppRouterKeys.aboutUs, page: () =>  AboutUsScreen()),
     GetPage(name: AppRouterKeys.privacy, page: () =>  PrivacyScreen()),
+    GetPage(name: AppRouterKeys.recipes, page: () =>  RecipesScreen()),
   ];
 }

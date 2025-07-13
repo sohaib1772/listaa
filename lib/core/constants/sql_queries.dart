@@ -96,9 +96,10 @@ class SqlQueries {
       priority, 
       is_deleted, 
       is_collapsed,
-      category_id
+      category_id,
+      is_template
     ) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   ''';
 
   static const String createNewItem = '''
@@ -311,12 +312,12 @@ class SqlQueries {
     lists.is_template,
     lists.category_id,
     items.item_id,
-    items.name,
+    items.name
   FROM 
     lists
   LEFT JOIN 
     items ON items.list_id = lists.list_id
-  WHERE lists.is_template = 1
+  WHERE lists.is_template = 1 AND lists.is_deleted = 0
   ORDER BY 
     lists.date DESC, items.item_id;
 ''';

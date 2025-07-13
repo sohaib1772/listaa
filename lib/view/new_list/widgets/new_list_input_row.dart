@@ -68,6 +68,13 @@ const  NewListInputRow({
                   children: [
                     AppTextForm(
                       onChanged: (p0) {
+                         final filtered = p0.replaceAll(RegExp(r'[^0-9.]'), '');
+                          if (p0 != filtered) {
+                            priceController.text = filtered;
+                            priceController.selection = TextSelection.fromPosition(
+                              TextPosition(offset: filtered.length),
+                            );
+                          }
                         controller.calTotalAmount();
                       },
                       textInputAction: TextInputAction.newline,
@@ -87,6 +94,7 @@ const  NewListInputRow({
                         controller.addNewItemToRows();
                         FocusScope.of(context).requestScopeFocus();
                       },
+                      
                       keyboardType: TextInputType.number,
                       controller: priceController,
                       validator: (val) => null,

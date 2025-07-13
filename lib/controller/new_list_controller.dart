@@ -14,6 +14,7 @@ import 'package:listaa/data/models/item_model.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:listaa/data/repositories/category_data.dart';
 import 'package:listaa/data/repositories/list_data.dart';
+import 'package:listaa/data/repositories/recipe_data.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -35,6 +36,7 @@ class RowItemsModel {
 
 class NewListController extends GetxController {
   ListData listData = Get.find<ListDataImpl>();
+  RecipeData recipeData = Get.find<RecipeDataImpl>();
   CategoryData categoryData = Get.find<CategoryDataImpl>();
   int selectedCategoryId = 0;
   RxBool isEditing = false.obs;
@@ -45,6 +47,7 @@ class NewListController extends GetxController {
   RxString date = "".obs;
   RxString time = "".obs;
   RxString title = "".obs;
+  RxBool saveAsTemplate = false.obs;
 
   RxBool isLoading = false.obs;
   RowItemsModel addNewItemToRows() {
@@ -125,8 +128,33 @@ class NewListController extends GetxController {
       time.value.isNotEmpty ? DateTime.parse("0000-00-00 ${time.value}").hour : DateTime.now().add(Duration(hours: 12)).hour,
       time.value.isNotEmpty ? DateTime.parse("0000-00-00 ${time.value}").minute : DateTime.now().add(Duration(hours: 12)).minute
      );
-     print("scheduled date: $scheduledDate");
     await NotificationsHelper.scheduleNotification(id: Random().nextInt(10000), title:  title.value, scheduledDate: scheduledDate);
+
+    if(saveAsTemplate.value){
+      listData.createNewList(
+        ShoppingListModel(
+          isTemplate: true,
+          categoryId: selectedCategoryId,
+          isDeleted: false,
+          title: title.value,
+          date: DateTime.tryParse(date.value) ?? DateTime.now(),
+          time:time.value.isNotEmpty ? DateTime.parse("0000-00-00 ${time.value}") : DateTime.now().add(Duration(hours: 12)),
+          totalPrice: totalAmount.value,
+          priority: selectedPriority.value == 10 ? 0 : selectedPriority.value,
+          items: items
+              .map(
+                (e) {
+                  return ItemModel(
+                  name: e.nameController.text,
+                  price: double.tryParse(e.priceController.text) ?? 0,
+                  isDone: e.isDone,
+                );
+                }
+              )
+              .toList(),
+        ),
+      );
+    }
     Get.offNamed(AppRouterKeys.home);
   }
 

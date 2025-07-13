@@ -41,7 +41,9 @@ class HomeScreen extends StatelessWidget {
       showAddListButton: true,
       body: Container(
         color: AppColors.allListsScreenBackgroundColor,
-        child: CustomScrollView(
+        child: Obx(
+          ()=>controller.isLoading.value ? Center(child: CircularProgressIndicator(),): CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               pinned: false,
@@ -73,10 +75,11 @@ class HomeScreen extends StatelessWidget {
                     Spacer(),
                     IconButton(
                       onPressed: () async {
-                      bool isGranted =  await Get.find<MyServices>().requestPermission();
-                      if(!isGranted){
-                        return;
-                      }
+                        bool isGranted = await Get.find<MyServices>()
+                            .requestPermission();
+                        if (!isGranted) {
+                          return;
+                        }
                         Get.bottomSheet(
                           Container(
                             padding: EdgeInsets.all(20),
@@ -131,12 +134,10 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             // Spacer
-            SliverToBoxAdapter(child: SizedBox(height: 60.h)),
-            
-            // Home Slider
-            // SliverToBoxAdapter( /// TODO:: add it in next update after upload it to store
-            //   child: SizedBox(height: 268.h, child: HomeSliders()),
-            // ),
+
+            SliverToBoxAdapter( /// TODO:: add it in next update after upload it to store
+              child: SizedBox(height: 268.h, child: HomeSliders()),
+            ),
             SliverToBoxAdapter(
               child: BottomGradinetContainer(
                 horizontalPadding: 20.w,
@@ -164,16 +165,19 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10.h),
-                    GetBuilder<HomeController>(
-                      builder: (_) => HomeSelectProiority(
-                        controller: controller,
-                        horizontalPadding: 0,
-                      ),
-                    ),
                   ],
                 ),
               ),
             ),
+            SliverToBoxAdapter(
+              child: GetBuilder<HomeController>(
+                builder: (_) => HomeSelectProiority(
+                  controller: controller,
+                  horizontalPadding: 20.w,
+                ),
+              ),
+            ),
+
             // List of items (ListView -> SliverList)
             SliverToBoxAdapter(
               child: GetBuilder<HomeController>(
@@ -214,14 +218,13 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
-            SliverToBoxAdapter(child: Divider(height: 20.h)),
-
+            SliverToBoxAdapter(child: SizedBox(height: 40.h)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.25,
                 ),
-                child: controller.lists.isEmpty
+                child: controller.lists.value.isEmpty
                     ? AppTextButtons(
                         type: AppButtonType.floatingButton,
                         text: AppLocaleKeys.addNewList.tr,
@@ -233,13 +236,83 @@ class HomeScreen extends StatelessWidget {
                     : SizedBox.shrink(),
               ),
             ),
+            SliverToBoxAdapter(child: Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppLocaleKeys.recpiesAndTemplates.tr,
+                    style: AppTextStyles.darkbold24,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(AppRouterKeys.recipes);
+                    },
+                    child: Text(
+                      AppLocaleKeys.more.tr,
+                      style: AppTextStyles.darkbold20,
+                    ),
+                  ),
+
+                ],
+              ),
+            )),
+            SliverToBoxAdapter(child: SizedBox(height: 10.h)),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                width:  MediaQuery.of(context).size.width,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(children: 
+                  List.generate(
+                    controller.recipes.length,
+                    (index) => Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.r),
+                            color: AppColors.redIconColor
+                          ),
+                          margin: EdgeInsets.symmetric(horizontal: 10.w),
+                          height: 150.h,
+                          width: 250.w,
+                        
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          width: 250.w,
+                          child: Row(
+                            children: [
+                              Text(controller.recipes[index].title),
+                              Spacer(),
+                              Icon(Icons.list),
+                              Text(controller.recipes[index].items.length.toString()),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  )
+                  ,),
+                )
+              )
+            ),
+            SliverToBoxAdapter(child: SizedBox(height: 40.h)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding:  EdgeInsets.symmetric(horizontal:  20.w),
+                child: Text(AppLocaleKeys.categories.tr, style: AppTextStyles.darkbold24,),
+              )
+            ),
             SliverToBoxAdapter(
               child: HomeCategories(categoryController: categoryController),
             ),
-
+            
             SliverToBoxAdapter(child: SizedBox(height: 40.h)),
           ],
         ),
+        )
       ),
     );
   }

@@ -14,6 +14,7 @@ import 'package:listaa/core/theme/app_colors.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/widgets/bottom_container.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingInfoAndButtons extends StatelessWidget {
   OnboardingInfoAndButtons({super.key});
@@ -34,7 +35,7 @@ class OnboardingInfoAndButtons extends StatelessWidget {
         content: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               GetX<OnboardingController>(
                 init: controller,
                 initState: (_) {},
@@ -42,6 +43,7 @@ class OnboardingInfoAndButtons extends StatelessWidget {
                   return Column(
                     children: [
                       Text(
+                      textAlign: TextAlign.center,
                         controller.titles[controller.pageIndex.value],
                         style: AppTextStyles.darkExtraBold30,
                       ),
@@ -50,12 +52,14 @@ class OnboardingInfoAndButtons extends StatelessWidget {
                         style: AppTextStyles.darkMedium19,
                         textAlign: TextAlign.center,
                       ),
+                      SizedBox(height: 20.h),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
                           3,
                           (index) => Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            padding:  EdgeInsets.symmetric(horizontal: 5.w),
                             child: CircleAvatar(
                               maxRadius: 5,
                               backgroundColor:

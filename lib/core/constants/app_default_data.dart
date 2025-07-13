@@ -17,19 +17,19 @@ class AppDefaultData {
   ];
   static final defaultRecipes = [
     {
-      'list_id': 0,
+      'list_id': 1,
       'title': 'test recipe 1',
       'is_template': 1,
       'category_id': 0,
     },
     {
-      'list_id': 1,
+      'list_id': 2,
       'title': 'test recipe 2',
       'is_template': 1,
       'category_id': 1,
     },
     {
-      'list_id': 2,
+      'list_id': 3,
       'title': 'test recipe 3',
       'is_template': 1,
       'category_id': 2,

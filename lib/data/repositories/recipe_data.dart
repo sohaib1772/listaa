@@ -71,6 +71,7 @@ class RecipeDataImpl extends DbHelper implements RecipeData {
     final listsMap = <int, ShoppingListModel>{};
 
     for (final row in rows) {
+      print(row);
       final listId = row['list_id'] as int?;
       if (listId == null) continue;
 

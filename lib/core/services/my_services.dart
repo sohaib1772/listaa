@@ -2,18 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:listaa/data/repositories/category_data.dart';
+import 'package:listaa/data/repositories/recipe_data.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyServices extends GetxService {
   late SharedPreferences sharedPreferences;
   CategoryData categoryData = Get.put(CategoryDataImpl());
+  RecipeData recipeData = Get.put(RecipeDataImpl());
   Future<MyServices> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
     Get.locale = sharedPreferences.getString("lang") != null ? Locale(sharedPreferences.getString("lang")!) : Get.deviceLocale;
     await initializeDateFormatting('ar', null);
     await initializeDateFormatting('en', null);
     await _setDefaultCategories();
+    await _setDefaultRecipes();
     return this;
   }
 
@@ -22,6 +25,14 @@ class MyServices extends GetxService {
         sharedPreferences.getBool("isSetCategories") == false) {
       await categoryData.insertDefaultCategories();
       sharedPreferences.setBool("isSetCategories", true);
+    }
+  }
+
+  Future<void> _setDefaultRecipes() async{
+    if (sharedPreferences.getBool("isSetRecipes") == null ||
+        sharedPreferences.getBool("isSetRecipes") == false) {
+      await recipeData.insertDefaultRecipes();
+      sharedPreferences.setBool("isSetRecipes", true);
     }
   }
 

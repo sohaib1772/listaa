@@ -130,6 +130,7 @@ class ListDataImpl extends DbHelper implements ListData {
       shoppingList.isDeleted ? 1 : 0,
       shoppingList.isCollapsed ? 1 : 0,
       shoppingList.categoryId,
+      shoppingList.isTemplate ? 1 : 0,
     ];
 
     // Execute the insert

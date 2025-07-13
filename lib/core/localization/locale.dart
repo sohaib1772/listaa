@@ -60,6 +60,8 @@ class AppLocaleKeys {
   static const String aboutUs = 'aboutUs';
   static const  String contactUs = "contactUs";
   static const String privacyPolicy = "privacyPolicy";
+  static const String recpiesAndTemplates = "recpiesAndTemplates";
+  static const String saveAsTemplate = "saveAsTemplate";
 
 
   // validations
@@ -108,7 +110,7 @@ class AppLocale extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'ar': {
-      AppLocaleKeys.listaApp: 'تطبيق “Listaa”',
+      AppLocaleKeys.listaApp: '“Listaa”',
       AppLocaleKeys.yourBestChoiceForShopping:
           'اختيارك الأمثل لأنشاء قوائمك بسهولة لن تنسى أي شيء بعد الان',
       AppLocaleKeys.goNow: 'انطلق الان',
@@ -206,12 +208,15 @@ class AppLocale extends Translations {
       AppLocaleKeys.contactUs:"تواصل معنا",
       AppLocaleKeys.privacyPolicy:"سياسة الخصوصية",
 
+      AppLocaleKeys.recpiesAndTemplates:"الوصفات والقوالب",
+      AppLocaleKeys.saveAsTemplate:"حفظ كقالب",
+
 
 
 
     },
     'en': {
-      AppLocaleKeys.listaApp: '“Listaa”  App',
+      AppLocaleKeys.listaApp: '“Listaa”',
       AppLocaleKeys.yourBestChoiceForShopping: 'Your best choice for shopping',
       AppLocaleKeys.goNow: 'Go Now',
       AppLocaleKeys.next: 'Next',
@@ -302,6 +307,9 @@ class AppLocale extends Translations {
       AppLocaleKeys.aboutUs:"About Us",
       AppLocaleKeys.contactUs:"Contact Us",
       AppLocaleKeys.privacyPolicy:"Privacy Policy",
+      AppLocaleKeys.recpiesAndTemplates:"Recpies & Templates",
+      AppLocaleKeys.saveAsTemplate:"Save as template",
+
 
     },
   };

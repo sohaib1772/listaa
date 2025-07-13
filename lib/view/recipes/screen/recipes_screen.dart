@@ -1,160 +1,152 @@
-// import 'package:flutter/material.dart';
-// import 'package:listaa/core/theme/app_colors.dart';
-// import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:listaa/controller/recpice_controller.dart';
+import 'package:listaa/core/constants/app_router_keys.dart';
+import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/theme/app_colors.dart';
+import 'package:listaa/core/theme/app_text_styles.dart';
+import 'package:listaa/core/widgets/app_buttons.dart';
+import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
 
-// class RecipesScreen extends StatelessWidget {
-//    RecipesScreen({super.key});
-//   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-//   @override
-//   Widget build(BuildContext context) {
-//     return CustomScaffold(
-//       scaffoldKey: scaffoldKey,
-//       showAppbar: false,
-//       showAddListButton: true,
-//       body: Container(
-//         color: AppColors.allListsScreenBackgroundColor,
-//         child: CustomScrollView(
-          
-//           slivers: [
-//             SliverAppBar(
-//               pinned: false,
-//               elevation: 0,
-//               automaticallyImplyLeading: false,
-//               backgroundColor: AppColors.allListsScreenBackgroundColor,
-//               foregroundColor: AppColors.primaryTextColor,
-//               flexibleSpace: Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 15.w),
-//                 alignment: Alignment.bottomCenter,
-//                 decoration: BoxDecoration(
-//                   gradient: AppColors.appBarLinerGradient,
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     IconButton(
-//                       onPressed: () {
-//                         Get.back();
-//                       },
-//                       icon: Icon(Icons.arrow_back, color: AppColors.primaryTextColor),
-//                     ),
-//                     Text(
-//                       AppLocaleKeys.lists.tr,
-//                       style: AppTextStyles.darkbold28,
-//                     ),
-                    
-//                   ],
-//                 ),
-//               ),
-//             ),
-//             // Spacer
-//             SliverToBoxAdapter(
-//               child: SizedBox(height: 30.h),
-//             ),
-//             // Home Slider
-//             SliverToBoxAdapter(
-              
-//               child: HomeSelectProiority(),
-//             ),
-//             SliverToBoxAdapter(
-//               child: SizedBox(height: 20.h),
-//             ),
-//             // uncompleted lists
-//             SliverToBoxAdapter(
-//                 child: Padding(
-//                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-//                   child:GetX<HomeController>(
-//                           init: controller,
-//                           initState: (_) {},
-//                           builder: (_) {
-//                             return  ListView.separated(
-//                       physics:
-//                           NeverScrollableScrollPhysics(), 
-//                       shrinkWrap: true,
-//                       itemCount: controller.lists.value.length,
-//                       separatorBuilder: (_, __) => SizedBox(height: 20.h),
-//                       itemBuilder: (context, index) {
-//                         return ListsCard(
-//                               totalPrice: controller.lists[index].totalPrice,
-//                               isCompleted: false,
-//                               title: controller.lists[index].title,
-//                               items: controller.lists[index].items
-//                                   .map(
-//                                     (e) => ItemCard(
-//                                       name: e.name,
-//                                       price: e.price,
-//                                       isChecked: e.isDone,
-//                                       listIndex: index,
-//                                       itemId: e.id ?? 0,
-//                                       onToggleCheckBox: (){
-//                                         controller.toggleIsDone(index, e.id ?? 0);
-//                                       },
-//                                     ),
-//                                   )
-//                                   .toList(),
-//                               isCollapsed: controller.lists[index].isCollapsed,
-//                               index: index,
-//                             );
-//                           },
-//                         );
-//                       },
-//                     ),
-//                 ),
-//               ),
-//               SliverToBoxAdapter(
-//               child: Divider(height: 20.h),
-//             ),
-//               SliverToBoxAdapter(
-//               child: Padding(
-//                 padding:  EdgeInsets.symmetric(horizontal:  20.w),
-//                 child: Text(AppLocaleKeys.completedLists.tr, style: AppTextStyles.darkbold24,),
-//               )
-//             ),
+class RecipesScreen extends StatelessWidget {
+  RecipesScreen({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final RecipeController controller = Get.find();
+  @override
+  Widget build(BuildContext context) {
+    return CustomScaffold(
+      scaffoldKey: scaffoldKey,
+      showAppbar: false,
+      showAddListButton: false,
+      body: Container(
+        color: AppColors.allListsScreenBackgroundColor,
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: false,
+              elevation: 0,
+              automaticallyImplyLeading: false,
+              backgroundColor: AppColors.allListsScreenBackgroundColor,
+              foregroundColor: AppColors.primaryTextColor,
+              flexibleSpace: Container(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                alignment: Alignment.bottomCenter,
+                decoration: BoxDecoration(
+                  gradient: AppColors.appBarLinerGradient,
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: AppColors.primaryTextColor,
+                      ),
+                    ),
+                    Text(
+                      AppLocaleKeys.recpiesAndTemplates.tr,
+                      style: AppTextStyles.darkbold28,
+                    ),
+                  ],
+                ),
+              ),
+            ),
 
-//             // completed lists
-//             SliverToBoxAdapter(
-//                 child: Padding(
-//                   padding: EdgeInsets.symmetric(horizontal: 20.w),
+            // Spacer
 
+            // Home Slider
+            SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+            // uncompleted lists
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: GetX<RecipeController>(
+                  init: controller,
+                  initState: (_) {},
+                  builder: (_) {
+                    return ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.recipes.value.length,
+                      separatorBuilder: (_, __) => SizedBox(height: 20.h),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap:(){
+                            Get.toNamed(
+                              AppRouterKeys.newList,
+                              arguments: {
+                                "model": controller.recipes[index],
+                              },
+                            );
+                          },
 
-//                   child:GetX<HomeController>(
-//                    init: controller,
-//                           initState: (_) {},
-//                           builder: (_)=> ListView.separated(
-//                         physics:
-//                             NeverScrollableScrollPhysics(), 
-//                         shrinkWrap: true,
-//                         itemCount: controller.completedLists.value.length,
-//                         separatorBuilder: (_, __) => SizedBox(height: 20.h),
-//                         itemBuilder: (context, index) {
-//                           return ListsCard(
-//                             totalPrice: controller.completedLists[index].totalPrice,
-//                             isCompleted: true,
-//                             title: controller.completedLists[index].title,
-//                             items: controller.completedLists[index].items
-//                                 .map(
-//                                   (e) => ItemCard(
-//                                     name: e.name,
-//                                     price: e.price,
-//                                     isChecked: e.isDone,
-//                                     listIndex: index,
-//                                     itemId: e.id ?? 0,
-//                                     onToggleCheckBox: (){
-//                                       controller.toggleIsDone(index, e.id ?? 0);
-//                                     },
-//                                   ),
-//                                 )
-//                                 .toList(),
-//                             isCollapsed: controller.completedLists[index].isCollapsed,
-//                             index: index,
-//                           );
-//                         },
-//                       ),
-//                   ),
-//                 ),
-//               ),
-            
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+                          child: Container(
+                            width: 327.w,
+                            height: 190.h,
+                            padding: EdgeInsets.all(20.w),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withAlpha(115),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                )
+                              ],
+                            ),
+                          
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  controller.recipes[index].title,
+                                  style: AppTextStyles.darkbold20,
+                                ),
+                                SizedBox(height: 20.h),
+                                AppTextButtonsWithIcon(
+                                  width: 200.w,
+                                  onPressed: () {
+                                    Get.toNamed(
+                                      AppRouterKeys.newList,
+                                      arguments: {
+                                        "model": controller.recipes[index],
+                                        "qr": true,
+                                      },
+                                    );
+                                  },
+                                  type: AppButtonType.floatingButton,
+                                  text: AppLocaleKeys.goNow.tr,
+                                  icon: Icons.arrow_forward_rounded,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(child: Divider(height: 20.h)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Text(
+                  AppLocaleKeys.completedLists.tr,
+                  style: AppTextStyles.darkbold24,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

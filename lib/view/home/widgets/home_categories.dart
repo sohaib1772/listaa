@@ -7,6 +7,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:listaa/controller/category_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/localization/locale.dart';
+import 'package:listaa/core/localization/locale_controller.dart';
 import 'package:listaa/core/widgets/add_category_bottom_sheet.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 
@@ -25,27 +26,31 @@ class HomeCategories extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-              child: GridView.builder(
-                padding: EdgeInsets.zero,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.h,
-                  mainAxisExtent: 56.h,
-                  crossAxisSpacing: 10.w,
+              child: GetBuilder<LocaleController>(
+                init: Get.find<LocaleController>(),
+
+                builder: (_)=> GridView.builder(
+                  padding: EdgeInsets.zero,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10.h,
+                    mainAxisExtent: 56.h,
+                    crossAxisSpacing: 10.w,
+                  ),
+                  itemCount: categoryController.categories.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final category = categoryController.categories[index];
+                    return AppHomeCategoriesButton(
+                      icon: category.title,
+                      text: category.title.tr,
+                      onPressed: () {
+                        Get.toNamed(AppRouterKeys.lists, arguments: category);
+                      },
+                          );
+                  },
                 ),
-                itemCount: categoryController.categories.length,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final category = categoryController.categories[index];
-                  return AppHomeCategoriesButton(
-                    icon: category.title,
-                    text: category.title.tr,
-                    onPressed: () {
-                      Get.toNamed(AppRouterKeys.lists, arguments: category);
-                    },
-                  );
-                },
               ),
             ),
             SizedBox(height: 20.h),

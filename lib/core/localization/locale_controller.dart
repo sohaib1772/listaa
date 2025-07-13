@@ -11,5 +11,6 @@ class LocaleController extends GetxController{
   void changeLang(String codeLang){
     Get.updateLocale(Locale(codeLang));
     myServices.sharedPreferences.setString("lang", codeLang);
+    update();
   }
 }
