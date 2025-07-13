@@ -310,6 +310,7 @@ class SqlQueries {
     lists.date,
     lists.is_collapsed,
     lists.is_template,
+    lists.is_deleted,
     lists.category_id,
     items.item_id,
     items.name
@@ -318,7 +319,7 @@ class SqlQueries {
   LEFT JOIN 
     items ON items.list_id = lists.list_id
   WHERE lists.is_template = 1 AND lists.is_deleted = 0
-  ORDER BY 
+  ORDER BY
     lists.date DESC, items.item_id;
 ''';
 }
