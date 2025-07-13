@@ -9,6 +9,7 @@ import 'package:sqflite/sqlite_api.dart';
 abstract class RecipeData {
   Future<void> insertDefaultRecipes();
   Future<List<ShoppingListModel>> getRecipes();
+  Future<void> saveRecipeAsShoppingList(int templateID);
 }
 
 class RecipeDataImpl extends DbHelper implements RecipeData {
@@ -24,8 +25,9 @@ class RecipeDataImpl extends DbHelper implements RecipeData {
   @override
   Future<void> insertDefaultRecipes() async {
     Database? db = await getInstance;
+    if (db == null) return;
     try {
-      await db!.transaction((txn) async {
+      await db.transaction((txn) async {
         for (var recipe in AppDefaultData.defaultRecipes) {
           await txn.insert(
             'lists',
@@ -84,5 +86,48 @@ class RecipeDataImpl extends DbHelper implements RecipeData {
       }
     }
     return listsMap.values.toList();
+  }
+
+  /// Saves a recipe identified by [templateID] as a new shopping list.
+  ///
+  /// This method copies the recipe's details and its associated items into
+  /// a new shopping list and its items in the database.
+  @override
+  Future<void> saveRecipeAsShoppingList(int templateID) async {
+    final db = await getInstance;
+    if (db == null) return;
+
+    await db.transaction((txn) async {
+      // Get the recipe info by templateID
+      final recipeList = await txn.query(
+        'lists',
+        where: 'list_id = ?',
+        whereArgs: [templateID],
+      );
+      if (recipeList.isEmpty) return;
+
+      final recipe = recipeList.first;
+
+      // Insert a new shopping list copying the recipe's data (except list_id)
+      final newListId = await txn.insert('lists', {
+        'title': recipe['title'],
+        'date': DateTime.now().toIso8601String(),
+      });
+
+      // Get all items associated with the recipe
+      final recipeItems = await txn.query(
+        'items',
+        where: 'list_id = ?',
+        whereArgs: [templateID],
+      );
+
+      // Insert items for the new shopping list
+      for (final item in recipeItems) {
+        final newItem = Map<String, dynamic>.from(item);
+        newItem['list_id'] = newListId;
+        newItem.remove('item_id');
+        await txn.insert('items', newItem);
+      }
+    });
   }
 }
