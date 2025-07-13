@@ -36,6 +36,7 @@ class RemaindersScreen extends StatelessWidget {
       body: Container(
         color: AppColors.allListsScreenBackgroundColor,
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               pinned: false,
@@ -78,6 +79,7 @@ class RemaindersScreen extends StatelessWidget {
                   initState: (_) {},
                   builder: (_) {
                     return ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: controller.lists.value.length,
                       separatorBuilder: (_, __) => SizedBox(height: 20.h),

@@ -184,7 +184,7 @@ class _NewListScreenState extends State<NewListScreen> {
               NewListTotalAmount(),
               SizedBox(height: 20.h),
 
-            (model == null || model?.isTemplate == false) ?    Obx(()=>Row(
+            (model == null || (model?.isTemplate == false && controller.isEditing.value  == false && args['qr'] == true ) ) ?    Obx(()=>Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(AppLocaleKeys.saveAsTemplate.tr,
