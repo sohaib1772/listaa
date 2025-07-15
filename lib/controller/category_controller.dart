@@ -6,12 +6,12 @@ import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/data/models/category_model.dart';
 import 'package:listaa/data/repositories/category_data.dart';
 
-class CategoryController extends GetxController{
+class CategoryController extends GetxController {
   List<CategoryModel> categories = [];
   CategoryData categoryData = Get.find<CategoryDataImpl>();
 
-  AppIconsName getDeafultCategoryIcon(String title){
-    switch(title){
+  AppIconsName getDeafultCategoryIcon(String title) {
+    switch (title) {
       case AppLocaleKeys.holyDaysAndEvents:
         return AppIconsName.event;
       case AppLocaleKeys.fruitsAndVegetable:
@@ -22,29 +22,30 @@ class CategoryController extends GetxController{
         return AppIconsName.all;
       default:
         return AppIconsName.doneList;
-      
     }
   }
 
-  Future<void> getAllCategories()async{
-  categories= await  categoryData.getCategories();
-  update();
+  Future<void> getAllCategories() async {
+    categories = await categoryData.getCategories();
+    update();
   }
 
   Future<void> addCategory(String title) async {
     if (title.isEmpty) return;
     final category = CategoryModel(title: title, isDefault: false);
-   await categoryData.createNewCategory(category);
+    await categoryData.createNewCategory(category);
     categories = await categoryData.getCategories();
     update();
   }
 
   Future<void> deleteCategory(int id) async {
     print("Deleting category with id: $id");
-      await categoryData.deleteCategory(id);
-
+    bool isDeleted = await categoryData.deleteCategory(id);
+    if (isDeleted) {
       categories = await categoryData.getCategories();
       update();
-    
+    } else {
+      print("Cannot be deleted");
+    }
   }
 }

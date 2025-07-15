@@ -12,7 +12,7 @@ abstract class CategoryData {
 
   Future<List<CategoryModel>> getCategories();
 
-  Future<int> deleteCategory(int categoryId);
+  Future<bool> deleteCategory(int categoryId);
 }
 
 class CategoryDataImpl extends DbHelper implements CategoryData {
@@ -80,7 +80,18 @@ class CategoryDataImpl extends DbHelper implements CategoryData {
 
   /// Delete category from the database.
   @override
-  Future<int> deleteCategory(int categoryId) async {
-    return await delete(SqlQueries.deleteCategory, [categoryId]);
+  Future<bool> deleteCategory(int categoryId) async {
+    final data = await inquiry(
+      SqlQueries.getListsBelongsToCategory,
+      arguments: [categoryId],
+    );
+    if (data.isNotEmpty) {
+      //category could not be deleted because its associated with a list
+      return false;
+    } else {
+      //category can be deleted
+      await delete(SqlQueries.deleteCategory, [categoryId]);
+      return true;
+    }
   }
 }

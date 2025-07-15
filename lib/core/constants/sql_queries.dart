@@ -21,7 +21,7 @@ class SqlQueries {
     items ON items.list_id = lists.list_id
   WHERE lists.is_deleted = 0 AND lists.is_template = 0
   ORDER BY 
-    lists.date DESC, items.item_id;
+    lists.list_id DESC, items.item_id;
 ''';
   static const String getListsByPriority = '''
   SELECT 
@@ -42,7 +42,7 @@ class SqlQueries {
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
   WHERE l.is_deleted = 0 AND l.is_template = 0 AND l.priority = ?
-  ORDER BY l.date DESC, l.list_id, i.item_id
+  ORDER BY l.list_id DESC, l.list_id, i.item_id
 ''';
   static const String getListsByCategory = '''
   SELECT 
@@ -63,7 +63,7 @@ class SqlQueries {
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
   WHERE l.is_deleted = 0 AND l.is_template = 0 AND l.category_id = ?
-  ORDER BY l.date DESC, l.list_id, i.item_id
+  ORDER BY l.list_id DESC, l.list_id, i.item_id
 ''';
   static const String getListsByCategoryAndPriority = '''
   SELECT 
@@ -84,7 +84,7 @@ class SqlQueries {
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
   WHERE l.is_deleted = 0 AND AND l.is_template = 0 l.category_id = ? AND l.priority = ?
-  ORDER BY l.date DESC, l.list_id, i.item_id
+  ORDER BY l.list_id DESC, l.list_id, i.item_id
 ''';
   //
   static const String createNewList = '''
@@ -187,6 +187,15 @@ class SqlQueries {
     VALUES (?, ?)
   ''';
 
+  static const String getListsBelongsToCategory = '''
+  SELECT 
+    l.list_id,
+    c.category_id
+  FROM lists l
+  JOIN categories c ON l.category_id = c.category_id
+  WHERE c.category_id = ?
+  ''';
+
   static const String deleteCategory = '''
   DELETE FROM categories 
   WHERE category_id = ?
@@ -238,6 +247,7 @@ class SqlQueries {
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
+
   static const String spendingToday = '''
   SELECT
       c.title as category,
@@ -251,6 +261,7 @@ class SqlQueries {
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
+
   static const String spendingCurrentMonth = '''
   SELECT
       c.title as category,
@@ -265,6 +276,7 @@ class SqlQueries {
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
+
   static const String spendingPreviousMonth = '''
   SELECT
       c.title as category,
@@ -279,6 +291,7 @@ class SqlQueries {
   GROUP BY c.category_id
   ORDER BY total_spent DESC
 ''';
+
   static const String spendingCurrentYear = '''
   SELECT
       c.title as category,
