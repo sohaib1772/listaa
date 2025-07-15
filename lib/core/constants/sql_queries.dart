@@ -313,7 +313,8 @@ class SqlQueries {
     lists.is_deleted,
     lists.category_id,
     items.item_id,
-    items.name
+    items.name,
+    items.price
   FROM 
     lists
   LEFT JOIN 

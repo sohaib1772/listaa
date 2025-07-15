@@ -8,7 +8,6 @@ class HomeController extends GetxController {
   int priority = 10;
   var scrollAlpha = 0.obs;
   ListData homeData = Get.find<ListDataImpl>();
-  RecipeData recipeData = Get.find<RecipeDataImpl>();
   RxBool isLoading = true.obs;
 
   void changePriority(int index,{int categoryId = 0}) async{
@@ -18,7 +17,6 @@ class HomeController extends GetxController {
   }
 
   RxList<ShoppingListModel> lists = <ShoppingListModel>[].obs;
-  RxList<ShoppingListModel> recipes = <ShoppingListModel>[].obs;
 
   void toggleIsCollapse(int index) {
    
@@ -56,16 +54,10 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getAllRecipes()async{
-    recipes.value =  await recipeData.getRecipes();
-    update();
-  }
-
   @override
   void onInit() async{
     isLoading.value = true;
     await getAllLists();
-    await getAllRecipes();
     isLoading.value = false;
     
     super.onInit();

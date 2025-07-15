@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:listaa/controller/home_controller.dart';
+import 'package:listaa/controller/recpice_controller.dart';
 import 'package:listaa/core/theme/app_text_styles.dart';
 import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/core/localization/locale.dart';
@@ -11,12 +12,13 @@ import 'package:listaa/core/constants/app_router_keys.dart';
 
 class HomeSliders extends StatelessWidget {
    HomeSliders({super.key});
- final HomeController homeController = Get.find();
+ final RecipeController controller = Get.find();
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
+    return Obx(
+      ()=>CarouselSlider.builder(
 
-                itemCount: homeController.recipes.length,
+                itemCount: controller.recipes.length,
                 itemBuilder: (context, index, realIndex) {
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -38,7 +40,7 @@ class HomeSliders extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                        homeController.recipes[index].title,
+                        controller.recipes[index].title,
                         style: AppTextStyles.darkbold20,
                       ),
                       SizedBox(height: 20.h),
@@ -47,7 +49,7 @@ class HomeSliders extends StatelessWidget {
                         width: 200.w,
                         onPressed: () {
                           Get.toNamed(AppRouterKeys.newList,
-                              arguments: {"model": homeController.recipes[index], "qr": true});
+                              arguments: {"model": controller.recipes[index], "qr": true});
                         },
                         type: AppButtonType.floatingButton,
                         text: AppLocaleKeys.goNow.tr,
@@ -67,6 +69,7 @@ class HomeSliders extends StatelessWidget {
                   height: 168.h
 
                 ),
-              );
+              )
+    );
   }
 }

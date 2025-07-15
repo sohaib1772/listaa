@@ -135,15 +135,7 @@ class RecipesScreen extends StatelessWidget {
               ),
             ),
             SliverToBoxAdapter(child: Divider(height: 20.h)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Text(
-                  AppLocaleKeys.completedLists.tr,
-                  style: AppTextStyles.darkbold24,
-                ),
-              ),
-            ),
+            
           ],
         ),
       ),

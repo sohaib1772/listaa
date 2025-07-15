@@ -70,7 +70,6 @@ class RemaindersScreen extends StatelessWidget {
               ),
             ),
             // Spacer
-            // uncompleted lists
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -107,20 +106,20 @@ class RemaindersScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
 
                                 children: [
-                                  Text(
-                                     Get.find<Formatter>().time(
-                                       controller
-                                          .lists[mainIndex]
-                                          .shoppingLists[index].time
-                                     ),
-                                    style: AppTextStyles.darkbold20,
+                                  Flexible(
+                                    child: Text(
+                                       Get.find<Formatter>().time(
+                                         controller
+                                            .lists[mainIndex]
+                                            .shoppingLists[index].time
+                                       ),
+                                      style: AppTextStyles.darkbold20,
+                                    ),
                                   ),
                                   SizedBox(width: 10.w),
 
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width.w *
-                                        0.8,
+                                  Expanded(
+                                    flex:5,
                                     child: ListsCard(
                                       groupIndex: mainIndex,
                                       controller: controller,
@@ -133,9 +132,9 @@ class RemaindersScreen extends StatelessWidget {
                                           index,
                                         );
                                       },
-
+                                                                        
                                       isCompleted: false,
-
+                                                                        
                                       isCollapsed: controller
                                           .lists[mainIndex]
                                           .shoppingLists[index]

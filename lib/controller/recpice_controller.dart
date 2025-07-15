@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:listaa/data/repositories/list_data.dart';
 import 'package:listaa/data/repositories/recipe_data.dart';
