@@ -30,9 +30,8 @@ class DrawerCategories extends StatelessWidget {
               padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return AppDrawerTextIconButton(
-                  onLongPress: (){
+                  onLongPress: () {
                     Get.bottomSheet(
-                      
                       Container(
                         height: 250.h,
                         padding: EdgeInsets.all(20.w),
@@ -43,44 +42,58 @@ class DrawerCategories extends StatelessWidget {
                             topRight: Radius.circular(20.r),
                           ),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              AppLocaleKeys.deleteCategoryConfirmation.tr,
-                              style: AppTextStyles.darkbold20,
-                            ),
-                            SizedBox(height: 20.h),
-                            Column(
-                              children: [
-                                AppTextButtons(
-                                  type: AppButtonType.floatingButton,
-                                  text: AppLocaleKeys.cancel.tr,
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                ),
-                                SizedBox(height: 10.h),
-                                AppTextButtons(
-        
-                                  type: AppButtonType.floatingButton,
-                                  text: AppLocaleKeys.delete.tr,
-                                  onPressed: () async {
-                                    print(controller.categories[index].id);
-                                    await controller.deleteCategory(controller.categories[index].id ?? 0);
-                                    Get.back();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
+                        child: SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                AppLocaleKeys.deleteCategoryConfirmation.tr,
+                                style: AppTextStyles.darkbold20,
+                              ),
+                              SizedBox(height: 20.h),
+                              Column(
+                                children: [
+                                  AppTextButtons(
+                                    type: AppButtonType.floatingButton,
+                                    text: AppLocaleKeys.cancel.tr,
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  AppTextButtons(
+                                    type: AppButtonType.floatingButton,
+                                    text: AppLocaleKeys.delete.tr,
+                                    onPressed: () async {
+                                      print(controller.categories[index].id);
+                                      bool isDeleted = await controller
+                                          .deleteCategory(
+                                            controller.categories[index].id ?? 0,
+                                          );
+                                      if (!isDeleted) {
+                                        Get.snackbar(
+                                          AppLocaleKeys.warning.tr,
+                                          AppLocaleKeys
+                                              .deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt
+                                              .tr,
+                                        );
+                                        return;
+                                      }
+                                      Get.back();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
                   },
                   onPressed: () {},
-                  text:controller.categories[index].title.tr,
+                  text: controller.categories[index].title.tr,
                   icon: controller.getDeafultCategoryIcon(
                     controller.categories[index].title,
                   ),
@@ -94,9 +107,7 @@ class DrawerCategories extends StatelessWidget {
         AppDrawerTextIconButton(
           icon: AppIconsName.add,
           onPressed: () {
-            Get.bottomSheet(
-              AddCategoryBottomSheet()
-            );
+            Get.bottomSheet(AddCategoryBottomSheet());
           },
           text: AppLocaleKeys.newCategory.tr,
         ),

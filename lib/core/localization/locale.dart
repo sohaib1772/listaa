@@ -77,6 +77,7 @@ class AppLocaleKeys {
   static const String titleRequired = 'titleRequired';
   static const String listShouldHaveAtLeastOneItem = 'listShouldHaveAtLeastOneItem';
   static const String warning = 'warning';
+  static const String deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt = 'deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt';
 
 
 
@@ -211,6 +212,8 @@ class AppLocale extends Translations {
       AppLocaleKeys.recpiesAndTemplates:"الوصفات والقوالب",
       AppLocaleKeys.saveAsTemplate:"حفظ كقالب",
 
+      AppLocaleKeys.deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt:"يجب حذف جميع القوائم التي تنتمي لهذا التصنيف قبل حذفه",
+
 
 
 
@@ -309,6 +312,8 @@ class AppLocale extends Translations {
       AppLocaleKeys.privacyPolicy:"Privacy Policy",
       AppLocaleKeys.recpiesAndTemplates:"Recpies & Templates",
       AppLocaleKeys.saveAsTemplate:"Save as template",
+
+      AppLocaleKeys.deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt:"You must delete all lists that belong to this category before deleting it",
 
 
     },

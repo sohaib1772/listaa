@@ -34,10 +34,11 @@ class TrashScreen extends StatelessWidget {
     return CustomScaffold(
       scaffoldKey: scaffoldKey,
       showAppbar: false,
-      showAddListButton: true,
+      showAddListButton: false,
       body: Container(
         color: AppColors.allListsScreenBackgroundColor,
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               pinned: false,
@@ -149,45 +150,48 @@ class TrashScreen extends StatelessWidget {
                                                 color: AppColors
                                                     .datePickerBackgroundColor,
                                               ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                    AppLocaleKeys
-                                                        .deleteListConfirmation
-                                                        .tr,
-                                                    style: AppTextStyles
-                                                        .darkbold24,
-                                                  ),
-                                                  SizedBox(height: 20.h),
-
-                                                  AppTextButtons(
-                                                    type: AppButtonType
-                                                        .floatingButton,
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    text: AppLocaleKeys.no.tr,
-                                                  ),
-                                                  SizedBox(height: 10.h),
-                                                  AppTextButtons(
-                                                    type: AppButtonType
-                                                        .floatingButton,
-                                                    onPressed: () {
-                                                      controller.deleteList(
-                                                        controller
-                                                                .lists[mainIndex]
-                                                                .shoppingLists[index]
-                                                                .id ??
-                                                            0,
-                                                      );
-                                                      Get.back();
-                                                    },
-                                                    text: AppLocaleKeys.yes.tr,
-                                                  ),
-                                                ],
+                                              child: SingleChildScrollView(
+                                                physics: BouncingScrollPhysics(),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                      AppLocaleKeys
+                                                          .deleteListConfirmation
+                                                          .tr,
+                                                      style: AppTextStyles
+                                                          .darkbold24,
+                                                    ),
+                                                    SizedBox(height: 20.h),
+                                                
+                                                    AppTextButtons(
+                                                      type: AppButtonType
+                                                          .floatingButton,
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      text: AppLocaleKeys.no.tr,
+                                                    ),
+                                                    SizedBox(height: 10.h),
+                                                    AppTextButtons(
+                                                      type: AppButtonType
+                                                          .floatingButton,
+                                                      onPressed: () {
+                                                        controller.deleteList(
+                                                          controller
+                                                                  .lists[mainIndex]
+                                                                  .shoppingLists[index]
+                                                                  .id ??
+                                                              0,
+                                                        );
+                                                        Get.back();
+                                                      },
+                                                      text: AppLocaleKeys.yes.tr,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           );

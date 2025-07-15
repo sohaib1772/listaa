@@ -32,8 +32,10 @@ class ListsScreen extends StatelessWidget {
       body: Container(
         color: AppColors.allListsScreenBackgroundColor,
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
+              
               pinned: false,
               elevation: 0,
               automaticallyImplyLeading: false,

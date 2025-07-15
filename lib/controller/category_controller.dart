@@ -38,14 +38,14 @@ class CategoryController extends GetxController {
     update();
   }
 
-  Future<void> deleteCategory(int id) async {
-    print("Deleting category with id: $id");
+  Future<bool> deleteCategory(int id) async {
     bool isDeleted = await categoryData.deleteCategory(id);
     if (isDeleted) {
       categories = await categoryData.getCategories();
       update();
+      return true;
     } else {
-      print("Cannot be deleted");
+      return false;
     }
   }
 }

@@ -23,6 +23,7 @@ class RecipesScreen extends StatelessWidget {
       body: Container(
         color: AppColors.allListsScreenBackgroundColor,
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(), 
           slivers: [
             SliverAppBar(
               pinned: false,
