@@ -58,7 +58,7 @@ class ItemCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                name,
+                name.tr,
                 style: AppTextStyles.darkbold20.copyWith(
                   decoration: isChecked
                       ? TextDecoration.lineThrough

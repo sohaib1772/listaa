@@ -75,17 +75,17 @@ class TrashScreen extends StatelessWidget {
             // Spacer
             // uncompleted lists
             SliverToBoxAdapter(
-              child:controller
-                                .lists.isEmpty ? NoDataAlert(
-                                  image: "categories",
-                                  message: AppLocaleKeys.theresNoTrashYet.tr,
-                                ): Padding(
+              child:Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: GetBuilder<TrashController>(
                   init: controller,
                   initState: (_) {},
                   builder: (_) {
-                    return ListView.separated(
+                    return controller
+                                .lists.isEmpty ? NoDataAlert(
+                                  image: "categories",
+                                  message: AppLocaleKeys.theresNoTrashYet.tr,
+                                ):  ListView.separated(
                       shrinkWrap: true,
                       itemCount: controller.lists.value.length,
                       separatorBuilder: (_, __) => SizedBox(height: 20.h),

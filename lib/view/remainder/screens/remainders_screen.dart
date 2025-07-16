@@ -72,16 +72,16 @@ class RemaindersScreen extends StatelessWidget {
             ),
             // Spacer
             SliverToBoxAdapter(
-              child:controller.lists.isEmpty ? NoDataAlert(
-                image: "Reminder",
-                message:AppLocaleKeys.theresNoRemindersYet.tr
-              ): Padding(
+              child:Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: GetBuilder<RemainderController>(
                   init: controller,
                   initState: (_) {},
                   builder: (_) {
-                    return ListView.separated(
+                    return controller.lists.isEmpty ? NoDataAlert(
+                image: "Reminder",
+                message:AppLocaleKeys.theresNoRemindersYet.tr
+              ):  ListView.separated(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: controller.lists.value.length,

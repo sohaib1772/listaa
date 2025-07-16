@@ -49,6 +49,7 @@ class InfoAndButtons extends StatelessWidget {
                 },
                 type: AppButtonType.orange,
               ),
+              SizedBox(height: 30,),
              
               
             ],

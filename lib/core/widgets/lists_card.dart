@@ -110,7 +110,7 @@ class _ListCardCollapsedState extends State<_ListCardCollapsed> {
                   arguments: {"model": widget.model},
                 );
               },
-              child: Text(widget.model.title, style: AppTextStyles.darkbold20),
+              child: Text(widget.model.title.tr, style: AppTextStyles.darkbold20),
             ),
             Spacer(),
             IconButton(
@@ -202,7 +202,7 @@ class _ListCardNotCollapsed extends StatelessWidget {
                   SizedBox(
                     width: 150.w,
                     child: Text(
-                      model.title,
+                      model.title.tr,
                       style: AppTextStyles.darkbold20.copyWith(
                         overflow: TextOverflow.ellipsis,
                       ),

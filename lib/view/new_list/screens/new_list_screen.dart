@@ -13,9 +13,12 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:group_button/group_button.dart';
 import 'package:intl/intl.dart';
+import 'package:listaa/controller/all_lists_controller.dart';
 import 'package:listaa/controller/home_controller.dart';
 import 'package:listaa/controller/new_list_controller.dart';
 import 'package:listaa/controller/recpice_controller.dart';
+import 'package:listaa/controller/remainder_controller.dart';
+import 'package:listaa/controller/trash_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/helper/formatter.dart';
 import 'package:listaa/core/helper/qr_helper.dart';
@@ -49,6 +52,30 @@ class _NewListScreenState extends State<NewListScreen> {
 
   NewListController controller = Get.find();
   ShoppingListModel? model;
+
+  Future<void> getPreviousScreenData() async{
+    print("preeeeeeeeeeeeeeeeeeeev ${Get.previousRoute}");
+    switch (Get.previousRoute) {
+                              case AppRouterKeys.home:
+                                await Get.find<HomeController>().getAllLists();
+                                break;
+                              case AppRouterKeys.lists:
+                                await Get.find<AllListsController>().getAllLists();
+                                break;
+                              case AppRouterKeys.remainders:
+                                await Get.find<RemainderController>().getAllLists();
+                                break;
+                              case AppRouterKeys.trash:
+                                await Get.find<TrashController>().getAllLists();
+                                break;
+                              case AppRouterKeys.recipes:
+                                await Get.find<RecipeController>().getAllRecipes();
+                                break;
+
+                              default:
+                                break;
+                            }
+  }
   
   @override
   void initState() {
@@ -69,7 +96,7 @@ class _NewListScreenState extends State<NewListScreen> {
     controller.items = itemModels.map((e) {
       return RowItemsModel(
         id: e.id ?? 0,
-        nameController: TextEditingController(text: e.name),
+        nameController: TextEditingController(text: e.name.tr),
         priceController: TextEditingController(text: e.price.toString()),
         focusNode: FocusNode(),
         isDone: e.isDone,
@@ -83,7 +110,7 @@ class _NewListScreenState extends State<NewListScreen> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       appBarTitle: controller.isEditing.value
-          ? model!.title
+          ? model!.title.tr
           : AppLocaleKeys.addNewList.tr,
       scaffoldKey: scaffoldKey,
       appBarAction: controller.isEditing.value
@@ -121,12 +148,10 @@ class _NewListScreenState extends State<NewListScreen> {
                   TextButton(
                     onPressed: () async {
                       await controller.delete(model?.id ?? 0);
+                      
                       Get.back();
-                      await Get.find<HomeController>().getAllLists();
-                      await Get.find<RecipeController>().getAllRecipes();
-
-
                       Get.back();
+                      await getPreviousScreenData();
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -159,7 +184,7 @@ class _NewListScreenState extends State<NewListScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              NewListHeader(title: controller.title.value),
+              NewListHeader(title: controller.title.value.tr),
               NewListSelectCategories(controller: controller),
               SizedBox(
                 height: 300.h,
@@ -225,16 +250,19 @@ class _NewListScreenState extends State<NewListScreen> {
                               return;
                             }
                             await controller.updateList(model?.id ?? 0);
+                            
                             Get.snackbar(
                               AppLocaleKeys.success.tr,
                               AppLocaleKeys.listUpdatedSuccessfully.tr,
                               snackPosition: SnackPosition.TOP,
                             );
-                            await Get.find<HomeController>().getAllLists();
+                             await  getPreviousScreenData();
+                         
                             return;
                           }
 
                           await controller.addNewList();
+                           await  getPreviousScreenData();
                         },
                       ),
               ),

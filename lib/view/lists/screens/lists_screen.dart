@@ -13,6 +13,7 @@ import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/bottom_container.dart';
 import 'package:listaa/core/widgets/item_card.dart';
 import 'package:listaa/core/widgets/lists_card.dart';
+import 'package:listaa/core/widgets/no_data_alert.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
 import 'package:listaa/data/models/category_model.dart';
 import 'package:listaa/view/home/widgets/home_select_proiority.dart';
@@ -72,7 +73,7 @@ class ListsScreen extends StatelessWidget {
             SliverToBoxAdapter(child: SizedBox(height: 30.h)),
             // Home Slider
             SliverToBoxAdapter(
-              child: GetBuilder<AllListsController>(
+              child:GetBuilder<AllListsController>(
                 init: controller,
                 builder: (_) {
                   return HomeSelectProiority(controller: controller,
@@ -83,7 +84,7 @@ class ListsScreen extends StatelessWidget {
             SliverToBoxAdapter(child: SizedBox(height: 20.h)),
             // uncompleted lists
             SliverToBoxAdapter(
-              child: Padding(
+              child:Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: GetBuilder<AllListsController>(
                   init: controller,
@@ -93,7 +94,10 @@ class ListsScreen extends StatelessWidget {
                     );
                   },
                   builder: (_) {
-                    return ListView.separated(
+                    return controller.lists.isEmpty  ? NoDataAlert(
+                message: AppLocaleKeys.noListsYet.tr,
+                image: "No_lists",
+              ): ListView.separated(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: controller.lists.value.length,

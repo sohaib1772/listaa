@@ -129,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child:controller.lists.isNotEmpty ? GetBuilder<HomeController>(
+                      child:controller.lists.isNotEmpty || controller.priority !=10 ? GetBuilder<HomeController>(
                         builder: (_) => HomeSelectProiority(
                           controller: controller,
                           horizontalPadding: 20.w,

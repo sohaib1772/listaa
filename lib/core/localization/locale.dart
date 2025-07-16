@@ -115,6 +115,63 @@ class AppLocaleKeys {
   static const String market = 'market';
   static const String school = 'school';
   static const String trip = 'trip';
+
+  // templates items
+   // Adha
+  static const adha_sheep = 'adha_sheep';
+  static const adha_knife = 'adha_knife';
+  static const adha_charcoal = 'adha_charcoal';
+  static const adha_salt = 'adha_salt';
+  static const adha_spices = 'adha_spices';
+  static const adha_bags = 'adha_bags';
+  static const adha_gloves = 'adha_gloves';
+  static const adha_tray = 'adha_tray';
+  static const adha_cleaning_supplies = 'adha_cleaning_supplies';
+  static const adha_freezer_bags = 'adha_freezer_bags';
+
+  // Cake
+  static const cake_flour = 'cake_flour';
+  static const cake_sugar = 'cake_sugar';
+  static const cake_eggs = 'cake_eggs';
+  static const cake_cocoa = 'cake_cocoa';
+  static const cake_butter = 'cake_butter';
+  static const cake_baking_powder = 'cake_baking_powder';
+  static const cake_vanilla = 'cake_vanilla';
+
+  // Trip
+  static const trip_tent = 'trip_tent';
+  static const trip_sleeping_bag = 'trip_sleeping_bag';
+  static const trip_firewood = 'trip_firewood';
+  static const trip_lantern = 'trip_lantern';
+  static const trip_water = 'trip_water';
+  static const trip_snacks = 'trip_snacks';
+  static const trip_first_aid = 'trip_first_aid';
+
+  // Chicken
+  static const chicken_whole = 'chicken_whole';
+  static const chicken_garlic = 'chicken_garlic';
+  static const chicken_lemon = 'chicken_lemon';
+  static const chicken_pepper = 'chicken_pepper';
+  static const chicken_yogurt = 'chicken_yogurt';
+  static const chicken_rice = 'chicken_rice';
+
+  // Market
+  static const market_bread = 'market_bread';
+  static const market_milk = 'market_milk';
+  static const market_eggs = 'market_eggs';
+  static const market_cheese = 'market_cheese';
+  static const market_vegetables = 'market_vegetables';
+  static const market_fruits = 'market_fruits';
+  static const market_oil = 'market_oil';
+
+  // School
+  static const school_backpack = 'school_backpack';
+  static const school_notebooks = 'school_notebooks';
+  static const school_pens = 'school_pens';
+  static const school_uniform = 'school_uniform';
+  static const school_shoes = 'school_shoes';
+  static const school_lunchbox = 'school_lunchbox';
+  static const school_water_bottle = 'school_water_bottle';
 }
 
 class AppLocale extends Translations {
@@ -237,6 +294,66 @@ class AppLocale extends Translations {
       AppLocaleKeys.theresNoTrashYet: "لا يوجد محذوفات بعد",
 
 
+      // templates items
+
+      
+      
+  // Adha
+  AppLocaleKeys.adha_sheep: "🐑 خروف العيد",
+  AppLocaleKeys.adha_knife: "🔪 سكين الذبح",
+  AppLocaleKeys.adha_charcoal: "🔥 فحم",
+  AppLocaleKeys.adha_salt: "🧂 ملح",
+  AppLocaleKeys.adha_spices: "🌶️ بهارات",
+  AppLocaleKeys.adha_bags: "🛍️ أكياس توزيع",
+  AppLocaleKeys.adha_gloves: "🧤 قفازات",
+  AppLocaleKeys.adha_tray: "🍽️ صينية",
+  AppLocaleKeys.adha_cleaning_supplies: "🧼 مواد تنظيف",
+  AppLocaleKeys.adha_freezer_bags: "🥶 أكياس تجميد",
+
+  // Cake
+  AppLocaleKeys.cake_flour: "🌾 طحين",
+  AppLocaleKeys.cake_sugar: "🍬 سكر",
+  AppLocaleKeys.cake_eggs: "🥚 بيض",
+  AppLocaleKeys.cake_cocoa: "🍫 كاكاو",
+  AppLocaleKeys.cake_butter: "🧈 زبدة",
+  AppLocaleKeys.cake_baking_powder: "🧪 بيكنج باودر",
+  AppLocaleKeys.cake_vanilla: "🌼 فانيليا",
+
+  // Trip
+  AppLocaleKeys.trip_tent: "⛺ خيمة",
+  AppLocaleKeys.trip_sleeping_bag: "🛌 كيس نوم",
+  AppLocaleKeys.trip_firewood: "🪵 حطب",
+  AppLocaleKeys.trip_lantern: "🏮 فانوس",
+  AppLocaleKeys.trip_water: "💧 ماء",
+  AppLocaleKeys.trip_snacks: "🍪 وجبات خفيفة",
+  AppLocaleKeys.trip_first_aid: "🩹 إسعافات أولية",
+
+  // Chicken
+  AppLocaleKeys.chicken_whole: "🍗 دجاجة كاملة",
+  AppLocaleKeys.chicken_garlic: "🧄 ثوم",
+  AppLocaleKeys.chicken_lemon: "🍋 ليمون",
+  AppLocaleKeys.chicken_pepper: "🫑 فلفل",
+  AppLocaleKeys.chicken_yogurt: "🥛 لبن",
+  AppLocaleKeys.chicken_rice: "🍚 رز",
+
+  // Market
+  AppLocaleKeys.market_bread: "🍞 خبز",
+  AppLocaleKeys.market_milk: "🥛 حليب",
+  AppLocaleKeys.market_eggs: "🥚 بيض",
+  AppLocaleKeys.market_cheese: "🧀 جبن",
+  AppLocaleKeys.market_vegetables: "🥦 خضروات",
+  AppLocaleKeys.market_fruits: "🍎 فواكه",
+  AppLocaleKeys.market_oil: "🛢️ زيت",
+
+  // School
+  AppLocaleKeys.school_backpack: "🎒 حقيبة مدرسية",
+  AppLocaleKeys.school_notebooks: "📓 دفاتر",
+  AppLocaleKeys.school_pens: "🖊️ أقلام",
+  AppLocaleKeys.school_uniform: "👕 زي مدرسي",
+  AppLocaleKeys.school_shoes: "👟 حذاء",
+  AppLocaleKeys.school_lunchbox: "🥪 صندوق طعام",
+  AppLocaleKeys.school_water_bottle: "🚰 قارورة ماء",
+
 
 
     },
@@ -346,6 +463,62 @@ class AppLocale extends Translations {
 
       AppLocaleKeys.theresNoRemindersYet:"There's no reminders yet...",
       AppLocaleKeys.theresNoTrashYet:"There's no trash yet...",
+
+      // Adha
+  AppLocaleKeys.adha_sheep: "🐑 Eid sheep",
+  AppLocaleKeys.adha_knife: "🔪 Slaughter knife",
+  AppLocaleKeys.adha_charcoal: "🔥 Charcoal",
+  AppLocaleKeys.adha_salt: "🧂 Salt",
+  AppLocaleKeys.adha_spices: "🌶️ Spices",
+  AppLocaleKeys.adha_bags: "🛍️ Distribution bags",
+  AppLocaleKeys.adha_gloves: "🧤 Gloves",
+  AppLocaleKeys.adha_tray: "🍽️ Tray",
+  AppLocaleKeys.adha_cleaning_supplies: "🧼 Cleaning supplies",
+  AppLocaleKeys.adha_freezer_bags: "🥶 Freezer bags",
+
+  // Cake
+  AppLocaleKeys.cake_flour: "🌾 Flour",
+  AppLocaleKeys.cake_sugar: "🍬 Sugar",
+  AppLocaleKeys.cake_eggs: "🥚 Eggs",
+  AppLocaleKeys.cake_cocoa: "🍫 Cocoa",
+  AppLocaleKeys.cake_butter: "🧈 Butter",
+  AppLocaleKeys.cake_baking_powder: "🧪 Baking powder",
+  AppLocaleKeys.cake_vanilla: "🌼 Vanilla",
+
+  // Trip
+  AppLocaleKeys.trip_tent: "⛺ Tent",
+  AppLocaleKeys.trip_sleeping_bag: "🛌 Sleeping bag",
+  AppLocaleKeys.trip_firewood: "🪵 Firewood",
+  AppLocaleKeys.trip_lantern: "🏮 Lantern",
+  AppLocaleKeys.trip_water: "💧 Water",
+  AppLocaleKeys.trip_snacks: "🍪 Snacks",
+  AppLocaleKeys.trip_first_aid: "🩹 First aid kit",
+
+  // Chicken
+  AppLocaleKeys.chicken_whole: "🍗 Whole chicken",
+  AppLocaleKeys.chicken_garlic: "🧄 Garlic",
+  AppLocaleKeys.chicken_lemon: "🍋 Lemon",
+  AppLocaleKeys.chicken_pepper: "🫑 Pepper",
+  AppLocaleKeys.chicken_yogurt: "🥛 Yogurt",
+  AppLocaleKeys.chicken_rice: "🍚 Rice",
+
+  // Market
+  AppLocaleKeys.market_bread: "🍞 Bread",
+  AppLocaleKeys.market_milk: "🥛 Milk",
+  AppLocaleKeys.market_eggs: "🥚 Eggs",
+  AppLocaleKeys.market_cheese: "🧀 Cheese",
+  AppLocaleKeys.market_vegetables: "🥦 Vegetables",
+  AppLocaleKeys.market_fruits: "🍎 Fruits",
+  AppLocaleKeys.market_oil: "🛢️ Oil",
+
+  // School
+  AppLocaleKeys.school_backpack: "🎒 School backpack",
+  AppLocaleKeys.school_notebooks: "📓 Notebooks",
+  AppLocaleKeys.school_pens: "🖊️ Pens",
+  AppLocaleKeys.school_uniform: "👕 School uniform",
+  AppLocaleKeys.school_shoes: "👟 Shoes",
+  AppLocaleKeys.school_lunchbox: "🥪 Lunchbox",
+  AppLocaleKeys.school_water_bottle: "🚰 Water bottle",
 
 
     },

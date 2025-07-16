@@ -129,7 +129,7 @@ class SqlQueries {
     i.is_done
   FROM lists l
   LEFT JOIN items i ON i.list_id = l.list_id
-  WHERE i.is_done = 0 AND l.is_template = 0
+  WHERE i.is_done = 0 AND l.is_template = 0 AND l.is_deleted = 0
   ORDER BY l.date DESC, l.list_id, i.item_id
 ''';
   static const String getSoftDeletedListsWithItems = '''
