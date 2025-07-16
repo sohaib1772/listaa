@@ -29,7 +29,7 @@ class HomeSliders extends StatelessWidget {
           autoPlay: true,
           viewportFraction: .8,
           enableInfiniteScroll: true,
-          height: 168.h,
+          height: 188.h,
         ),
       ),
     );

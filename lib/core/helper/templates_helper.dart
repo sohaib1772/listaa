@@ -1,5 +1,8 @@
 
 
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TemplatesHelper{
@@ -23,4 +26,6 @@ class TemplatesHelper{
         return 'assets/templates/default_${Get.locale!.languageCode}.png';
     }
   }
+
+  
 }

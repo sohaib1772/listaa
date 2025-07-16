@@ -10,7 +10,7 @@ import 'package:listaa/core/widgets/app_buttons.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 
 class TemplateCard extends StatelessWidget {
-  TemplateCard({super.key, required this.model,this.width = 327,this.height = 188});
+  TemplateCard({super.key, required this.model,this.width = 327,this.height = 200});
   ShoppingListModel model;
   double width;
   double height;
@@ -138,7 +138,7 @@ class TemplatesCardsMini extends StatelessWidget {
                                        
                                         child: Container(
                                           margin: EdgeInsets.symmetric(horizontal: 20.w),
-                                          height: 50,
+                                          height: 60,
                                           child: AppTextButtonsWithIcon(
                                             icon: Icons.arrow_forward_rounded,
                                             type: AppButtonType.floatingButton,

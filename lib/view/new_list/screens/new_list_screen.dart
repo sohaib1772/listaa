@@ -54,7 +54,6 @@ class _NewListScreenState extends State<NewListScreen> {
   ShoppingListModel? model;
 
   Future<void> getPreviousScreenData() async{
-    print("preeeeeeeeeeeeeeeeeeeev ${Get.previousRoute}");
     switch (Get.previousRoute) {
                               case AppRouterKeys.home:
                                 await Get.find<HomeController>().getAllLists();
@@ -263,6 +262,7 @@ class _NewListScreenState extends State<NewListScreen> {
 
                           await controller.addNewList();
                            await  getPreviousScreenData();
+                           Get.back();
                         },
                       ),
               ),

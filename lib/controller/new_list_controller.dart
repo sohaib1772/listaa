@@ -151,7 +151,7 @@ class NewListController extends GetxController {
       );
       await Get.find<RecipeController>().getAllRecipes();
     }
-    Get.offNamed(AppRouterKeys.home);
+    
   }
   
   Future<void> updateList(int id) async {

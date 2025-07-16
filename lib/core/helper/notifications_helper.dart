@@ -130,7 +130,7 @@ class NotificationsHelper {
     final delay = scheduledDate.difference(now);
 
     final prefs = await SharedPreferences.getInstance();
-    final lang = prefs.getString('lang') ?? 'en';
+    final lang = prefs.getString('lang') ?? Get.deviceLocale;
     await prefs.setString(
       'title_\$id',
       title ?? (lang == 'en' ? 'Reminder Listaa' : 'تطبيق Listaa'),
