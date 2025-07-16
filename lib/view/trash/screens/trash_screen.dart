@@ -19,6 +19,7 @@ import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/bottom_container.dart';
 import 'package:listaa/core/widgets/item_card.dart';
 import 'package:listaa/core/widgets/lists_card.dart';
+import 'package:listaa/core/widgets/no_data_alert.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
 import 'package:listaa/view/home/widgets/home_select_proiority.dart';
 import 'package:listaa/view/home/widgets/home_sliders.dart';
@@ -74,7 +75,11 @@ class TrashScreen extends StatelessWidget {
             // Spacer
             // uncompleted lists
             SliverToBoxAdapter(
-              child: Padding(
+              child:controller
+                                .lists.isEmpty ? NoDataAlert(
+                                  image: "categories",
+                                  message: AppLocaleKeys.theresNoTrashYet.tr,
+                                ): Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: GetBuilder<TrashController>(
                   init: controller,

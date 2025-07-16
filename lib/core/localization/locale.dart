@@ -78,6 +78,8 @@ class AppLocaleKeys {
   static const String listShouldHaveAtLeastOneItem = 'listShouldHaveAtLeastOneItem';
   static const String warning = 'warning';
   static const String deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt = 'deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt';
+  static const String theresNoRemindersYet = 'theresNoRemindersYet';
+  static const String theresNoTrashYet = 'theresNoTrashYet';
 
 
 
@@ -103,6 +105,16 @@ class AppLocaleKeys {
   static const String lastMonth = 'lastMonth';
   static const String currentYear = 'currentYear';
   static const String all = 'all';
+
+
+  //templates
+
+  static const String adha = 'adha';
+  static const String cake = 'cake';
+  static const String chicken = 'chicken';
+  static const String market = 'market';
+  static const String school = 'school';
+  static const String trip = 'trip';
 }
 
 class AppLocale extends Translations {
@@ -214,6 +226,16 @@ class AppLocale extends Translations {
 
       AppLocaleKeys.deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt:"يجب حذف جميع القوائم التي تنتمي لهذا التصنيف قبل حذفه",
 
+      AppLocaleKeys.adha:"عيد الاضحى",
+      AppLocaleKeys.cake:"كيكة بالشكولاة",
+      AppLocaleKeys.chicken:"وصفة الدجاج الشهية",
+      AppLocaleKeys.market:"تسوق للمنزل",
+      AppLocaleKeys.school:"تجهيزات المدرسة",
+      AppLocaleKeys.trip:"التخييم مع الاصدقاء",
+
+      AppLocaleKeys.theresNoRemindersYet: "لا يوجد تذكيرات بعد..",
+      AppLocaleKeys.theresNoTrashYet: "لا يوجد محذوفات بعد",
+
 
 
 
@@ -314,6 +336,16 @@ class AppLocale extends Translations {
       AppLocaleKeys.saveAsTemplate:"Save as template",
 
       AppLocaleKeys.deleteAllListsTahtBelongToThisCategoryBeforeDeletingIt:"You must delete all lists that belong to this category before deleting it",
+
+      AppLocaleKeys.adha:"Adha feast",
+      AppLocaleKeys.cake:"Chocolate cake",
+      AppLocaleKeys.chicken:"Dinner with chicken",
+      AppLocaleKeys.market:"Home needs",
+      AppLocaleKeys.school:"Prepare for school",
+      AppLocaleKeys.trip:"Trip with friends",
+
+      AppLocaleKeys.theresNoRemindersYet:"There's no reminders yet...",
+      AppLocaleKeys.theresNoTrashYet:"There's no trash yet...",
 
 
     },

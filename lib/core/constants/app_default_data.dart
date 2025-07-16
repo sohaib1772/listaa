@@ -18,19 +18,37 @@ class AppDefaultData {
   static final defaultRecipes = [
     {
       'list_id': 1,
-      'title': 'test recipe 1',
+      'title': AppLocaleKeys.adha,
       'is_template': 1,
       'category_id': 0,
     },
     {
       'list_id': 2,
-      'title': 'test recipe 2',
+      'title': AppLocaleKeys.cake,
       'is_template': 1,
       'category_id': 1,
     },
     {
       'list_id': 3,
-      'title': 'test recipe 3',
+      'title':  AppLocaleKeys.trip,
+      'is_template': 1,
+      'category_id': 2,
+    },
+    {
+      'list_id': 4,
+      'title':  AppLocaleKeys.chicken,
+      'is_template': 1,
+      'category_id': 2,
+    },
+    {
+      'list_id': 5,
+      'title':  AppLocaleKeys.market,
+      'is_template': 1,
+      'category_id': 2,
+    },
+    {
+      'list_id': 6,
+      'title':  AppLocaleKeys.school,
       'is_template': 1,
       'category_id': 2,
     },

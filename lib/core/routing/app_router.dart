@@ -9,7 +9,6 @@ import 'package:listaa/view/privacy/privacy_screen.dart';
 import 'package:listaa/view/qr_scanner/screen/qr_camera_scanner_screen.dart';
 import 'package:listaa/view/recipes/screen/recipes_screen.dart';
 import 'package:listaa/view/remainder/screens/remainders_screen.dart';
-import 'package:listaa/view/onboarding/screens/onboarding_screen.dart';
 import 'package:listaa/view/reports/screen/reports_screen.dart';
 import 'package:listaa/view/trash/screens/trash_screen.dart';
 import 'package:listaa/view/welcome/screens/welcome_screen.dart';
@@ -20,9 +19,7 @@ class AppRouter {
     GetPage(name: AppRouterKeys.welcome, page: () =>  WelcomeScreen(),middlewares: [
       WelcomeAndOnBoardingMiddleware(),
     ]),
-    GetPage(name: AppRouterKeys.onBoarding, page: () =>  OnboardingScreen(),middlewares: [
-      WelcomeAndOnBoardingMiddleware(),
-    ]),
+   
     GetPage(name: AppRouterKeys.home, page: () =>  HomeScreen()),
     GetPage(name: AppRouterKeys.newList, page: () =>  NewListScreen()),
     GetPage(name: AppRouterKeys.lists, page: () =>  ListsScreen()),

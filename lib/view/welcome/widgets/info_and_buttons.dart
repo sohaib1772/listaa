@@ -44,19 +44,12 @@ class InfoAndButtons extends StatelessWidget {
                 autoPlayAnimation: true,
                 text: AppLocaleKeys.goNow.tr,
                 onPressed: () {
-                  Get.toNamed(AppRouterKeys.onBoarding);
+                   myServices.sharedPreferences.setBool("firstTime", true);
+                 Get.offAllNamed(AppRouterKeys.home);
                 },
                 type: AppButtonType.orange,
               ),
-              SizedBox(height: 10,),
-              AppTextButtons(
-                text: AppLocaleKeys.homePage.tr,
-                onPressed: () {
-                  myServices.sharedPreferences.setBool("firstTime", true);
-                 Get.offAllNamed(AppRouterKeys.home);
-                },
-                type: AppButtonType.light,
-              )
+             
               
             ],
           ),

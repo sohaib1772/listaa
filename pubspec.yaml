@@ -8,6 +8,7 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
+  animated_text_kit: ^4.2.3
   bottom_picker: ^3.2.1
   calendar_date_picker2: ^2.0.1
   carousel_slider: ^5.1.1
@@ -50,6 +51,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/templates/
     - assets/svgs/icons/
   fonts:
     - family: Cairo

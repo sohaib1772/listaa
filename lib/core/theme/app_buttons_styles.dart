@@ -43,11 +43,13 @@ ButtonStyle getButtonStyle({required AppButtonType appButtonType}) {
         backgroundColor: WidgetStatePropertyAll(AppColors.floatingButtonColor),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
+
             side: BorderSide(
+
               color: AppColors.floatingButtonBorderColor,
               width: 3,
             ),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
       );

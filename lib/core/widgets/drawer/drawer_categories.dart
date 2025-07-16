@@ -33,7 +33,7 @@ class DrawerCategories extends StatelessWidget {
                   onLongPress: () {
                     Get.bottomSheet(
                       Container(
-                        height: 250.h,
+                        height: 280.h,
                         padding: EdgeInsets.all(20.w),
                         decoration: BoxDecoration(
                           color: AppColors.allListsScreenBackgroundColor,

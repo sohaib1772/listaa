@@ -45,7 +45,8 @@ class CustomScaffold extends StatelessWidget {
       floatingActionButton: floatingActionButton ??(!showAddListButton
           ? null
           : AppIconButton(
-              icon: Icons.add_box_rounded,
+            
+              icon: Icons.add,
               autoPlayAnimation: true,
               onPressed: () {
                 Get.bottomSheet(HomeAddListBottomSheet());

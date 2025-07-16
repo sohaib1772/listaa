@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,6 +13,7 @@ import 'package:listaa/controller/recpice_controller.dart';
 import 'package:listaa/core/constants/app_router_keys.dart';
 import 'package:listaa/core/helper/notifications_helper.dart';
 import 'package:listaa/core/helper/qr_helper.dart';
+import 'package:listaa/core/helper/templates_helper.dart';
 import 'package:listaa/core/localization/locale.dart';
 import 'package:listaa/core/services/my_services.dart';
 import 'package:listaa/core/theme/app_colors.dart';
@@ -21,7 +23,9 @@ import 'package:listaa/core/widgets/app_icons.dart';
 import 'package:listaa/core/widgets/bottom_container.dart';
 import 'package:listaa/core/widgets/item_card.dart';
 import 'package:listaa/core/widgets/lists_card.dart';
+import 'package:listaa/core/widgets/no_data_alert.dart';
 import 'package:listaa/core/widgets/scaffold/custom_scaffold.dart';
+import 'package:listaa/core/widgets/templates_cards.dart';
 import 'package:listaa/data/models/shopping_list_model.dart';
 import 'package:listaa/view/home/widgets/home_add_list_bottom_sheet.dart';
 import 'package:listaa/view/home/widgets/home_categories.dart';
@@ -91,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                     // Spacer
                     SliverToBoxAdapter(
                       /// TODO:: add it in next update after upload it to store
-                      child: SizedBox(height: 268.h, child: HomeSliders()),
+                      child:recipeController.recipes.isEmpty ? SizedBox.shrink() : SizedBox(height: 268.h, child: HomeSliders()).animate().fade(),
                     ),
                     SliverToBoxAdapter(
                       child: BottomGradinetContainer(
@@ -106,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                                   AppLocaleKeys.lists.tr,
                                   style: AppTextStyles.darkbold24,
                                 ),
-                                TextButton(
+                               controller.lists.isNotEmpty ? TextButton(
                                   onPressed: () {
                                     Get.toNamed(AppRouterKeys.lists);
                                   },
@@ -116,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                                       decoration: TextDecoration.underline,
                                     ),
                                   ),
-                                ),
+                                ):SizedBox.shrink(),
                               ],
                             ),
                             SizedBox(height: 10.h),
@@ -125,12 +129,12 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: GetBuilder<HomeController>(
+                      child:controller.lists.isNotEmpty ? GetBuilder<HomeController>(
                         builder: (_) => HomeSelectProiority(
                           controller: controller,
                           horizontalPadding: 20.w,
                         ),
-                      ),
+                      ) : SizedBox.shrink(),
                     ),
 
                     // List of items (ListView -> SliverList)
@@ -144,11 +148,10 @@ class HomeScreen extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: controller.lists.isEmpty
-                                ? Text(
-                                    AppLocaleKeys.noListsYet.tr,
-                                    style: AppTextStyles.darkbold20,
-                                    textAlign: TextAlign.center,
-                                  )
+                                ?NoDataAlert(
+                                  image: "No_lists",
+                                  message:AppLocaleKeys.noListsYet.tr
+                                ).animate().fade()
                                 : ListView.separated(
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
@@ -203,7 +206,7 @@ class HomeScreen extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: SingleChildScrollView(
+                        child:recipeController.recipes.isEmpty ? SizedBox.shrink(): SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: GetX(
                             init: recipeController,
@@ -215,66 +218,14 @@ class HomeScreen extends StatelessWidget {
                               return Row(
                                 children: List.generate(
                                   recipeController.recipes.length,
-                                  (index) => Column(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          
-
-                                          Get.toNamed(
-                                            AppRouterKeys.newList,
-                                            arguments: {
-                                              "model": recipeController
-                                                  .recipes[index],
-                                              "qr": true,
-                                            },
-                                          );
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                              20.r,
-                                            ),
-                                            color: AppColors.redIconColor,
-                                          ),
-                                          margin: EdgeInsets.symmetric(
-                                            horizontal: 10.w,
-                                          ),
-                                          height: 150.h,
-                                          width: 250.w,
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 10.w,
-                                        ),
-                                        width: 250.w,
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              recipeController
-                                                  .recipes[index]
-                                                  .title,
-                                            ),
-                                            Spacer(),
-                                            Icon(Icons.list),
-                                            Text(
-                                              recipeController
-                                                  .recipes[index]
-                                                  .items
-                                                  .length
-                                                  .toString(),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  (index) => TemplatesCardsMini(
+                                    model: recipeController.recipes[index],
+                                  )
                                 ),
                               );
                             },
                           ),
-                        ),
+                        ).animate().fade(),
                       ),
                     ),
                     SliverToBoxAdapter(child: SizedBox(height: 40.h)),
